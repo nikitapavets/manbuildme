@@ -1,0 +1,13 @@
+{
+  "name": "siteConstructor",
+  "description": "",
+  "main": "./bin/www",
+  "authors": [
+    "nikitapavets <nikitapavets@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/nikitapavets/manbuildme",
+  "devDependencies": {
+    "oauth-js": "^0.5.2"
+  }
+}
