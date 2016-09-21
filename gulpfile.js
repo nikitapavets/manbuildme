@@ -24,7 +24,8 @@ var options = {
 		execArgv: [ '--harmony' ]
 	},
 	browserSync: {
-		proxy: 'http://localhost:3000'
+		proxy: 'http://localhost:3000',
+		notify: false
 	}
 };
 
@@ -54,21 +55,24 @@ gulp.task('sass', function () {
 
 gulp.task('scripts', function() {
 	return gulp.src([
+		'app/js/controllers/*.js',
+		'app/js/derectives/*.js',
 		'app/js/libs.min.js',
 		'app/js/main.js'
 	])
-	.pipe(uglify())
+	//.pipe(uglify())
 	.pipe(concat('main.min.js'))
-	.pipe(gulp.dest('public/js'));
+	.pipe(gulp.dest('public/js/'));
 });
 
 gulp.task('scriptlibs', function() {
 	return gulp.src([
-		'app/lib/angular.min.js'
-		])
-		.pipe(uglify())
-		.pipe(concat('libs.min.js'))
-		.pipe(gulp.dest('app/js'));
+		'app/lib/jquery/jquery-1.11.2.min.js',
+		'app/lib/materialize/js/materialize.min.js'
+	])
+	.pipe(uglify())
+	.pipe(concat('libs.min.js'))
+	.pipe(gulp.dest('app/js'));
 });
 
 gulp.task('watch', ['sass', 'scriptlibs', 'scripts', 'server:start'], function() {

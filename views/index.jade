@@ -1,6 +1,74 @@
 extends layout
 
 block content
-  div(ng-app)
-    h1= title
-    p Welcome to #{title} {{2*6}}
+
+  div.wrapper
+
+    header.main-header.z-depth-1(class="{{styleColor}}")
+      div.right-items
+        a.dropdown-button.hide-on-small-only(href="#", data-activates="dropdown-colors") Styles
+            i.fa.fa-caret-down(aria-hidden="true")
+        a.dropdown-button.hide-on-med-and-up(href="#", data-activates="dropdown-colors")
+          i.fa.fa-adjust(aria-hidden="true")
+        a(href="#")
+          i.fa.fa-search(aria-hidden="true")
+      div.left-items
+        a(href="#", ng-click="showMenu()")
+          i.fa.fa-bars(aria-hidden="true")
+      div.logo
+        a.brand-logo.center(href="#") BuildMe
+
+      ul#dropdown-colors.dropdown-content
+        li
+          a(href="#", ng-click="styleColor = 'red'") Red
+        li
+          a(href="#", ng-click="styleColor = 'blue'") Blue
+        li
+          a(href="#", ng-click="styleColor = 'green'") Green
+
+    div.content_wrap.content-color.lighten-5(class="{{styleColor}}")
+      div.main-menu(ng-controller="mainMenuController")
+        div.about-user--wrap(style="background-image: url('/img/user-profile-bg.png')")
+          div.about-user--image(style="background-image: url('/img/no-avatar.png')")
+          div.about-user--general-inf SingIn
+            div.social-wrap
+              a(href="#", class="{{styleColor}}-text text-lighten-5")
+                i.fa.fa-vk
+              a(href="#", class="{{styleColor}}-text text-lighten-5")
+                i.fa.fa-facebook
+
+        div.menu-list.about-user--menu
+          ul
+            li
+              a(href="#")
+                div.i-wrap
+                  i.fa.fa-user
+                | Profile
+            li
+              a(href="#")
+                div.i-wrap
+                  i.fa.fa-cog
+                | Settings
+            li
+              a(href="#")
+                div.i-wrap
+                  i.fa.fa-sign-out
+                | Exit
+
+        div.menu-list
+          ul
+            li
+              a(href="#")
+                div.i-wrap
+                  i.fa.fa-star
+                | Top pages
+            li
+              a(href="#")
+                div.i-wrap
+                  i.fa.fa-pencil-square-o
+                | Last pages
+            li
+              a(href="#")
+                div.i-wrap
+                  i.fa.fa-tags
+                | Tag cloud

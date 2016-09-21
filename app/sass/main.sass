@@ -3,9 +3,108 @@
 @import "vars"
 @import "base"
 
+html, body
+  height: 100%
+  width: 100%
 
-body
-	background-color: #ffc
+.wrapper
+  display: table
+  height: 100%
+  width: 100%
 
+.main-header
+  height: 56px
+  position: relative
+  text-align: center
+  z-index: 999
+  a
+    color: #FFF
+    padding: 15px
+    font-size: em(20px)
+    text-transform: uppercase
+    line-height: em(45px)
+    i
+      font-size: em(20px)
+      &.fa-caret-down
+        padding-left: 10px
+    &:hover, &:active, &:focus
+      background-color: rgba(#000, .1)
+      text-decoration: none
+
+  & > div
+    display: inline-block
+  .right-items
+    position: absolute
+    right: 0
+  .left-items
+    position: absolute
+    left: 0
+  .logo
+    a
+      text-transform: none
+      font-size: em(36px)
+      line-height: em(24px)
+
+.content_wrap
+  display: table-row
+  height: 100%
+  .main-menu
+    background-color: #fff
+    border-right: 1px solid rgba(#000, .1)
+    width: 300px
+    position: fixed
+    height: 100%
+    transition: .5s ease all
+    .about-user
+      &--wrap
+        height: 165px
+        background-size: cover
+        position: relative
+      &--image
+        height: 80px
+        width: 80px
+        border-radius: 10em
+        position: absolute
+        left: 15px
+        top: 15px
+        border: 3px solid #91AC8F
+        background-size: cover
+      &--general-inf
+        display: block
+        position: absolute
+        bottom: 0
+        color: #FFF
+        background-color: rgba(#000, .5)
+        width: 100%
+        padding: 5px 15px
+        line-height: em(31px)
+        .social-wrap
+          position: absolute
+          right: 15px
+          top: 5px
+          a
+            font-size: em(28px)
+            i
+              margin-left: 10px
+            &:hover
+              color: #FFF!important
+      &--menu
+        display: none
+    .menu-list
+      li
+        a
+          display: block
+          padding: 5px 10px
+          line-height: em(35px)
+          cursor: pointer
+          color: #333
+          .i-wrap
+            display: inline-block
+            text-align: center
+            width: 50px
+            font-size: em(24px)
+          &:hover
+            background-color: rgba(#000, .05)
+            text-decoration: none
 
 @import "media"
