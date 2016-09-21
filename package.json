@@ -35,7 +35,6 @@
     "vinyl-ftp": "^0.5.0"
   },
   "devDependencies": {
-    "gulp-develop-server": "^0.5.2",
-    "oauthio": "^0.3.3"
+    "gulp-develop-server": "^0.5.2"
   }
 }
