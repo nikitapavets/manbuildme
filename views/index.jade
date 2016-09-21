@@ -32,10 +32,14 @@ block content
           div.about-user--image(style="background-image: url('/img/no-avatar.png')")
           div.about-user--general-inf SingIn
             div.social-wrap
-              a(href="#", class="{{styleColor}}-text text-lighten-5")
+              a(href="javascript:", class="{{styleColor}}-text text-lighten-5", ng-click="authType = 'vk'; auth();")
                 i.fa.fa-vk
-              a(href="#", class="{{styleColor}}-text text-lighten-5")
+              a(href="javascript:", class="{{styleColor}}-text text-lighten-5" ng-click="authType = 'facebook'; auth();")
                 i.fa.fa-facebook
+              a(href="javascript:", class="{{styleColor}}-text text-lighten-5" ng-click="authType = 'twitter'; auth();")
+                i.fa.fa-twitter
+              a(href="javascript:", class="{{styleColor}}-text text-lighten-5" ng-click="authType = 'github'; auth();")
+                i.fa.fa-github
 
         div.menu-list.about-user--menu
           ul

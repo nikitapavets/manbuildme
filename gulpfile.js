@@ -68,7 +68,8 @@ gulp.task('scripts', function() {
 gulp.task('scriptlibs', function() {
 	return gulp.src([
 		'app/lib/jquery/jquery-1.11.2.min.js',
-		'app/lib/materialize/js/materialize.min.js'
+		'app/lib/materialize/js/materialize.min.js',
+		'app/lib/oauth-js/dist/oauth.js'
 	])
 	.pipe(uglify())
 	.pipe(concat('libs.min.js'))
@@ -79,7 +80,7 @@ gulp.task('watch', ['sass', 'scriptlibs', 'scripts', 'server:start'], function()
 	gulp.watch('app/sass/**/*.sass', ['sass']);
 	gulp.watch('app/js/**/*.js', ['scripts'], browserSync.reload);
 	gulp.watch('views/**/*.jade', browserSync.reload);
-	gulp.watch('routes/**/*.js', browserSync.reload);
+	gulp.watch('routes/**/*.js', ['server:restart']);
 });
 
 gulp.task('imagemin', function() {
