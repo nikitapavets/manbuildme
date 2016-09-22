@@ -20,18 +20,18 @@ block content
 
       ul#dropdown-colors.dropdown-content
         li
-          a(href="#", ng-click="styleColor = 'red'") Red
+          a(href="#", ng-click="styleColor = 'red'; newColor();") Red
         li
-          a(href="#", ng-click="styleColor = 'blue'") Blue
+          a(href="#", ng-click="styleColor = 'blue'; newColor()") Blue
         li
-          a(href="#", ng-click="styleColor = 'green'") Green
+          a(href="#", ng-click="styleColor = 'green'; newColor()") Green
 
     div.content_wrap.content-color.lighten-5(class="{{styleColor}}")
       div.main-menu(ng-controller="mainMenuController")
         div.about-user--wrap(style="background-image: url('/img/user-profile-bg.png')")
-          div.about-user--image(style="background-image: url('/img/no-avatar.png')")
-          div.about-user--general-inf SignIn
-            div.social-wrap(ng-if="!isAuth")
+          img.about-user--image(ng-src="{{user.avatar}}")
+          div.about-user--general-inf(ng-hide="user.is_auth") SignIn
+            div.social-wrap
               a(href="javascript:", class="{{styleColor}}-text text-lighten-5", ng-click="authType = 'vk'; auth();")
                 i.fa.fa-vk
               a(href="javascript:", class="{{styleColor}}-text text-lighten-5" ng-click="authType = 'facebook'; auth();")
@@ -40,8 +40,13 @@ block content
                 i.fa.fa-twitter
               a(href="javascript:", class="{{styleColor}}-text text-lighten-5" ng-click="authType = 'github'; auth();")
                 i.fa.fa-github
+          div.about-user--general-inf(ng-show="user.is_auth", ng-click="showUserMenu()")
+            div(ng-bind="user.name")
+            div.menu-open
+              a(href="javascript:", class="{{styleColor}}-text text-lighten-5")
+                i.fa.fa-caret-down
 
-        div.menu-list.about-user--menu
+        div.menu-list.about-user--menu(ng-show="user.is_auth")
           ul
             li
               a(href="#")
@@ -54,7 +59,7 @@ block content
                   i.fa.fa-cog
                 | Settings
             li
-              a(href="#")
+              a(href="javascript:", ng-click="userActions.exit()")
                 div.i-wrap
                   i.fa.fa-sign-out
                 | Exit

@@ -8,6 +8,7 @@
   "license": "MIT",
   "homepage": "https://github.com/nikitapavets/manbuildme",
   "devDependencies": {
-    "oauth-js": "^0.5.2"
+    "oauth-js": "^0.5.2",
+    "ngstorage": "^0.3.11"
   }
 }

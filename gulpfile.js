@@ -55,9 +55,9 @@ gulp.task('sass', function () {
 
 gulp.task('scripts', function() {
 	return gulp.src([
+		'app/js/libs.min.js',
 		'app/js/controllers/*.js',
 		'app/js/derectives/*.js',
-		'app/js/libs.min.js',
 		'app/js/main.js'
 	])
 	//.pipe(uglify())
@@ -69,7 +69,8 @@ gulp.task('scriptlibs', function() {
 	return gulp.src([
 		'app/lib/jquery/jquery-1.11.2.min.js',
 		'app/lib/materialize/js/materialize.min.js',
-		'app/lib/oauth-js/dist/oauth.js'
+		'app/lib/oauth-js/dist/oauth.js',
+		'app/lib/ngstorage/ngStorage.js'
 	])
 	.pipe(uglify())
 	.pipe(concat('libs.min.js'))

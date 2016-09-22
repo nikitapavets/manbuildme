@@ -1,8 +1,28 @@
 angular.module('mainApp')
-    .controller('mainMenuController', function ($scope, $http) {
+    .controller('mainMenuController', function ($scope, $http, $localStorage) {
 
-        $scope.user = new Object();
-        $scope.isAuth = false;
+
+
+        $scope.user = {
+            is_auth: false,
+            rang: 'guest',
+            avatar: '/img/no-avatar.png'
+        };
+
+        $scope.$storage = $localStorage.$default({
+            user: $scope.user
+        });
+        if("social_id" in $scope.$storage.user){
+            $scope.user = $scope.$storage.user;
+        }
+
+        $scope.userActions = [];
+        $scope.userActions.exit = function(){
+            delete $scope.$storage.user;
+            $scope.user.is_auth = false;
+            $scope.user.avatar = '/img/no-avatar.png';
+            $scope.user.rang = 'guest';
+        }
 
         $scope.authType = '';
         $scope.auth= function(){
@@ -11,7 +31,6 @@ angular.module('mainApp')
                 .done(function(result) {
                     result.me().done(function(data) {
                         var user = new Object();
-                        console.log(data);
                         if("firstname" in data){
                             user.first_name = data.firstname;
                             user.second_name = data.lastname;
@@ -25,14 +44,25 @@ angular.module('mainApp')
                         user.avatar = data.avatar;
                         $http.post('/auth', user)
                             .success(function(data){
-                                $scope.user = data;
-                                console.log(data);
-                                $scope.isAuth = true;
+                                $scope.user = Object.assign(data);
+                                $scope.user.is_auth = true;
+                                $scope.user.name = $scope.user.first_name + ' ' + $scope.user.second_name;
+                                $scope.$storage.user = $scope.user;
                             });
                     })
-                });
+                })
         }
 
+        $scope.showUserMenuStatus = false;
+        $scope.showUserMenu = function(){
+            var menu = document.querySelector('.about-user--menu');
+            if($scope.showUserMenuStatus){
+                angular.element(menu).css('display', 'none');
+            }else{
+                angular.element(menu).css('display', 'block');
+            }
+            $scope.showUserMenuStatus = !$scope.showUserMenuStatus;
+        }
 
     })
 

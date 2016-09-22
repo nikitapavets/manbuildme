@@ -1,10 +1,14 @@
-angular.module('mainApp', [])
-    .controller('colorController', function ($scope) {
+angular.module('mainApp', ['ngStorage'])
+    .controller('colorController', function ($scope, $localStorage) {
 
-        $scope.styleColor = 'blue';
+        $scope.$storage = $localStorage.$default({
+            styleColor: 'blue'
+        });
 
-        $scope.switchColor = function(){
-            console.log(color);
+        $scope.styleColor = $scope.$storage.styleColor;
+
+        $scope.newColor = function(){
+            $scope.$storage.styleColor = $scope.styleColor;
         };
 
         $scope.menuShowStatus = true;
@@ -20,4 +24,5 @@ angular.module('mainApp', [])
             }
             $scope.menuShowStatus = !$scope.menuShowStatus;
         }
-    })
+    });
+
