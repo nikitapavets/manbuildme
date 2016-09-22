@@ -55,6 +55,7 @@ html, body
     position: fixed
     height: 100%
     transition: .5s ease all
+    z-index: 888
     .about-user
       &--wrap
         height: 165px
@@ -106,5 +107,19 @@ html, body
           &:hover
             background-color: rgba(#000, .05)
             text-decoration: none
+  .main-content
+    margin-left: 300px
+    transition: .5s ease all
+    .card
+      padding: 25px
+      header.card-header
+        margin-bottom: 15px
+        position: relative
+        font-size: em(24px)
+        text-transform: uppercase
+        .type
+          position: absolute
+          right: 0
+          @extend .red-text
 
 @import "media"
