@@ -29,9 +29,9 @@ angular.module('mainApp', ['ngStorage', 'ngRoute'])
         }
     })
     .config(function($routeProvider){
-        $routeProvider.when('/users/profile',
+        $routeProvider.when('/user/profile',
         {
-            templateUrl:'/users/profile',
+            templateUrl:'/user/profile',
             controller:'appCtrl'
         });
     })

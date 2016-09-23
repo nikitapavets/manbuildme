@@ -3,7 +3,7 @@ extends ../main
 block main-content
 
     .add-site-page--wrap
-        form(action="/sites/save", method="post")
+        form(action="/site/save", method="post")
             .row
                 .col-md-6.col-xs-12
                     .card
@@ -11,7 +11,10 @@ block main-content
                         .add-site--content
                             .input-field
                                 input#site_title.validate(type="text", name="site_title")
-                                label(for="site_title") Site title
+                                label(for="site_title") Title
+                            .input-field
+                                input#site_theme.validate(type="text", name="site_theme")
+                                label(for="site_theme") Theme
                             p
                                 input(name="site_menu_type", type="radio", id="menu_vert", value="vert", checked)
                                 label(for="menu_vert") Vertical menu

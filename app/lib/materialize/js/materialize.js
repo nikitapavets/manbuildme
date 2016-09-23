@@ -1924,7 +1924,7 @@ $(document).ready(function(){
      * where the user doesn't want a delegated click handler.
      */
     Waves.attach = function(element) {
-        //FUTURE: automatically add waves classes and allow users
+        //FUTURE: automatically add waves classes and allow user
         // to specify them with an options param? Eg. light/classic/button
         if (element.tagName.toLowerCase() === 'input') {
             Effect.wrapInput([element]);
@@ -5059,7 +5059,7 @@ function PickerConstructor( ELEMENT, NAME, COMPONENT, OPTIONS ) {
 
                             event.preventDefault()
 
-                            // Re-focus onto the root so that users can click away
+                            // Re-focus onto the root so that user can click away
                             // from elements focused within the picker.
                             P.$root.eq(0).focus()
                         }

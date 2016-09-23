@@ -10,8 +10,12 @@ var pool = mysql.createPool({
     "connectionLimit": 10
 });
 
+router.get('/id:id', function (req, res){
+    res.render('site/index');
+});
+
 router.get('/add', function (req, res){
-    res.render('sites/add');
+    res.render('site/add');
 });
 
 router.post('/save', function(req, res, next) {
@@ -20,6 +24,7 @@ router.post('/save', function(req, res, next) {
     site.user_id = req.body.user_id;
     site.title = req.body.site_title;
     site.menu_type = req.body.site_menu_type;
+    site.theme = req.body.site_theme;
 
     var pages = [
         {'title': req.body.site_page1},
@@ -40,16 +45,15 @@ router.post('/save', function(req, res, next) {
                     if (err) {
                         throw err;
                     }else{
-                        //
+                        //todo
                     }
                 });
-                console.log(page);
             });
 
         }
     });
 
-    res.render('index');
+    res.redirect('/user/id'+site.user_id+'/profile');
 });
 
 module.exports = router;
