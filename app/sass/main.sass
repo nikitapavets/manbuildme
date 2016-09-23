@@ -12,6 +12,12 @@ html, body
   height: 100%
   width: 100%
 
+.dropdown-content
+  li
+    a:hover
+      text-decoration: none
+
+
 .main-header
   height: 56px
   position: relative
@@ -44,6 +50,8 @@ html, body
       text-transform: none
       font-size: em(36px)
       line-height: em(24px)
+      &:hover
+        background-color: rgba(#000, 0)
 
 .content_wrap
   display: table-row
@@ -117,7 +125,7 @@ html, body
     .card
       padding: 25px
       header.card-header
-        margin-bottom: 15px
+        margin-bottom: 30px
         position: relative
         font-size: em(24px)
         text-transform: uppercase
@@ -125,5 +133,34 @@ html, body
           position: absolute
           right: 0
           @extend .red-text
+
+  .user-page--wrap
+    .about-user
+      &--wrap
+        text-align: center
+      &--header
+        text-align: left
+      &--image
+        width: 250px
+        height: 250px
+        border-radius: 10em
+      &--main-inf
+        margin: 30px 0
+        font-size: em(22px)
+      &--medals
+        padding: 15px 0
+        .medal
+          width: 45px
+          margin: 0 5px
+    .table-content
+      .sort
+        font-size: em(20px)
+        margin-left: 10px
+        color: #333
+    header
+      .add-btn
+        float: right
+        i
+          font-size: em(14px)
 
 @import "media"

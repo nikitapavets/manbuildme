@@ -1,8 +1,6 @@
 angular.module('mainApp')
     .controller('mainMenuController', function ($scope, $http, $localStorage) {
 
-
-
         $scope.user = {
             is_auth: false,
             rang: 'guest',

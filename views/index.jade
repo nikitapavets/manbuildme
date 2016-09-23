@@ -1,226 +1,144 @@
-extends layout
+extends main
 
-block content
+block main-content
 
-  div.wrapper
+  div.row
+    div.col-lg-6
+      div.card
+        header.card-header Top pages
+          span.type Top 5
+        div.table-content
+          table.striped.responsive-table
+            thead
+              tr
+                td(data-field="title") Title
+                td(data-field="site") Site
+                td(data-field="type") Type
+                td(data-field="rate") Rate
+                td(data-field="date") Date
+            tbody
+              tr
+                td Фотоальбом
+                td tnt.by
+                td Развлечение
+                td
+                  .fa.fa-star
+                  .fa.fa-star
+                  .fa.fa-star
+                  .fa.fa-star
+                  .fa.fa-star
+                td 25.05.2016
+              tr
+                td Фотоальбом
+                td tnt.by
+                td Развлечение
+                td
+                  .fa.fa-star
+                  .fa.fa-star
+                  .fa.fa-star
+                  .fa.fa-star
+                  .fa.fa-star
+                td 25.05.2016
+              tr
+                td Фотоальбом
+                td tnt.by
+                td Развлечение
+                td
+                  .fa.fa-star
+                  .fa.fa-star
+                  .fa.fa-star
+                  .fa.fa-star
+                  .fa.fa-star
+                td 25.05.2016
+              tr
+                td Фотоальбом
+                td tnt.by
+                td Развлечение
+                td
+                  .fa.fa-star
+                  .fa.fa-star
+                  .fa.fa-star
+                  .fa.fa-star
+                  .fa.fa-star
 
-    header.main-header.z-depth-1(class="{{styleColor}}")
-      div.right-items
-        a.dropdown-button.hide-on-small-only(href="#", data-activates="dropdown-colors") Styles
-            i.fa.fa-caret-down(aria-hidden="true")
-        a.dropdown-button.hide-on-med-and-up(href="#", data-activates="dropdown-colors")
-          i.fa.fa-adjust(aria-hidden="true")
-        a(href="#")
-          i.fa.fa-search(aria-hidden="true")
-      div.left-items
-        a(href="#", ng-click="showMenu()")
-          i.fa.fa-bars(aria-hidden="true")
-      div.logo
-        a.brand-logo.center(href="#") BuildMe
-
-      ul#dropdown-colors.dropdown-content
-        li
-          a(href="#", ng-click="styleColor = 'red'; newColor();") Red
-        li
-          a(href="#", ng-click="styleColor = 'blue'; newColor()") Blue
-        li
-          a(href="#", ng-click="styleColor = 'green'; newColor()") Green
-
-    div.content_wrap.content-color.lighten-5(class="{{styleColor}}")
-      div.main-menu(ng-controller="mainMenuController")
-        div.about-user--wrap(style="background-image: url('/img/user-profile-bg.png')")
-          img.about-user--image(ng-src="{{user.avatar}}")
-          div.about-user--general-inf(ng-hide="user.is_auth") SignIn
-            div.social-wrap
-              a(href="javascript:", class="{{styleColor}}-text text-lighten-5", ng-click="authType = 'vk'; auth();")
-                i.fa.fa-vk
-              a(href="javascript:", class="{{styleColor}}-text text-lighten-5" ng-click="authType = 'facebook'; auth();")
-                i.fa.fa-facebook
-              a(href="javascript:", class="{{styleColor}}-text text-lighten-5" ng-click="authType = 'twitter'; auth();")
-                i.fa.fa-twitter
-              a(href="javascript:", class="{{styleColor}}-text text-lighten-5" ng-click="authType = 'github'; auth();")
-                i.fa.fa-github
-          div.about-user--general-inf(ng-show="user.is_auth", ng-click="showUserMenu()")
-            div(ng-bind="user.name")
-            div.menu-open
-              a(href="javascript:", class="{{styleColor}}-text text-lighten-5")
-                i.fa.fa-caret-down
-
-        div.menu-list.about-user--menu(ng-show="user.is_auth")
-          ul
-            li
-              a(href="#")
-                div.i-wrap
-                  i.fa.fa-user
-                | Profile
-            li
-              a(href="#")
-                div.i-wrap
-                  i.fa.fa-cog
-                | Settings
-            li
-              a(href="javascript:", ng-click="userActions.exit()")
-                div.i-wrap
-                  i.fa.fa-sign-out
-                | Exit
-
-        div.menu-list
-          ul
-            li
-              a(href="#")
-                div.i-wrap
-                  i.fa.fa-star
-                | Top pages
-            li
-              a(href="#")
-                div.i-wrap
-                  i.fa.fa-pencil-square-o
-                | Last pages
-            li
-              a(href="#")
-                div.i-wrap
-                  i.fa.fa-tags
-                | Tag cloud
-      div.main-content
-        div.row
-          div.col-lg-6
-            div.card
-              header.card-header Top pages
-                span.type Top 5
-              div.table-content
-                table.striped.responsive-table
-                  thead
-                    tr
-                      td(data-field="title") Title
-                      td(data-field="site") Site
-                      td(data-field="type") Type
-                      td(data-field="rate") Rate
-                      td(data-field="date") Date
-                  tbody
-                    tr
-                      td Фотоальбом
-                      td tnt.by
-                      td Развлечение
-                      td
-                        .fa.fa-star
-                        .fa.fa-star
-                        .fa.fa-star
-                        .fa.fa-star
-                        .fa.fa-star
-                      td 25.05.2016
-                    tr
-                      td Фотоальбом
-                      td tnt.by
-                      td Развлечение
-                      td
-                        .fa.fa-star
-                        .fa.fa-star
-                        .fa.fa-star
-                        .fa.fa-star
-                        .fa.fa-star
-                      td 25.05.2016
-                    tr
-                      td Фотоальбом
-                      td tnt.by
-                      td Развлечение
-                      td
-                        .fa.fa-star
-                        .fa.fa-star
-                        .fa.fa-star
-                        .fa.fa-star
-                        .fa.fa-star
-                      td 25.05.2016
-                    tr
-                      td Фотоальбом
-                      td tnt.by
-                      td Развлечение
-                      td
-                        .fa.fa-star
-                        .fa.fa-star
-                        .fa.fa-star
-                        .fa.fa-star
-                        .fa.fa-star
-
-                      td 25.05.2016
-                    tr
-                      td Фотоальбом
-                      td tnt.by
-                      td Развлечение
-                      td
-                        .fa.fa-star
-                        .fa.fa-star
-                        .fa.fa-star
-                        .fa.fa-star
-                        .fa.fa-star
-                      td 25.05.2016
-          div.col-lg-6
-            div.card
-              header.card-header Last pages
-                span.type Top 5
-              div.table-content
-                table.striped.responsive-table
-                  thead
-                    tr
-                      td(data-field="title") Title
-                      td(data-field="site") Site
-                      td(data-field="type") Type
-                      td(data-field="rate") Rate
-                      td(data-field="date") Date
-                  tbody
-                    tr
-                      td Фотоальбом
-                      td tnt.by
-                      td Развлечение
-                      td
-                        .fa.fa-star
-                        .fa.fa-star
-                        .fa.fa-star
-                        .fa.fa-star
-                        .fa.fa-star
-                      td 25.05.2016
-                    tr
-                      td Фотоальбом
-                      td tnt.by
-                      td Развлечение
-                      td
-                        .fa.fa-star
-                        .fa.fa-star
-                        .fa.fa-star
-                        .fa.fa-star
-                        .fa.fa-star
-                      td 25.05.2016
-                    tr
-                      td Фотоальбом
-                      td tnt.by
-                      td Развлечение
-                      td
-                        .fa.fa-star
-                        .fa.fa-star
-                        .fa.fa-star
-                        .fa.fa-star
-                        .fa.fa-star
-                      td 25.05.2016
-                    tr
-                      td Фотоальбом
-                      td tnt.by
-                      td Развлечение
-                      td
-                        .fa.fa-star
-                        .fa.fa-star
-                        .fa.fa-star
-                        .fa.fa-star
-                        .fa.fa-star
-                      td 25.05.2016
-                    tr
-                      td Фотоальбом
-                      td tnt.by
-                      td Развлечение
-                      td
-                        .fa.fa-star
-                        .fa.fa-star
-                        .fa.fa-star
-                        .fa.fa-star
-                        .fa.fa-star
-                      td 25.05.2016
-
-
+                td 25.05.2016
+              tr
+                td Фотоальбом
+                td tnt.by
+                td Развлечение
+                td
+                  .fa.fa-star
+                  .fa.fa-star
+                  .fa.fa-star
+                  .fa.fa-star
+                  .fa.fa-star
+                td 25.05.2016
+    div.col-lg-6
+      div.card
+        header.card-header Last pages
+          span.type Top 5
+        div.table-content
+          table.striped.responsive-table
+            thead
+              tr
+                td(data-field="title") Title
+                td(data-field="site") Site
+                td(data-field="type") Type
+                td(data-field="rate") Rate
+                td(data-field="date") Date
+            tbody
+              tr
+                td Фотоальбом
+                td tnt.by
+                td Развлечение
+                td
+                  .fa.fa-star
+                  .fa.fa-star
+                  .fa.fa-star
+                  .fa.fa-star
+                  .fa.fa-star
+                td 25.05.2016
+              tr
+                td Фотоальбом
+                td tnt.by
+                td Развлечение
+                td
+                  .fa.fa-star
+                  .fa.fa-star
+                  .fa.fa-star
+                  .fa.fa-star
+                  .fa.fa-star
+                td 25.05.2016
+              tr
+                td Фотоальбом
+                td tnt.by
+                td Развлечение
+                td
+                  .fa.fa-star
+                  .fa.fa-star
+                  .fa.fa-star
+                  .fa.fa-star
+                  .fa.fa-star
+                td 25.05.2016
+              tr
+                td Фотоальбом
+                td tnt.by
+                td Развлечение
+                td
+                  .fa.fa-star
+                  .fa.fa-star
+                  .fa.fa-star
+                  .fa.fa-star
+                  .fa.fa-star
+                td 25.05.2016
+              tr
+                td Фотоальбом
+                td tnt.by
+                td Развлечение
+                td
+                  .fa.fa-star
+                  .fa.fa-star
+                  .fa.fa-star
+                  .fa.fa-star
+                  .fa.fa-star
+                td 25.05.2016

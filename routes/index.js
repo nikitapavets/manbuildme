@@ -10,8 +10,8 @@ var pool = mysql.createPool({
   "connectionLimit": 10
 });
 
-router.get('/', function(req, res, next) {
-  res.render('index');
+router.get('/', function(req, res){
+    res.render('index');
 });
 
 router.post('/auth', function(req, res, next) {

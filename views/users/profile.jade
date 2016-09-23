@@ -1,0 +1,266 @@
+extends ../main
+
+block main-content
+
+    .user-page--wrap(ng-controller="userController")
+        .row
+            .col-lg-3.col-sm-12
+                .card.about-user--wrap
+                    header.about-user--header.card-header {{user.rang}}
+                    .about-user--image-wrap
+                        img.about-user--image(ng-src="{{user.avatar}}")
+                    .about-user--main-inf
+                        a(ng-href="{{user.social_url}}" target="_blank", ng-bind="user.name")
+                    .about-user--medals.lighten-3(class="{{styleColor}}")
+                        img.medal(ng-src="/img/svg/first_site.svg" title="First site" alt="First site")
+                        img.medal(ng-src="/img/svg/first_comment.svg" title="First comment" alt="First comment")
+                        img.medal(ng-src="/img/svg/5_sites.svg" title="Five sites" alt="Five sites")
+                .card.about-user--wrap
+                    header.about-user--header.card-header Settings
+                    .about-user--settings
+                        .switch
+                            label
+                                | English
+                                input(type="checkbox")
+                                span.lever
+                                | Russian
+            .col-lg-9.col-sm-12
+                .card
+                    header.card-header Sites
+                        a.btn-floating.btn-large.waves-effect.waves-light.add-btn(class="{{styleColor}}", href="/sites/add")
+                            i.fa.fa-plus
+
+                    div.table-content
+                        table.striped
+                            thead
+                                tr
+                                    td(data-field="title") Title
+                                    td(data-field="type") Type
+                                    td(data-field="pages") Pages
+                                    td(data-field="rate") Rate
+                                    td(data-field="date") Update
+                                        a.sort(href="#")
+                                            i.fa.fa-caret-down
+                                    td(data-field="date") Created
+                            tbody
+                                tr
+                                    td
+                                        a.dropdown-button(href="#", data-activates="dropdown-actions") tnt.by
+                                    td Развлечение
+                                    td 3/5
+                                    td
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                    td 25.05.2016
+                                    td 25.05.2016
+                                    ul#dropdown-actions.dropdown-content
+                                        li
+                                            a(href="#") Show
+                                        li
+                                            a(href="#") Edit
+                                        li
+                                            a(href="#") Delete
+                                tr
+                                    td
+                                        a.dropdown-button(href="#", data-activates="dropdown-actions") tnt.by
+                                    td Развлечение
+                                    td 3/5
+                                    td
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                    td 25.05.2016
+                                    td 25.05.2016
+                                    ul#dropdown-actions.dropdown-content
+                                        li
+                                            a(href="#") Show
+                                        li
+                                            a(href="#") Edit
+                                        li
+                                            a(href="#") Delete
+                                tr
+                                    td
+                                        a.dropdown-button(href="#", data-activates="dropdown-actions") tnt.by
+                                    td Развлечение
+                                    td 3/5
+                                    td
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                    td 25.05.2016
+                                    td 25.05.2016
+                                    ul#dropdown-actions.dropdown-content
+                                        li
+                                            a(href="#") Show
+                                        li
+                                            a(href="#") Edit
+                                        li
+                                            a(href="#") Delete
+                                tr
+                                    td
+                                        a.dropdown-button(href="#", data-activates="dropdown-actions") tnt.by
+                                    td Развлечение
+                                    td 3/5
+                                    td
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                    td 25.05.2016
+                                    td 25.05.2016
+                                    ul#dropdown-actions.dropdown-content
+                                        li
+                                            a(href="#") Show
+                                        li
+                                            a(href="#") Edit
+                                        li
+                                            a(href="#") Delete
+                                tr
+                                    td
+                                        a.dropdown-button(href="#", data-activates="dropdown-actions") tnt.by
+                                    td Развлечение
+                                    td 3/5
+                                    td
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                    td 25.05.2016
+                                    td 25.05.2016
+                                    ul#dropdown-actions.dropdown-content
+                                        li
+                                            a(href="#") Show
+                                        li
+                                            a(href="#") Edit
+                                        li
+                                            a(href="#") Delete
+                                tr
+                                    td
+                                        a.dropdown-button(href="#", data-activates="dropdown-actions") tnt.by
+                                    td Развлечение
+                                    td 3/5
+                                    td
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                    td 25.05.2016
+                                    td 25.05.2016
+                                    ul#dropdown-actions.dropdown-content
+                                        li
+                                            a(href="#") Show
+                                        li
+                                            a(href="#") Edit
+                                        li
+                                            a(href="#") Delete
+                                tr
+                                    td
+                                        a.dropdown-button(href="#", data-activates="dropdown-actions") tnt.by
+                                    td Развлечение
+                                    td 3/5
+                                    td
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                    td 25.05.2016
+                                    td 25.05.2016
+                                    ul#dropdown-actions.dropdown-content
+                                        li
+                                            a(href="#") Show
+                                        li
+                                            a(href="#") Edit
+                                        li
+                                            a(href="#") Delete
+                                tr
+                                    td
+                                        a.dropdown-button(href="#", data-activates="dropdown-actions") tnt.by
+                                    td Развлечение
+                                    td 3/5
+                                    td
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                    td 25.05.2016
+                                    td 25.05.2016
+                                    ul#dropdown-actions.dropdown-content
+                                        li
+                                            a(href="#") Show
+                                        li
+                                            a(href="#") Edit
+                                        li
+                                            a(href="#") Delete
+                                tr
+                                    td
+                                        a.dropdown-button(href="#", data-activates="dropdown-actions") tnt.by
+                                    td Развлечение
+                                    td 3/5
+                                    td
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                    td 25.05.2016
+                                    td 25.05.2016
+                                    ul#dropdown-actions.dropdown-content
+                                        li
+                                            a(href="#") Show
+                                        li
+                                            a(href="#") Edit
+                                        li
+                                            a(href="#") Delete
+                                tr
+                                    td
+                                        a.dropdown-button(href="#", data-activates="dropdown-actions") tnt.by
+                                    td Развлечение
+                                    td 3/5
+                                    td
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                    td 25.05.2016
+                                    td 25.05.2016
+                                    ul#dropdown-actions.dropdown-content
+                                        li
+                                            a(href="#") Show
+                                        li
+                                            a(href="#") Edit
+                                        li
+                                            a(href="#") Delete
+                                tr
+                                    td
+                                        a.dropdown-button(href="#", data-activates="dropdown-actions") tnt.by
+                                    td Развлечение
+                                    td 3/5
+                                    td
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                        .fa.fa-star
+                                    td 25.05.2016
+                                    td 25.05.2016
+                                    ul#dropdown-actions.dropdown-content
+                                        li
+                                            a(href="#") Show
+                                        li
+                                            a(href="#") Edit
+                                        li
+                                            a(href="#") Delete
+

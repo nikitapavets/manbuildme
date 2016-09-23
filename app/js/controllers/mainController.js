@@ -1,5 +1,5 @@
-angular.module('mainApp', ['ngStorage'])
-    .controller('colorController', function ($scope, $localStorage) {
+angular.module('mainApp', ['ngStorage', 'ngRoute'])
+    .controller('mainController', function ($scope, $localStorage) {
 
         $scope.$storage = $localStorage.$default({
             styleColor: 'blue'
@@ -24,5 +24,16 @@ angular.module('mainApp', ['ngStorage'])
             }
             $scope.menuShowStatus = !$scope.menuShowStatus;
         }
+    })
+    .config(function($routeProvider){
+        $routeProvider.when('/users/profile',
+        {
+            templateUrl:'/users/profile',
+            controller:'appCtrl'
+        });
+    })
+    .controller("appCtrl", function($scope){
+        console.log('controller set up');
     });
+
 

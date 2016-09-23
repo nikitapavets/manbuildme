@@ -70,6 +70,7 @@ gulp.task('scriptlibs', function() {
 		'app/lib/jquery/jquery-1.11.2.min.js',
 		'app/lib/materialize/js/materialize.min.js',
 		'app/lib/oauth-js/dist/oauth.js',
+		'app/lib/angular-route/angular-route.js',
 		'app/lib/ngstorage/ngStorage.js'
 	])
 	.pipe(uglify())

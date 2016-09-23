@@ -9,6 +9,7 @@
   "homepage": "https://github.com/nikitapavets/manbuildme",
   "devDependencies": {
     "oauth-js": "^0.5.2",
-    "ngstorage": "^0.3.11"
+    "ngstorage": "^0.3.11",
+    "angular-route": "^1.5.8"
   }
 }
