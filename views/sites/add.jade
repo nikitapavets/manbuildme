@@ -2,5 +2,43 @@ extends ../main
 
 block main-content
 
-    h1 Test
+    .add-site-page--wrap
+        form(action="/sites/save", method="post")
+            .row
+                .col-md-6.col-xs-12
+                    .card
+                        header.card-header Site
+                        .add-site--content
+                            .input-field
+                                input#site_title.validate(type="text", name="site_title")
+                                label(for="site_title") Site title
+                            p
+                                input(name="site_menu_type", type="radio", id="menu_vert", value="vert", checked)
+                                label(for="menu_vert") Vertical menu
+                            p
+                                input(name="site_menu_type", type="radio", id="menu_hor", value="gor")
+                                label(for="menu_hor") Horizontal menu
+                            .chips.chips-placeholder
+                            input(type="hidden" name="user_id" value="{{user.id}}")
+                            button.waves-effect.waves-light.btn(type="submit") Add
+
+                .col-md-6.col-xs-12
+                    .card
+                        header.card-header Site pages
+                        .add-site--content
+                            .input-field
+                                input#site_page1.validate(type="text", name="site_page1")
+                                label(for="site_page1") Page 1
+                            .input-field
+                                input#site_page2.validate(type="text", name="site_page2")
+                                label(for="site_page1") Page 2
+                            .input-field
+                                input#site_page3.validate(type="text", name="site_page3")
+                                label(for="site_page1") Page 3
+                            .input-field
+                                input#site_page4.validate(type="text", name="site_page4")
+                                label(for="site_page1") Page 4
+                            .input-field
+                                input#site_page5.validate(type="text", name="site_page5")
+                                label(for="site_page1") Page 5
 

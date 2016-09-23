@@ -11,6 +11,9 @@ angular.module('mainApp', ['ngStorage', 'ngRoute'])
             $scope.$storage.styleColor = $scope.styleColor;
         };
 
+        $scope.$storage = $localStorage;
+        $scope.user = $scope.$storage.user;
+
         $scope.menuShowStatus = true;
         $scope.showMenu = function(){
             var menu = document.querySelector('.main-menu');
