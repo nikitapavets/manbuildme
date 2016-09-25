@@ -3,6 +3,15 @@ extends page_wrap
 block page-content
 
     .page--wrap
-        header.page--header Страничка 4
-            a.edit(href="/site/id#{site.id}/page/id#{page_id}/edit")
+        header.page--header #{page.title}
+            a.edit(href="/site/id#{site.id}/page/id#{page.id}/edit")
                 i.fa.fa-pencil-square-o
+        .page--content
+            - for(var i=0; i < page.components.length; i++)
+                - var comp = page.components[i]
+                - if(comp.label == 'text')
+                    p #{comp.value}
+                - if(comp.label == 'video')
+                    - var url = comp.value.replace('watch?v=', 'embed/')
+                    iframe(width="100%", height="450", src="#{url}", frameborder="0", allowfullscreen)
+

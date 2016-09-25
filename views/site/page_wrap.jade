@@ -17,7 +17,7 @@ block main-content-wrap
                 a(href="javascript:", ng-click="menuBars()").menu-bars
                     i.fa.fa-bars
 
-        .site--content(ng-controller="dndController")
+        .site--content(ng-controller="dndController") {{page_id = #{page_id}}}
             .container
                 .vertical-menu--wrap.card(style="display: #{menu_vert};")
                     .vertical-menu--title Pages
