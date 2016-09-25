@@ -11,6 +11,10 @@ html, body
   display: table
   height: 100%
   width: 100%
+  background-image: url('/img/bg.png')
+
+.row
+  padding: 0 15px
 
 .dropdown-content
   li
@@ -169,5 +173,62 @@ label
       &--content
         .chips
           margin-top: 25px
+
+.site
+  &--wrap
+  &--header
+    width: 100%
+    position: fixed
+    @extend .blue
+    height: 65px
+    z-index: 999
+    a
+      color: #FFF
+    .container
+      position: relative
+    .logo_title
+      font-size: em(28px)
+      line-height: em(35px)
+      &:hover
+        text-decoration: none
+    .menu-bars
+      display: none
+    .menu-pagination
+      position: absolute
+      right: 0
+      top: 0
+      li
+        float: left
+        a
+          line-height: em(30px)
+          padding: 24px 15px
+          &:hover
+            background-color: rgba(#000, .1)
+            text-decoration: none
+  &--content
+    .vertical-menu
+      li
+        a
+          display: block
+          padding: 15px
+          border-left: 3px solid #FFF
+          &:hover
+            text-decoration: none
+            border-left: 3px solid #2196f3
+          &.current
+            border-left: 3px solid #2196f3
+      &--wrap
+        position: fixed
+        top: 65px
+        width: 300px
+        padding: 15px
+      &--title
+        text-transform: uppercase
+        font-size: em(24px)
+        @extend .blue-text
+    .blocks
+      margin-top: 75px
+      &.l-m
+        margin-left: 315px
 
 @import "media"

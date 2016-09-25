@@ -1,1 +1,40 @@
-h1 HELLOss!
+extends ../layout
+
+block main-content-wrap
+
+    .site--wrap(ng-controller="siteController")
+
+        - if(site.menu_type == 'vert') var menu_gor = 'none'
+        - if(site.menu_type == 'gor') var menu_vert = 'none'
+
+        header.site--header.z-depth-1
+            .container
+                a.logo_title(href="/site/id#{site.id}") #{site.title}
+                ul.menu-pagination(style="display: #{menu_gor};")
+                    - for(var i = 0; i < site.pages.length; i++)
+                        li
+                            a(href="/site/id#{site.id}/page/id#{site.pages[i].id}") #{site.pages[i].title}
+                a(href="javascript:", ng-click="menuBars()").menu-bars
+                    i.fa.fa-bars
+
+        .site--content
+            .container
+                .vertical-menu--wrap.card(style="display: #{menu_vert};")
+                    .vertical-menu--title Pages
+                    ul.vertical-menu
+                        - for(var i = 0; i < site.pages.length; i++)
+                            li
+                                a(href="/site/id#{site.id}/page/id#{site.pages[i].id}") #{site.pages[i].title}
+
+                - if(site.menu_type == 'vert')
+                    .blocks.card.l-m Block!
+                -else
+                    .blocks.card Block!
+
+
+
+
+
+
+
+

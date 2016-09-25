@@ -14,42 +14,44 @@ var pool = mysql.createPool({
 
 router.get('/id:id/profile', function (req, res){
 
-  res.render('user/profile');
+    var user_id = req.params.id;
+    var sites = [];
+
+
+    // get user's site
+    var sql = 'SELECT * ' +
+        'FROM sites ' +
+        'WHERE user_id = ' + user_id + ' ' +
+        'ORDER BY id DESC';
+    pool.query(sql, function(error, sites_rows) {
+
+        sites = sites_rows;
+
+        // get site's pages
+        async.forEachOf(sites, function (site, index, callback) {
+            var site_id = site.id;
+            sites[index].pages = [];
+            var sql = 'SELECT * ' +
+                'FROM pages ' +
+                'WHERE site_id = ' + site_id + ' ' +
+                'ORDER BY update_date DESC';
+            pool.query(sql, function(error, pages_rows) {
+                sites[index].pages = pages_rows;
+                callback();
+            });
+
+        }, function (error) {
+
+            res.render('user/profile', {sites: sites});
+        });
+
+    });
+
+
 });
 router.post('/id:id/profile', function (req, res, next){
 
-  var user_id = req.params.id;
-  var sites = [];
 
-
-  // get user's site
-  var sql = 'SELECT * ' +
-      'FROM sites ' +
-      'WHERE user_id = ' + user_id + ' ' +
-      'ORDER BY id DESC';
-  pool.query(sql, function(error, sites_rows) {
-
-    sites = sites_rows;
-
-    // get site's pages
-    async.forEachOf(sites, function (site, index, callback) {
-      var site_id = site.id;
-      sites[index].pages = [];
-      var sql = 'SELECT * ' +
-          'FROM pages ' +
-          'WHERE site_id = ' + site_id + ' ' +
-          'ORDER BY update_date DESC';
-      pool.query(sql, function(error, pages_rows) {
-        sites[index].pages = pages_rows;
-        callback();
-      });
-
-    }, function (error) {
-
-      res.send(sites);
-    });
-
-  });
 
 });
 

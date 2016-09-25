@@ -19,7 +19,6 @@ block main-content
                         img.medal(ng-src="/img/svg/5_sites.svg" title="Five site" alt="Five site")
                 .card.about-user--wrap
                     header.about-user--header.card-header Settings
-                    h1= sites
                     .about-user--settings
                         .switch
                             label
@@ -45,11 +44,13 @@ block main-content
                                             i.fa.fa-caret-down
                                     td(data-field="date") Created
                             tbody
-                                tr(ng-repeat="site in user_sites")
-                                    td
-                                        a.dropdown-button(href="/site/id{{site.id}}") {{site.title}}
-                                    td {{site.theme}}
-                                    td {{site.pages.length}}/5
-                                    td {{site.create_date | date:'dd.MM.yyyy'}}
-                                    td {{site.create_date | date:'dd.MM.yyyy'}}
+                                - for(var i = 0; i < sites.length; i++)
+                                    tr
+                                        td
+                                            a.dropdown-button(href="/site/id#{sites[i].id}") #{sites[i].title}
+                                        td #{sites[i].theme}
+                                        td #{sites[i].pages.length}/5
+                                        - var date = new Date(sites[i].create_date)
+                                        td #{date.toLocaleString()}
+                                        td #{date.toLocaleString()}
 

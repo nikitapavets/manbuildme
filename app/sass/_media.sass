@@ -9,33 +9,61 @@
 /* Medium Devices, Desktops */
 @media only screen and (max-width : 992px)
 
-	.content_wrap
-		.main-content
-			margin-left: 0px
+  /**/
 
 /* Small Devices, Tablets */
 @media only screen and (max-width : 768px)
 	
-	/*Disable Animation on Mobile Devices*/
-	.animated
-		/*CSS transitions*/
-		-o-transition-property: none !important
-		-moz-transition-property: none !important
-		-ms-transition-property: none !important
-		-webkit-transition-property: none !important
-		transition-property: none !important
-		/*CSS transforms*/
-		-o-transform: none !important
-		-moz-transform: none !important
-		-ms-transform: none !important
-		-webkit-transform: none !important
-		transform: none !important
-		/*CSS animations*/
-		-webkit-animation: none !important
-		-moz-animation: none !important
-		-o-animation: none !important
-		-ms-animation: none !important
-		animation: none !important
+  /*Disable Animation on Mobile Devices*/
+  .animated
+      /*CSS transitions*/
+      -o-transition-property: none !important
+      -moz-transition-property: none !important
+      -ms-transition-property: none !important
+      -webkit-transition-property: none !important
+      transition-property: none !important
+      /*CSS transforms*/
+      -o-transform: none !important
+      -moz-transform: none !important
+      -ms-transform: none !important
+      -webkit-transform: none !important
+      transform: none !important
+      /*CSS animations*/
+      -webkit-animation: none !important
+      -moz-animation: none !important
+      -o-animation: none !important
+      -ms-animation: none !important
+      animation: none !important
+
+  .site
+    &--header
+      .menu-bars
+        display: inline-block
+        position: absolute
+        right: 15px
+        top: 0
+        font-size: em(30px)
+        line-height: em(35px)
+        padding: 0 15px
+        &:hover
+          background-color: rgba(#000, .1)
+      .menu-pagination
+        display: none
+        background-color: #64b5f6
+        width: 200px
+        top: 49px
+        li
+          float: none
+          a
+            display: block
+            padding: 10px
+    &--content
+      .vertical-menu
+        &--wrap
+          display: none
+      .blocks
+        &.l-m
+          margin-left: 0
 
 
 /* Extra Small Devices, Phones */

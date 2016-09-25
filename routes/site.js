@@ -11,7 +11,29 @@ var pool = mysql.createPool({
 });
 
 router.get('/id:id', function (req, res){
-    res.render('site/index');
+
+    var site_id = req.params.id;
+    var site = new Object();
+
+    var sql = 'SELECT * ' +
+    'FROM sites ' +
+    'WHERE id = ' + site_id + ' ' +
+    'LIMIT 1';
+    pool.query(sql, function(error, sites_rows) {
+
+        site = sites_rows[0];
+
+        var site_id = site.id;
+        site.pages = [];
+        var sql = 'SELECT * ' +
+        'FROM pages ' +
+        'WHERE site_id = ' + site_id + ' ' +
+        'ORDER BY update_date DESC';
+        pool.query(sql, function (error, pages_rows) {
+            site.pages = pages_rows;
+            res.render('site/index', {site: site});
+        });
+    });
 });
 
 router.get('/add', function (req, res){
