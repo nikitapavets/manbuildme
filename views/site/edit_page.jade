@@ -1,0 +1,55 @@
+extends page_wrap
+
+block page-instuments
+    .instrupents--wrap
+        .row(dnd-list="models.lists['A'][0]")
+            .col-md-3(dnd-draggable="models.lists['A'][0]", dnd-moved="models.lists['A'][0].splice(0, 1)", dnd-effect-allowed="move", dnd-selected="models.selected = models.lists['A'][0]", ng-class="{'selected': models.selected === models.lists['A'][0]}")
+                .instrupents--icon.card
+                    a(href="#")
+                        i.fa.fa-font
+            .col-md-3(dnd-draggable="models.lists['A'][1]", dnd-moved="models.lists['A'][1].splice(1, 1)", dnd-effect-allowed="move", dnd-selected="models.selected = models.lists['A'][1]", ng-class="{'selected': models.selected === models.lists['A'][1]}")
+                .instrupents--icon.card
+                    a(href="#")
+                        i.fa.fa-picture-o
+            .col-md-3(dnd-draggable="models.lists['A'][2]", dnd-moved="models.lists['A'][2].splice(2, 1)", dnd-effect-allowed="move", dnd-selected="models.selected = models.lists['A'][2]", ng-class="{'selected': models.selected === models.lists['A'][2]}")
+                .instrupents--icon.card
+                    a(href="#")
+                        i.fa.fa-youtube-square
+            .col-md-3(dnd-draggable="models.lists['A'][3]", dnd-moved="models.lists['A'][3].splice(3, 1)", dnd-effect-allowed="move", dnd-selected="models.selected = models.lists['A'][3]", ng-class="{'selected': models.selected === models.lists['A'][3]}")
+                .instrupents--icon.card
+                    a(href="#")
+                        i.fa.fa-comments
+
+block page-content
+    .row
+        .col-md-12(ng-repeat="(listName, list) in models.lists", ng-if="listName != 'A'")
+            .panel-body
+                ul(dnd-list="list")
+                    li(ng-repeat="item in list", dnd-draggable="item", dnd-moved="list.splice($index, 1)", dnd-effect-allowed="move", dnd-selected="models.selected = item", ng-class="{'selected': models.selected === item}", ng-switch on="item.label")
+                        .node.node--text--wrap(ng-switch-when="text")
+                            .node--header Text
+                            .input-field
+                                textarea.materialize-textarea
+                        //.node.node--image--wrap(ng-switch-when="image")
+                            .node--header Image
+                        .node.node--video--wrap(ng-switch-when="video")
+                            .node--header Video
+                            .input-field
+                                input#video(type="text", class="validate" placeholder="Youtube video URL")
+                        .node.node--comments--wrap(ng-switch-when="comments")
+                            .node--header Comments
+                            .card.comment
+                                a.delete(href="#")
+                                    i.fa.fa-times
+                                .author
+                                    a(href="#") Никита Павец
+                                .msg Привет
+                            .card.comment
+                                .author
+                                    a(href="#") Никита Павец
+                                .msg Как дела?
+    //.row
+        .com-md-12
+            pre.code {{modelAsJson}}
+
+

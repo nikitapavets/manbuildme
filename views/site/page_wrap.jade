@@ -17,7 +17,7 @@ block main-content-wrap
                 a(href="javascript:", ng-click="menuBars()").menu-bars
                     i.fa.fa-bars
 
-        .site--content
+        .site--content(ng-controller="dndController")
             .container
                 .vertical-menu--wrap.card(style="display: #{menu_vert};")
                     .vertical-menu--title Pages
@@ -27,9 +27,13 @@ block main-content-wrap
                                 a(href="/site/id#{site.id}/page/id#{site.pages[i].id}") #{site.pages[i].title}
 
                 - if(site.menu_type == 'vert')
+                    .instruments.l-m
+                        block page-instuments
                     .blocks.card.l-m
                         block page-content
                 -else
+                    .instruments
+                        block page-instuments
                     .blocks.card
                         block page-content
 

@@ -10,6 +10,8 @@
   "devDependencies": {
     "oauth-js": "^0.5.2",
     "ngstorage": "^0.3.11",
-    "angular-route": "^1.5.8"
+    "angular-route": "^1.5.8",
+    "angular-drag-and-drop-lists": "^1.4.0",
+    "angular-markdown-directive": "^0.3.1"
   }
 }

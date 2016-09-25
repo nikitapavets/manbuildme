@@ -1,6 +1,8 @@
-extends index
+extends page_wrap
 
 block page-content
 
     .page--wrap
         header.page--header Страничка 4
+            a.edit(href="/site/id#{site.id}/page/id#{page_id}/edit")
+                i.fa.fa-pencil-square-o

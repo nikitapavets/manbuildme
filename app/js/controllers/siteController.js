@@ -17,4 +17,32 @@ angular.module('mainApp')
         }
 
         $scope.site_page = "page.jade"
+    })
+    .controller("dndController", function($scope) {
+
+        $scope.models = {
+            selected: null,
+            lists: {"A": [], "B": []}
+        };
+
+        var compotents = [
+            'text',
+            'image',
+            'video',
+            'comments'
+        ]
+
+        // Generate initial model
+        $scope.models.lists.B.push({label: 'text'});
+        $scope.models.lists.B.push({label: 'image'});
+        $scope.models.lists.B.push({label: 'video'});
+        $scope.models.lists.B.push({label: 'comments'});
+        for (var i = 0; i < 4; ++i) {
+            $scope.models.lists.A.push({label: compotents[i]});
+        }
+
+        // Model to JSON for demo purpose
+        $scope.$watch('models', function(model) {
+            $scope.modelAsJson = angular.toJson(model, true);
+        }, true);
     });

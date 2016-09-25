@@ -13,12 +13,13 @@ var pool = mysql.createPool({
 router.get('/id:id/page/id:page_id', function (req, res){
 
     var site_id = req.params.id;
+    var page_id = req.params.page_id;
     var site = new Object();
 
     var sql = 'SELECT * ' +
-    'FROM sites ' +
-    'WHERE id = ' + site_id + ' ' +
-    'LIMIT 1';
+        'FROM sites ' +
+        'WHERE id = ' + site_id + ' ' +
+        'LIMIT 1';
     pool.query(sql, function(error, sites_rows) {
 
         site = sites_rows[0];
@@ -26,12 +27,39 @@ router.get('/id:id/page/id:page_id', function (req, res){
         var site_id = site.id;
         site.pages = [];
         var sql = 'SELECT * ' +
-        'FROM pages ' +
-        'WHERE site_id = ' + site_id + ' ' +
-        'ORDER BY update_date DESC';
+            'FROM pages ' +
+            'WHERE site_id = ' + site_id + ' ' +
+            'ORDER BY update_date DESC';
         pool.query(sql, function (error, pages_rows) {
             site.pages = pages_rows;
-            res.render('site/page', {site: site});
+            res.render('site/page', {site: site, page_id: page_id});
+        });
+    });
+});
+
+router.get('/id:id/page/id:page_id/edit', function (req, res){
+
+    var site_id = req.params.id;
+    var page_id = req.params.page_id;
+    var site = new Object();
+
+    var sql = 'SELECT * ' +
+        'FROM sites ' +
+        'WHERE id = ' + site_id + ' ' +
+        'LIMIT 1';
+    pool.query(sql, function(error, sites_rows) {
+
+        site = sites_rows[0];
+
+        var site_id = site.id;
+        site.pages = [];
+        var sql = 'SELECT * ' +
+            'FROM pages ' +
+            'WHERE site_id = ' + site_id + ' ' +
+            'ORDER BY update_date DESC';
+        pool.query(sql, function (error, pages_rows) {
+            site.pages = pages_rows;
+            res.render('site/edit_page', {site: site, page_id: page_id});
         });
     });
 });

@@ -69,6 +69,10 @@ gulp.task('scriptlibs', function() {
 	return gulp.src([
 		'app/lib/jquery/jquery-1.11.2.min.js',
 		'app/lib/materialize/js/materialize.min.js',
+		'app/lib/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js',
+		'app/lib/angular-markdown-directive/markdown.js',
+		'app/lib/angular-sanitize/angular-sanitize.min.js',
+		'app/lib/showdown/src/showdown.js',
 		'app/lib/oauth-js/dist/oauth.js',
 		'app/lib/angular-route/angular-route.js',
 		'app/lib/ngstorage/ngStorage.js'
