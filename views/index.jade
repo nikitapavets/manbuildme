@@ -17,62 +17,21 @@ block main-content
                 td(data-field="rate") Rate
                 td(data-field="date") Date
             tbody
-              tr
-                td Фотоальбом
-                td tnt.by
-                td Развлечение
-                td
-                  .fa.fa-star
-                  .fa.fa-star
-                  .fa.fa-star
-                  .fa.fa-star
-                  .fa.fa-star
-                td 25.05.2016
-              tr
-                td Фотоальбом
-                td tnt.by
-                td Развлечение
-                td
-                  .fa.fa-star
-                  .fa.fa-star
-                  .fa.fa-star
-                  .fa.fa-star
-                  .fa.fa-star
-                td 25.05.2016
-              tr
-                td Фотоальбом
-                td tnt.by
-                td Развлечение
-                td
-                  .fa.fa-star
-                  .fa.fa-star
-                  .fa.fa-star
-                  .fa.fa-star
-                  .fa.fa-star
-                td 25.05.2016
-              tr
-                td Фотоальбом
-                td tnt.by
-                td Развлечение
-                td
-                  .fa.fa-star
-                  .fa.fa-star
-                  .fa.fa-star
-                  .fa.fa-star
-                  .fa.fa-star
-
-                td 25.05.2016
-              tr
-                td Фотоальбом
-                td tnt.by
-                td Развлечение
-                td
-                  .fa.fa-star
-                  .fa.fa-star
-                  .fa.fa-star
-                  .fa.fa-star
-                  .fa.fa-star
-                td 25.05.2016
+              - for(var i=0; i < last_pages.length; i++)
+                tr
+                  td
+                    a(href="site/id#{last_pages[i].site_id}/page/id#{last_pages[i].id}") #{last_pages[i].title}
+                  td
+                    a(href="site/id#{last_pages[i].site_id}") #{last_pages[i].site_name}
+                  td #{last_pages[i].theme}
+                  td
+                    .fa.fa-star
+                    .fa.fa-star
+                    .fa.fa-star
+                    .fa.fa-star
+                    .fa.fa-star
+                  - var date = new Date(last_pages[i].create_date)
+                  td #{date.toLocaleString()}
     div.col-lg-6
       div.card
         header.card-header Last pages
@@ -87,58 +46,18 @@ block main-content
                 td(data-field="rate") Rate
                 td(data-field="date") Date
             tbody
-              tr
-                td Фотоальбом
-                td tnt.by
-                td Развлечение
-                td
-                  .fa.fa-star
-                  .fa.fa-star
-                  .fa.fa-star
-                  .fa.fa-star
-                  .fa.fa-star
-                td 25.05.2016
-              tr
-                td Фотоальбом
-                td tnt.by
-                td Развлечение
-                td
-                  .fa.fa-star
-                  .fa.fa-star
-                  .fa.fa-star
-                  .fa.fa-star
-                  .fa.fa-star
-                td 25.05.2016
-              tr
-                td Фотоальбом
-                td tnt.by
-                td Развлечение
-                td
-                  .fa.fa-star
-                  .fa.fa-star
-                  .fa.fa-star
-                  .fa.fa-star
-                  .fa.fa-star
-                td 25.05.2016
-              tr
-                td Фотоальбом
-                td tnt.by
-                td Развлечение
-                td
-                  .fa.fa-star
-                  .fa.fa-star
-                  .fa.fa-star
-                  .fa.fa-star
-                  .fa.fa-star
-                td 25.05.2016
-              tr
-                td Фотоальбом
-                td tnt.by
-                td Развлечение
-                td
-                  .fa.fa-star
-                  .fa.fa-star
-                  .fa.fa-star
-                  .fa.fa-star
-                  .fa.fa-star
-                td 25.05.2016
+              - for(var i=0; i < last_pages.length; i++)
+                tr
+                  td
+                    a(href="site/id#{last_pages[i].site_id}/page/id#{last_pages[i].id}") #{last_pages[i].title}
+                  td
+                    a(href="site/id#{last_pages[i].site_id}") #{last_pages[i].site_name}
+                  td #{last_pages[i].theme}
+                  td
+                    .fa.fa-star
+                    .fa.fa-star
+                    .fa.fa-star
+                    .fa.fa-star
+                    .fa.fa-star
+                  - var date = new Date(last_pages[i].create_date)
+                  td #{date.toLocaleString()}

@@ -10,7 +10,7 @@ var pool = mysql.createPool({
     "connectionLimit": 10
 });
 
-router.get('/id:id', function (req, res){
+router.get('/id:id/page/id:page_id', function (req, res){
 
     var site_id = req.params.id;
     var site = new Object();
@@ -31,7 +31,7 @@ router.get('/id:id', function (req, res){
         'ORDER BY update_date DESC';
         pool.query(sql, function (error, pages_rows) {
             site.pages = pages_rows;
-            res.render('site/index', {site: site});
+            res.render('site/page', {site: site});
         });
     });
 });

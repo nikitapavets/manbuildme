@@ -15,4 +15,6 @@ angular.module('mainApp')
             }
             $scope.menuBarsStatus = ! $scope.menuBarsStatus;
         }
+
+        $scope.site_page = "page.jade"
     });
