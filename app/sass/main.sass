@@ -262,7 +262,21 @@ label
         .msg
           text-indent: 15px
       &--new_comment
-
+        position: relative
+        padding: 15px
+        .title
+          font-size: em(18px)
+          @extend .blue-text
+          font-weight: bold
+        .input-field
+          margin-right: 150px
+        .send-btn
+          position: absolute
+          right: 25px
+          bottom: 40px
+          &:hover, &:active, &:focus
+            text-decoration: none
+            color: #FFF
 
 .instrupents
   &--wrap

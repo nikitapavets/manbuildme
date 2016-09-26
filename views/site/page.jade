@@ -27,5 +27,9 @@ block page-content
                             .msg Hello, boys!
                         .comments--new_comment
                             .title New comment
+                            .input-field
+                                textarea.materialize-textarea.new_comment(name="new_comment")
+                            a.waves-effect.waves-light.btn.send-btn(href="javascript:" ng-click="pushComment()") Send
+
 
 
