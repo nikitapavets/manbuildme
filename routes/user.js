@@ -49,10 +49,6 @@ router.get('/id:id/profile', function (req, res){
 
 
 });
-router.post('/id:id/profile', function (req, res, next){
 
-
-
-});
 
 module.exports = router;

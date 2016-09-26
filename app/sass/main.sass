@@ -245,6 +245,25 @@ label
       color: #666
       &:hover
         color: #333
+  &--content
+    .comments
+      &--wrap
+      &--header
+        font-size: em(24px)
+        border-bottom: 3px solid #2196F3
+        padding-bottom: 15px
+      &--comment
+        @extend .blue, .lighten-5
+        padding: 15px
+        margin: 15px 0
+        .author
+          text-decoration: underline
+          margin-bottom: 5px
+        .msg
+          text-indent: 15px
+      &--new_comment
+
+
 .instrupents
   &--wrap
     text-align: center

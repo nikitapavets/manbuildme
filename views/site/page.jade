@@ -14,4 +14,18 @@ block page-content
                 - if(comp.label == 'video')
                     - var url = comp.value.replace('watch?v=', 'embed/')
                     iframe(width="100%", height="450", src="#{url}", frameborder="0", allowfullscreen)
+                - if(comp.label == 'comments')
+                    .comments--wrap
+                        header.comments--header Comments
+                        .comments--comment
+                            .author
+                                a(href="#") Никита Павец
+                            .msg Hello, boys!
+                        .comments--comment
+                            .author
+                                a(href="#") Никита Павец
+                            .msg Hello, boys!
+                        .comments--new_comment
+                            .title New comment
+
 

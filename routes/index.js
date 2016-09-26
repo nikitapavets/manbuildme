@@ -17,7 +17,6 @@ router.get('/', function(req, res){
     'INNER JOIN sites AS s ON p.site_id = s.id ' +
     'ORDER BY p.create_date DESC ' +
     'LIMIT 5';
-    console.log(sql);
   pool.query(sql, function(error, pages_rows) {
 
     var last_pages = pages_rows;
@@ -30,7 +29,7 @@ router.post('/auth', function(req, res, next) {
 
   var new_user = req.body;
 
-  pool.query("SELECT * FROM user WHERE social_id=" + new_user.social_id + " LIMIT 1", function(error, rows) {
+  pool.query("SELECT * FROM users WHERE social_id=" + new_user.social_id + " LIMIT 1", function(error, rows) {
     var user = rows[0];
     if(rows.length == 0){
       pool.query('INSERT INTO user SET ?', new_user, function(err, result) {
@@ -38,7 +37,7 @@ router.post('/auth', function(req, res, next) {
           throw err;
         }else{
           var user_id = result.insertId;
-          pool.query("SELECT * FROM user WHERE id=" + user_id + " LIMIT 1", function(error, rows) {
+          pool.query("SELECT * FROM users WHERE id=" + user_id + " LIMIT 1", function(error, rows) {
             var user = rows[0];
             res.send(user);
           });

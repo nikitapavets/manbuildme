@@ -15,6 +15,7 @@ router.get('/id:id/page/id:page_id', function (req, res){
     var site_id = req.params.id;
     var page_id = req.params.page_id;
     var site = new Object();
+    console.log(site);
 
     var sql = 'SELECT * ' +
         'FROM sites ' +
