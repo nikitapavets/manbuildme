@@ -24,7 +24,14 @@ angular.module('mainApp')
        }
     })
     .directive('pageRate', function () {
-        return function(scope, element, attrs){
-            element.append("<div>adasdasd</div>")
+        return {
+            link: function(scope, element, attrs){
+                var star_wrap_template = element.append('<div class="star--wrap"></div>');
+                for (var i = 0; i < 5; i++) {
+                    var star_template = '<a href="#" ng-mouseover="starMouseOver();"><i class="fa fa-star-o" aria-hidden="true"></i></a>';
+                    var star = star_wrap_template.append(star_template);
+                    scope.$apply();
+                }
+            }
         }
     });

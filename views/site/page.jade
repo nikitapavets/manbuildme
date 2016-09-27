@@ -33,7 +33,10 @@ block page-content
                                 input.new_comment-hash(type="hidden", value="#{comp.id}")
                             a.waves-effect.waves-light.btn.send-btn(href="javascript:" ng-click="pushComment()") Send
         footer.page--footer
-            div(page-rate="id24")
+            .star--wrap
+                - for(var i = 0; i < 5; i++)
+                    a.star(class="fa fa-star-o", href="javascript:", ng-mouseover="starMouseOver(#{i});", ng-mouseleave="starMouseOut();" ng-click="starClick(#{i})")
+
 
 
 
