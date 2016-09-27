@@ -13,7 +13,8 @@ var pool = mysql.createPool({
 router.post('/new', function (req, res) {
     var comment = {
         value: req.body.comment,
-        comment_id: req.body.hash
+        comment_id: req.body.hash,
+        user_id: req.body.user_id
     };
     pool.query('INSERT INTO comments SET ?', comment, function(err, result) {
         //todo

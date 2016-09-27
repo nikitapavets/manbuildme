@@ -15,7 +15,6 @@ router.get('/id:id/page/id:page_id', function (req, res){
     var site_id = req.params.id;
     var page_id = req.params.page_id;
     var site = new Object();
-    console.log(site);
 
     var sql = 'SELECT * ' +
         'FROM sites ' +
@@ -44,7 +43,22 @@ router.get('/id:id/page/id:page_id', function (req, res){
                         'ORDER BY position';
                     pool.query(sql, function (error, components_rows) {
                         current_page.components = components_rows;
-                        res.render('site/page', {site: site, page_id: page_id, page: current_page});
+
+                        current_page.components.forEach(function(component, i){
+                            if(component.label == 'comments'){
+                                var sql = 'SELECT * ' +
+                                    'FROM comments ' +
+                                    'WHERE comment_id = ' + component.id;
+                                pool.query(sql, function (error, comments_rows) {
+                                    console.log(error);
+                                    current_page.components[i].comments = comments_rows;
+
+                                    res.render('site/page', {site: site, page_id: page_id, page: current_page});
+                                })
+                            }
+
+                        });
+
                     });
                 }
             });

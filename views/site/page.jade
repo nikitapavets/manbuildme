@@ -17,20 +17,23 @@ block page-content
                 - if(comp.label == 'comments')
                     .comments--wrap
                         header.comments--header Comments
-                        .comments--comment
-                            .author
-                                a(href="#") Никита Павец
-                            .msg Hello, boys!
-                        .comments--comment
-                            .author
-                                a(href="#") Никита Павец
-                            .msg Hello, boys!
+
+                        //- for(var j = 0; j<comp.comments.length; j++)
+                            .comments--comment
+                                .author
+                                    a(href="#") Никита Павец
+                                    a.delete-ico(href="javascript:")
+                                        i.fa.fa-times
+                                .msg #{comp.comments[j].value}
+
                         .comments--new_comment
                             .title New comment
                             .input-field
                                 textarea.materialize-textarea.new_comment(name="new_comment")
                                 input.new_comment-hash(type="hidden", value="#{comp.id}")
                             a.waves-effect.waves-light.btn.send-btn(href="javascript:" ng-click="pushComment()") Send
+        footer.page--footer
+            div(page-rate="id24")
 
 
 

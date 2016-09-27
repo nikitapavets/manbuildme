@@ -259,6 +259,12 @@ label
         .author
           text-decoration: underline
           margin-bottom: 5px
+          position: relative
+          .delete-ico
+            @extend .red-text
+            position: absolute
+            right: 0px
+            top: 0
         .msg
           text-indent: 15px
       &--new_comment
@@ -319,9 +325,11 @@ label
   text-align: center
   padding: 15px
 .dndPlaceholder
-  margin: 15px 0
+  margin: 30px 0 60px 0
   text-align: center
   @extend .blue-text
+  padding: 30px
+  border: 3px dotted #2196F3
 
 .simpleDemo ul[dnd-list],
 .simpleDemo ul[dnd-list] > li

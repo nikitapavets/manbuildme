@@ -22,4 +22,9 @@ angular.module('mainApp')
                });
            }
        }
+    })
+    .directive('pageRate', function () {
+        return function(scope, element, attrs){
+            element.append("<div>adasdasd</div>")
+        }
     });

@@ -13,12 +13,16 @@ angular.module('mainApp')
             $scope.menuBarsStatus = ! $scope.menuBarsStatus;
         }
 
+        $scope.$storage = $localStorage;
+        $scope.user = $scope.$storage.user;
+
         $scope.pushComment = function(){
             var comment_filed = document.querySelector('.new_comment');
             var hash_field = document.querySelector('.new_comment-hash');
             var comment = angular.element(comment_filed).val();
             var hash = angular.element(hash_field).val();
-            $http.post('/comment/new', {comment: comment, hash: hash})
+            var user_id = $scope.user.id;
+            $http.post('/comment/new', {comment: comment, hash: hash, user_id: user_id})
                 .success(function(data){
 
                 });
