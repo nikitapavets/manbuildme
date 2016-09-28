@@ -32,7 +32,6 @@ router.get('/id:id/page/id:page_id', function (req, res){
             'ORDER BY update_date DESC';
         pool.query(sql, function (error, pages_rows) {
             site.pages = pages_rows;
-
             site.pages.forEach(function(page){
 
                 if(page['id'] == page_id){
@@ -43,21 +42,15 @@ router.get('/id:id/page/id:page_id', function (req, res){
                         'ORDER BY position';
                     pool.query(sql, function (error, components_rows) {
                         current_page.components = components_rows;
+                        var sql = 'SELECT * ' +
+                                'FROM rate ' +
+                                'WHERE page_id = ' + page_id;
+                        pool.query(sql, function (error, rate_rows) {
+                            current_page.rate = rate_rows;
+                            console.log(current_page);
 
-                        current_page.components.forEach(function(component, i){
-                            if(component.label == 'comments'){
-                                var sql = 'SELECT * ' +
-                                    'FROM comments ' +
-                                    'WHERE comment_id = ' + component.id;
-                                pool.query(sql, function (error, comments_rows) {
-                                    console.log(error);
-                                    current_page.components[i].comments = comments_rows;
-
-                                    res.render('site/page', {site: site, page_id: page_id, page: current_page});
-                                })
-                            }
-
-                        });
+                            res.render('site/page', {site: site, page_id: page_id, page: current_page});
+                        })
 
                     });
                 }
@@ -107,6 +100,32 @@ router.post('/get_page', function(req, res, next) {
 
 router.get('/add', function (req, res){
     res.render('site/add');
+});
+
+router.post('/add_rate', function(req, res, next) {
+    var rate = new Object();
+    rate.page_id = req.body.page_id;
+    rate.user_id = req.body.user_id;
+    rate.rate = req.body.rate;
+
+    var sql = 'DELETE FROM rate ' +
+            'WHERE page_id = ' + rate.page_id + ' ' +
+            'AND user_id = ' + rate.user_id;
+    pool.query(sql, function(err, res){
+        if (err) {
+            throw err;
+        }else{
+            pool.query('INSERT INTO rate SET ?', rate, function(err, res){
+                if (err) {
+                    throw err;
+                }else{
+                    //todo
+                }
+            });
+        }
+    });
+
+
 });
 
 router.post('/save', function(req, res, next) {
@@ -162,7 +181,7 @@ router.post('/save_page', function(req, res, next) {
             component.position = i
             component.page_id = page_id;
             pool.query("INSERT INTO components SET ?", component, function(err, result) {
-                //todo
+                // todo
             });
         });
     });

@@ -40,20 +40,18 @@ block page-content
                         .node.node--comments--wrap(ng-switch-when="comments")
                             .node--header Comments
                             .card.comment
-                                a.delete(href="#")
-                                    i.fa.fa-times
                                 .author
-                                    a(href="#") Никита Павец
-                                .msg Привет
+                                    a(href="#") Nikita Pavets
+                                .msg Hello!
                             .card.comment
                                 .author
-                                    a(href="#") Никита Павец
-                                .msg Как дела?
+                                    a(href="#") Nikita Pavets
+                                .msg  How are you?
                     li.dndPlaceholder Drop your component here
     .row
         .com-md-12
             pre.code {{modelAsJson}}
     .button_wrap
-        a.waves-effect.waves-light.btn(ng-click="savePage()") Save
+        a.waves-effect.waves-light.btn(ng-click="savePage(#{site.id}, #{page_id})") Save
 
 

@@ -16,12 +16,23 @@ angular.module('mainApp')
         $scope.$storage = $localStorage;
         $scope.user = $scope.$storage.user;
 
-        $scope.pushComment = function(){
-            var comment_filed = document.querySelector('.new_comment');
-            var hash_field = document.querySelector('.new_comment-hash');
-            var comment = angular.element(comment_filed).val();
-            var hash = angular.element(hash_field).val();
+        $scope.updateComments = function(component_id){
+            console.log(component_id);
+        }
+
+        $scope.pushComment = function(component_id, elem){
+            var comment_fields = document.getElementsByClassName('new_comment');
+            var comment = '';
+            for(var i = 0; i < comment_fields.length; i++){
+               if(angular.element(comment_fields[i]).val() != ''){
+                   comment = angular.element(comment_fields[i]).val();
+                   angular.element(comment_fields[i]).val('');
+                   break;
+               }
+            }
+            var hash = component_id;
             var user_id = $scope.user.id;
+
             $http.post('/comment/new', {comment: comment, hash: hash, user_id: user_id})
                 .success(function(data){
 
@@ -29,6 +40,42 @@ angular.module('mainApp')
         }
 
         $scope.site_page = "page.jade";
+
+        $scope.starMouseOver = function(index){
+            var star_wrap = document.querySelector(".star--wrap");
+            var stars = angular.element(star_wrap).find("a");
+            for(var i = 0; i <= index; i++){
+                var star = stars.eq(i).css("border-bottom", "1px solid #2196F3");
+            }
+        }
+        $scope.starMouseOut = function(){
+            var star_wrap = document.querySelector(".star--wrap");
+            var stars = angular.element(star_wrap).find("a");
+            for(var i = 0; i < stars.length; i++){
+                var star = stars.eq(i).css("border", "none");
+            }
+        }
+        $scope.starClick = function(index, page_id){
+            var star_wrap = document.querySelector(".star--wrap");
+            var stars = angular.element(star_wrap).find("a");
+            for(var i = 0; i < stars.length; i++){
+                var star = stars.eq(i).addClass("fa-star-o").removeClass("fa-star");
+            }
+            for(var i = 0; i <= index; i++){
+                var star = stars.eq(i).addClass("fa-star").removeClass("fa-star-o");
+            }
+
+            var rate = index + 1;
+            $http.post('/site/add_rate',
+                {
+                    user_id: $scope.user.id,
+                    page_id: page_id,
+                    rate: rate
+                })
+                .success(function(data){
+                   console.log(data);
+                });
+        }
     })
     .controller("dndController", function($scope, $http) {
 
@@ -45,8 +92,6 @@ angular.module('mainApp')
 
                 $http.post('/site/get_page', {page_id: $scope.page_id})
                     .success(function (data) {
-                        console.log(data);
-
 
                         $scope.models = {
                             selected: null,
@@ -60,7 +105,11 @@ angular.module('mainApp')
                             'comments'
                         ]
 
-                        $scope.models.lists.B = data;
+                        if(data.length > 0){
+                            $scope.models.lists.B = data;
+                        }else{
+                            $scope.models.lists.B[0] = {label: 'text'};
+                        }
                         for (var i = 0; i < 4; ++i) {
                             $scope.models.lists.A.push({label: compotents[i]});
                         }
@@ -69,17 +118,16 @@ angular.module('mainApp')
         }, true);
 
 
-        $scope.savePage = function(){
+        $scope.savePage = function(site_id, page_id){
             var pageComponents = $scope.models.lists.B;
-
-            console.log(pageComponents);
             $http.post('/site/save_page',
                 {
                     pageComponents: pageComponents,
+                    site_id: site_id,
                     page_id: $scope.page_id
                 })
                 .success(function(data){
-                    console.log(data);
+                    //todo
                 });
         }
     });

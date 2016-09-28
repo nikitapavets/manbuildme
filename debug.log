@@ -1,0 +1,6 @@
+[0928/035840:ERROR:process_info.cc(103)] ReadProcessMemory bool __cdecl crashpad::`anonymous-namespace'::ReadStruct<struct crashpad::process_types::PEB<struct crashpad::process_types::internal::Traits32>>(void *,unsigned __int64,struct crashpad::process_types::PEB<struct crashpad::process_types::internal::Traits32> *): Запрос ReadProcessMemory или WriteProcessMemory был выполнен только частично. (0x12B)
+[0928/035840:ERROR:process_info.cc(542)] ReadProcessData failed
+[0928/035840:ERROR:process_reader_win.cc(233)] ReadMemory at 0x13c1bfc of 12 bytes failed: Запрос ReadProcessMemory или WriteProcessMemory был выполнен только частично. (0x12B)
+[0928/035840:WARNING:process_snapshot_win.cc(68)] ReadMemory ExceptionInformation failed
+[0928/035840:WARNING:crash_report_exception_handler.cc(56)] ProcessSnapshotWin::Initialize failed
+[0928/035840:ERROR:scoped_process_suspend.cc(38)] NtResumeProcess: Попытка доступа к процессу, выполняющему процедуру завершения.  (0xc000010a)

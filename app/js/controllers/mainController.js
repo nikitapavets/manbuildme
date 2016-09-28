@@ -1,5 +1,5 @@
 angular.module('mainApp', ['ngStorage', 'ngRoute', 'dndLists', 'btford.markdown'])
-    .controller('mainController', function ($scope, $localStorage) {
+    .controller('mainController', function ($scope, $localStorage, $http) {
 
         $scope.$storage = $localStorage.$default({
             styleColor: 'blue'
@@ -26,33 +26,6 @@ angular.module('mainApp', ['ngStorage', 'ngRoute', 'dndLists', 'btford.markdown'
                 angular.element(content).css("margin-left", "300px");
             }
             $scope.menuShowStatus = !$scope.menuShowStatus;
-        }
-
-        $scope.starMouseOver = function(index){
-            var star_wrap = document.querySelector(".star--wrap");
-            var stars = angular.element(star_wrap).find("a");
-            for(var i = 0; i <= index; i++){
-                var star = stars.eq(i).css("border-bottom", "1px solid #2196F3");
-            }
-        }
-        $scope.starMouseOut = function(){
-            var star_wrap = document.querySelector(".star--wrap");
-            var stars = angular.element(star_wrap).find("a");
-            for(var i = 0; i < stars.length; i++){
-                var star = stars.eq(i).css("border", "none");
-            }
-        }
-        $scope.starClick = function(index){
-            var star_wrap = document.querySelector(".star--wrap");
-            var stars = angular.element(star_wrap).find("a");
-            for(var i = 0; i < stars.length; i++){
-                var star = stars.eq(i).addClass("fa-star-o").removeClass("fa-star");
-            }
-            for(var i = 0; i <= index; i++){
-                var star = stars.eq(i).addClass("fa-star").removeClass("fa-star-o");
-            }
-
-            var rate = index + 1;
         }
     })
     .config(function($routeProvider){
