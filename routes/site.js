@@ -7,7 +7,22 @@ var pool = mysql.createPool({
     "user": "b0bd6590a971c5",
     "password": "5388152b",
     "database": "heroku_479693d37aa70d6",
-    "connectionLimit": 10
+    "connectionLimit": 100
+});
+
+router.get('/id:id', function (req, res) {
+
+    var site_id = req.params.id;
+    var sql = 'SELECT * ' +
+        'FROM pages ' +
+        'WHERE site_id = ' + site_id + ' ' +
+        'ORDER BY position ' +
+        'LIMIT 1';
+    console.log(sql);
+    pool.query(sql, function(error, pages_rows) {
+        console.log(pages_rows);
+        res.redirect('/site/id'+site_id+'/page/id'+pages_rows[0].id);
+    });
 });
 
 router.get('/id:id/page/id:page_id', function (req, res){
@@ -29,7 +44,7 @@ router.get('/id:id/page/id:page_id', function (req, res){
         var sql = 'SELECT * ' +
             'FROM pages ' +
             'WHERE site_id = ' + site_id + ' ' +
-            'ORDER BY update_date DESC';
+            'ORDER BY position';
         pool.query(sql, function (error, pages_rows) {
             site.pages = pages_rows;
             site.pages.forEach(function(page){
@@ -78,7 +93,7 @@ router.get('/id:id/page/id:page_id/edit', function (req, res){
         var sql = 'SELECT * ' +
             'FROM pages ' +
             'WHERE site_id = ' + site_id + ' ' +
-            'ORDER BY update_date DESC';
+            'ORDER BY position';
         pool.query(sql, function (error, pages_rows) {
             site.pages = pages_rows;
 
@@ -88,14 +103,30 @@ router.get('/id:id/page/id:page_id/edit', function (req, res){
 });
 
 router.post('/get_page', function(req, res, next) {
-    var sql = 'SELECT * ' +
-        'FROM components ' +
-        'WHERE page_id = ' + req.body.page_id  + ' ' +
-        'ORDER BY position';
-    pool.query(sql, function (error, components_rows) {
-        var components = components_rows;
-        res.send(components);
+
+    var page = new Object();
+
+    var sql =  'SELECT * ' +
+        'FROM pages ' +
+        'WHERE id = ' + req.body.page_id  + ' ' +
+        'LIMIT 1';
+    pool.query(sql, function (error, pages_rows) {
+
+        if(pages_rows.length > 0){
+
+            page = pages_rows[0]
+
+            var sql = 'SELECT * ' +
+                'FROM components ' +
+                'WHERE page_id = ' + req.body.page_id  + ' ' +
+                'ORDER BY position';
+            pool.query(sql, function (error, components_rows) {
+                page.components = components_rows;
+                res.send(page);
+            })
+        }
     })
+
 });
 
 router.get('/add', function (req, res){
@@ -137,11 +168,35 @@ router.post('/save', function(req, res, next) {
     site.theme = req.body.site_theme;
 
     var pages = [
-        {'title': req.body.site_page1},
-        {'title': req.body.site_page2},
-        {'title': req.body.site_page3},
-        {'title': req.body.site_page4},
-        {'title': req.body.site_page5}
+        {
+            'title': req.body.site_page1,
+            'layout': req.body.site_page1_layout,
+            'position': 0
+        },
+
+        {
+            'title': req.body.site_page2,
+            'layout': req.body.site_page2_layout,
+            'position': 1
+        },
+
+        {
+            'title': req.body.site_page3,
+            'layout': req.body.site_page3_layout,
+            'position': 2
+        },
+
+        {
+            'title': req.body.site_page4,
+            'layout': req.body.site_page4_layout,
+            'position': 3
+        },
+
+        {
+            'title': req.body.site_page5,
+            'layout': req.body.site_page5_layout,
+            'position': 4
+        }
     ];
 
 
@@ -175,15 +230,22 @@ router.post('/save_page', function(req, res, next) {
     var sql = "DELETE " +
             "FROM components " +
             "WHERE page_id = " + page_id;
+
+
     pool.query(sql, function(err, result){
 
-        components.forEach(function(component, i){
-            component.position = i
-            component.page_id = page_id;
-            pool.query("INSERT INTO components SET ?", component, function(err, result) {
-                // todo
-            });
-        });
+        for(var j=0; j<components.length; j++){
+            if(components[j]){
+                components[j].forEach(function(component, i){
+                    component.position = 100*j+i;
+                    component.page_id = page_id;
+                    pool.query("INSERT INTO components SET ?", component, function(err, result) {
+                        // todo
+                    });
+                });
+            }
+        }
+
     });
 });
 

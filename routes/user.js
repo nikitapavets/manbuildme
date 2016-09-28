@@ -9,7 +9,7 @@ var pool = mysql.createPool({
   "user": "b0bd6590a971c5",
   "password": "5388152b",
   "database": "heroku_479693d37aa70d6",
-  "connectionLimit": 10
+  "connectionLimit": 100
 });
 
 router.get('/id:id/profile', function (req, res){

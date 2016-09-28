@@ -84,11 +84,14 @@ angular.module('mainApp')
         }, true);
 
         $scope.page_id = 0;
+        $scope.site_id = 0;
         $scope.$watch('page_id', function(model) {
             if($scope.page_id != 0) {
 
                 $http.post('/site/get_page', {page_id: $scope.page_id})
                     .success(function (data) {
+
+                        console.log(data);
 
                         $scope.models = {
                             selected: null,
@@ -98,20 +101,58 @@ angular.module('mainApp')
                                     {label: 'image'},
                                     {label: 'video'},
                                     {label: 'comments'}
-                                ],
-                                "Section_One": [],
-                                "Section_Two": [],
-                                "Section_Three": [],
-                                "Basket": []
+                                ]
                             }
                         };
 
 
-                        if(data.length > 0){
-                            $scope.models.lists.Section_One = data;
-                        }else{
-                            $scope.models.lists.Section_One[0] = {label: 'text', value: 'Пустая страница'};
+
+                        if(data){
+
+                            if(data.layout > 0){
+                                $scope.models.lists.Section_One = [];
+                                $scope.models.lists.Section_One[0] = {label: 'text', value: 'Пустая страница'};
+                            }
+                            if(data.layout > 1){
+                                $scope.models.lists.Section_Two = [];
+                                $scope.models.lists.Section_Two[0] = {label: 'text', value: 'Пустая страница'};
+                            }
+                            if(data.layout > 2){
+                                $scope.models.lists.Section_Three = [];
+                                $scope.models.lists.Section_Three[0] = {label: 'text', value: 'Пустая страница'};
+                            }
+
+                            var l_comps = [
+                                [], [], []
+                            ];
+                            for(var k = 0 ; k < data.components.length; k++){
+                                if(data.components[k].position < 100){
+                                    l_comps[0].push(data.components[k]);
+                                }else if(data.components[k].position < 200){
+                                    l_comps[1].push(data.components[k]);
+                                }else{
+                                    l_comps[2].push(data.components[k]);
+                                }
+                            }
+
+                            if(data.layout > 0){
+                                if(l_comps[0].length > 0){
+                                    $scope.models.lists.Section_One = l_comps[0];
+                                }
+                            }
+                            if(data.layout > 1){
+                                if(l_comps[1].length > 0){
+                                    $scope.models.lists.Section_Two = l_comps[1];
+                                }
+                            }
+                            if(data.layout > 2){
+                                if(l_comps[2].length > 0){
+                                    $scope.models.lists.Section_Three = l_comps[2];
+                                }
+                            }
                         }
+
+                        $scope.models.lists.Basket = [];
                         $scope.models.lists.Basket[0] = {label: 'text', value: 'Удалённый текстовый узел'};
 
                         var layoutTypes = Object.keys($scope.models.lists).length;
@@ -147,7 +188,12 @@ angular.module('mainApp')
         }, true);
 
         $scope.savePage = function(site_id, page_id){
-            var pageComponents = $scope.models.lists.Section_One;
+            var pageComponents = [
+                $scope.models.lists.Section_One,
+                $scope.models.lists.Section_Two,
+                $scope.models.lists.Section_Three
+            ]
+            console.log(pageComponents);
             $http.post('/site/save_page',
                 {
                     pageComponents: pageComponents,
