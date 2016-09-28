@@ -12,16 +12,26 @@ var pool = mysql.createPool({
 
 router.get('/', function(req, res){
 
-  var sql = 'SELECT p.id, p.title, p.update_date, p.create_date, p.rate, s.id AS site_id, s.title AS site_name, s.theme ' +
+  var sql = 'SELECT p.id, p.title, p.update_date, p.create_date, s.id AS site_id, s.title AS site_name, s.theme ' +
     'FROM pages AS p ' +
     'INNER JOIN sites AS s ON p.site_id = s.id ' +
-    'ORDER BY p.create_date DESC ' +
+    'ORDER BY p.update_date DESC ' +
     'LIMIT 5';
   pool.query(sql, function(error, pages_rows) {
-
     var last_pages = pages_rows;
-      console.log(error);
-    res.render('index', {last_pages: last_pages});
+
+    var sql = 'SELECT p.id, p.title, p.update_date, p.create_date, s.id AS site_id, s.title AS site_name, s.theme ' +
+        'FROM pages AS p ' +
+        'INNER JOIN sites AS s ON p.site_id = s.id ' +
+        'ORDER BY (SELECT AVG(rate) FROM rate r WHERE r.page_id = p.id) DESC ' +
+        'LIMIT 5';
+    pool.query(sql, function(error, top_pages_rows) {
+      var top_pages = top_pages_rows;
+      console.log(top_pages);
+
+      res.render('index', {last_pages: last_pages, top_pages: top_pages});
+    });
+
   });
 });
 

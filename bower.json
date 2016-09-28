@@ -12,6 +12,7 @@
     "ngstorage": "^0.3.11",
     "angular-route": "^1.5.8",
     "angular-drag-and-drop-lists": "^1.4.0",
-    "Angular-Markdown-Editor": "angular-markdown-editor#*"
+    "Angular-Markdown-Editor": "angular-markdown-editor#*",
+    "angular-lightweight-markdown-editor": "^0.2.0"
   }
 }

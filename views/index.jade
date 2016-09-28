@@ -15,22 +15,22 @@ block main-content
                 td(data-field="site") Site
                 td(data-field="type") Type
                 td(data-field="rate") Rate
-                td(data-field="date") Date
+                td(data-field="date") Update date
             tbody
-              - for(var i=0; i < last_pages.length; i++)
+              - for(var i=0; i < top_pages.length; i++)
                 tr
                   td
-                    a(href="site/id#{last_pages[i].site_id}/page/id#{last_pages[i].id}") #{last_pages[i].title}
+                    a(href="site/id#{top_pages[i].site_id}/page/id#{top_pages[i].id}") #{top_pages[i].title}
                   td
-                    a(href="site/id#{last_pages[i].site_id}") #{last_pages[i].site_name}
-                  td #{last_pages[i].theme}
+                    a(href="site/id#{top_pages[i].site_id}") #{top_pages[i].site_name}
+                  td #{top_pages[i].theme}
                   td
                     .fa.fa-star
                     .fa.fa-star
                     .fa.fa-star
                     .fa.fa-star
                     .fa.fa-star
-                  - var date = new Date(last_pages[i].create_date)
+                  - var date = new Date(top_pages[i].update_date)
                   td #{date.toLocaleString()}
     div.col-lg-6
       div.card
@@ -59,5 +59,5 @@ block main-content
                     .fa.fa-star
                     .fa.fa-star
                     .fa.fa-star
-                  - var date = new Date(last_pages[i].create_date)
+                  - var date = new Date(last_pages[i].update_date)
                   td #{date.toLocaleString()}

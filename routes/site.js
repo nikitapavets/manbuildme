@@ -171,31 +171,36 @@ router.post('/save', function(req, res, next) {
         {
             'title': req.body.site_page1,
             'layout': req.body.site_page1_layout,
-            'position': 0
+            'position': 0,
+            'update_date': 'CURRENT_TIMESTAMP'
         },
 
         {
             'title': req.body.site_page2,
             'layout': req.body.site_page2_layout,
-            'position': 1
+            'position': 1,
+            'update_date': 'CURRENT_TIMESTAMP'
         },
 
         {
             'title': req.body.site_page3,
             'layout': req.body.site_page3_layout,
-            'position': 2
+            'position': 2,
+            'update_date': 'CURRENT_TIMESTAMP'
         },
 
         {
             'title': req.body.site_page4,
             'layout': req.body.site_page4_layout,
-            'position': 3
+            'position': 3,
+            'update_date': 'CURRENT_TIMESTAMP'
         },
 
         {
             'title': req.body.site_page5,
             'layout': req.body.site_page5_layout,
-            'position': 4
+            'position': 4,
+            'update_date': 'CURRENT_TIMESTAMP'
         }
     ];
 
@@ -231,20 +236,26 @@ router.post('/save_page', function(req, res, next) {
             "FROM components " +
             "WHERE page_id = " + page_id;
 
-
     pool.query(sql, function(err, result){
 
-        for(var j=0; j<components.length; j++){
-            if(components[j]){
-                components[j].forEach(function(component, i){
-                    component.position = 100*j+i;
-                    component.page_id = page_id;
-                    pool.query("INSERT INTO components SET ?", component, function(err, result) {
-                        // todo
+        var sql = "UPDATE pages " +
+            "SET update_date = CURRENT_TIMESTAMP " +
+            "WHERE id= " + page_id;
+        pool.query(sql, function(err, result){
+
+            for(var j=0; j<components.length; j++){
+                if(components[j]){
+                    components[j].forEach(function(component, i){
+                        component.position = 100*j+i;
+                        component.page_id = page_id;
+                        pool.query("INSERT INTO components SET ?", component, function(err, result) {
+                            // todo
+                        });
                     });
-                });
+                }
             }
-        }
+
+        });
 
     });
 });
