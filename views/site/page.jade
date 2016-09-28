@@ -3,36 +3,165 @@ extends page_wrap
 block page-content
 
     .page--wrap
-        header.page--header #{page.title}
-            a.edit(href="/site/id#{site.id}/page/id#{page.id}/edit")
-                i.fa.fa-pencil-square-o
+        .row
+            .col-xs-12
+                header.page--header #{page.title}
+                    a.edit(href="/site/id#{site.id}/page/id#{page.id}/edit")
+                        i.fa.fa-pencil-square-o
         .page--content
-            - for(var i=0; i < page.components.length; i++)
-                - var comp = page.components[i]
-                - if(comp.label == 'text')
-                    p
-                        btf-markdown #{comp.value}
-                - if(comp.label == 'video')
-                    - var url = comp.value.replace('watch?v=', 'embed/')
-                    iframe(width="100%", height="450", src="#{url}", frameborder="0", allowfullscreen)
-                - if(comp.label == 'comments')
-                    .comments--wrap
-                        header.comments--header Comments
+            .row
+                - if(page.layout == 1 || page.layout == 3)
+                    .col-xs-12
+                        - for(var i=0; i < page.components.length; i++)
+                            - if(page.components[i].position < 100)
+                                - var comp = page.components[i]
+                                - if(comp.label == 'text')
+                                    p
+                                        btf-markdown #{comp.value}
+                                - if(comp.label == 'video')
+                                    - var url = comp.value.replace('watch?v=', 'embed/')
+                                    iframe(width="100%", height="450", src="#{url}", frameborder="0", allowfullscreen)
+                                - if(comp.label == 'comments')
+                                    .comments--wrap
+                                        header.comments--header Comments
 
-                        div(comments="#{comp.id}")
-                        //- for(var j = 0; j<comp.comments.length; j++)
-                            .comments--comment
-                                .author
-                                    a(href="#") Никита Павец
-                                    a.delete-ico(href="javascript:")
-                                        i.fa.fa-times
-                                .msg #{comp.comments[j].value}
+                                        div(comments="#{comp.id}")
+                                        //- for(var j = 0; j<comp.comments.length; j++)
+                                            .comments--comment
+                                                .author
+                                                    a(href="#") Никита Павец
+                                                    a.delete-ico(href="javascript:")
+                                                        i.fa.fa-times
+                                                .msg #{comp.comments[j].value}
 
-                        .comments--new_comment
-                            .title New comment
-                            .input-field
-                                textarea.materialize-textarea.new_comment(name="new_comment")
-                            a.waves-effect.waves-light.btn.send-btn(href="javascript:" ng-click="pushComment(#{comp.id})") Send
+                                        .comments--new_comment
+                                            .title New comment
+                                            .input-field
+                                                textarea.materialize-textarea.new_comment(name="new_comment")
+                                            a.waves-effect.waves-light.btn.send-btn(href="javascript:" ng-click="pushComment(#{comp.id})") Send
+
+                - else
+                    .col-md-6.col-xs-12
+                        - for(var i=0; i < page.components.length; i++)
+                            - if(page.components[i].position < 100)
+                                - var comp = page.components[i]
+                                - if(comp.label == 'text')
+                                    p
+                                        btf-markdown #{comp.value}
+                                - if(comp.label == 'video')
+                                    - var url = comp.value.replace('watch?v=', 'embed/')
+                                    iframe(width="100%", height="450", src="#{url}", frameborder="0", allowfullscreen)
+                                - if(comp.label == 'comments')
+                                    .comments--wrap
+                                        header.comments--header Comments
+
+                                        div(comments="#{comp.id}")
+                                        //- for(var j = 0; j<comp.comments.length; j++)
+                                            .comments--comment
+                                                .author
+                                                    a(href="#") Никита Павец
+                                                    a.delete-ico(href="javascript:")
+                                                        i.fa.fa-times
+                                                .msg #{comp.comments[j].value}
+
+                                        .comments--new_comment
+                                            .title New comment
+                                            .input-field
+                                                textarea.materialize-textarea.new_comment(name="new_comment")
+                                            a.waves-effect.waves-light.btn.send-btn(href="javascript:" ng-click="pushComment(#{comp.id})") Send
+
+                    .col-md-6.col-xs-12
+                        - for(var i=0; i < page.components.length; i++)
+                            - if((page.components[i].position >= 100) && (page.components[i].position < 200))
+                                - var comp = page.components[i]
+                                - if(comp.label == 'text')
+                                    p
+                                        btf-markdown #{comp.value}
+                                - if(comp.label == 'video')
+                                    - var url = comp.value.replace('watch?v=', 'embed/')
+                                    iframe(width="100%", height="450", src="#{url}", frameborder="0", allowfullscreen)
+                                - if(comp.label == 'comments')
+                                    .comments--wrap
+                                        header.comments--header Comments
+
+                                        div(comments="#{comp.id}")
+                                        //- for(var j = 0; j<comp.comments.length; j++)
+                                            .comments--comment
+                                                .author
+                                                    a(href="#") Никита Павец
+                                                    a.delete-ico(href="javascript:")
+                                                        i.fa.fa-times
+                                                .msg #{comp.comments[j].value}
+
+                                        .comments--new_comment
+                                            .title New comment
+                                            .input-field
+                                                textarea.materialize-textarea.new_comment(name="new_comment")
+                                            a.waves-effect.waves-light.btn.send-btn(href="javascript:" ng-click="pushComment(#{comp.id})") Send
+
+
+            - if(page.layout == 3)
+                .row
+                    .col-md-6.col-xs-12
+                        - for(var i=0; i < page.components.length; i++)
+                            - if((page.components[i].position >= 100) && (page.components[i].position < 200))
+                                - var comp = page.components[i]
+                                - if(comp.label == 'text')
+                                    p
+                                        btf-markdown #{comp.value}
+                                - if(comp.label == 'video')
+                                    - var url = comp.value.replace('watch?v=', 'embed/')
+                                    iframe(width="100%", height="450", src="#{url}", frameborder="0", allowfullscreen)
+                                - if(comp.label == 'comments')
+                                    .comments--wrap
+                                        header.comments--header Comments
+
+                                        div(comments="#{comp.id}")
+                                        //- for(var j = 0; j<comp.comments.length; j++)
+                                            .comments--comment
+                                                .author
+                                                    a(href="#") Никита Павец
+                                                    a.delete-ico(href="javascript:")
+                                                        i.fa.fa-times
+                                                .msg #{comp.comments[j].value}
+
+                                        .comments--new_comment
+                                            .title New comment
+                                            .input-field
+                                                textarea.materialize-textarea.new_comment(name="new_comment")
+                                            a.waves-effect.waves-light.btn.send-btn(href="javascript:" ng-click="pushComment(#{comp.id})") Send
+
+                    .col-md-6.col-xs-12
+                        - for(var i=0; i < page.components.length; i++)
+                            - if((page.components[i].position >= 200) && (page.components[i].position < 300))
+                                - var comp = page.components[i]
+                                - if(comp.label == 'text')
+                                    p
+                                        btf-markdown #{comp.value}
+                                - if(comp.label == 'video')
+                                    - var url = comp.value.replace('watch?v=', 'embed/')
+                                    iframe(width="100%", height="450", src="#{url}", frameborder="0", allowfullscreen)
+                                - if(comp.label == 'comments')
+                                    .comments--wrap
+                                        header.comments--header Comments
+
+                                        div(comments="#{comp.id}")
+                                        //- for(var j = 0; j<comp.comments.length; j++)
+                                            .comments--comment
+                                                .author
+                                                    a(href="#") Никита Павец
+                                                    a.delete-ico(href="javascript:")
+                                                        i.fa.fa-times
+                                                .msg #{comp.comments[j].value}
+
+                                        .comments--new_comment
+                                            .title New comment
+                                            .input-field
+                                                textarea.materialize-textarea.new_comment(name="new_comment")
+                                            a.waves-effect.waves-light.btn.send-btn(href="javascript:" ng-click="pushComment(#{comp.id})") Send
+
+
+
         footer.page--footer
             .star--wrap
                 - for(var i = 0; i < 5; i++)

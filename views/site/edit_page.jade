@@ -37,7 +37,7 @@ block page-content
                             .node.node--text--wrap(ng-switch-when="text")
                                 .node--header(dnd-handle class="handle") Text
                                 .input-field
-                                    textarea.materialize-textarea(ng-model="item.value")
+                                    textarea.materialize-textarea(ng-model="item.value", ui-markdown-editor="editorOptions")
                         .node.node--image--wrap(ng-switch-when="image")
                             .node--header Image
                         .node.node--video--wrap(ng-switch-when="video")
