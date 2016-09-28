@@ -138,6 +138,7 @@ router.post('/add_rate', function(req, res, next) {
     rate.page_id = req.body.page_id;
     rate.user_id = req.body.user_id;
     rate.rate = req.body.rate;
+    console.log(rate.user_id);
 
     var sql = 'DELETE FROM rate ' +
             'WHERE page_id = ' + rate.page_id + ' ' +
