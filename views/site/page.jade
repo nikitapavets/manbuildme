@@ -35,12 +35,14 @@ block page-content
                             a.waves-effect.waves-light.btn.send-btn(href="javascript:" ng-click="pushComment(#{comp.id})") Send
         footer.page--footer
             .star--wrap
-                - if (page.rate.length > 0)
-                    - for(var i = 0; i < 5; i++)
+                - for(var i = 0; i < 5; i++)
+                    - if(page.rate.length > 0)
                         - if(i<page.rate[0].rate)
                             a.star(class="fa fa-star", href="javascript:", ng-mouseover="starMouseOver(#{i});", ng-mouseleave="starMouseOut();" ng-click="starClick(#{i},#{page.id})")
                         - else
                             a.star(class="fa fa-star-o", href="javascript:", ng-mouseover="starMouseOver(#{i});", ng-mouseleave="starMouseOut();" ng-click="starClick(#{i},#{page.id})")
+                    - else
+                        a.star(class="fa fa-star-o", href="javascript:", ng-mouseover="starMouseOver(#{i});", ng-mouseleave="starMouseOut();" ng-click="starClick(#{i},#{page.id})")
 
 
 
