@@ -1,4 +1,4 @@
-angular.module('mainApp', ['ngStorage', 'ngRoute', 'dndLists', 'angularOneDrivePicker'])
+angular.module('mainApp', ['ngStorage', 'ngRoute', 'dndLists'])
     .controller('mainController', function ($scope, $localStorage, $http) {
 
         $scope.$storage = $localStorage.$default({
@@ -37,21 +37,6 @@ angular.module('mainApp', ['ngStorage', 'ngRoute', 'dndLists', 'angularOneDriveP
     })
     .controller("appCtrl", function($scope){
         console.log('controller set up');
-    })
-    .controller('ExampleCtrl', ['$scope', function ($scope) {
-        $scope.files = [];
-
-        $scope.onPicked = function (data) {
-            angular.forEach(data.values, function (file, index) {
-                $scope.files.push(file);
-            });
-        }
-    }])
-    .config(['angularOneDriveSettingsProvider', function (angularOneDriveSettingsProvider) {
-
-        angularOneDriveSettingsProvider.configure({
-            client_id    : '622cda87-2fc6-4d49-84d2-c7926f7e313c'
-        });
-    }])
+    });
 
 

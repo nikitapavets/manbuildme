@@ -40,6 +40,9 @@ block page-content
                                     textarea.materialize-textarea(ng-model="item.value", ui-markdown-editor="editorOptions")
                         .node.node--image--wrap(ng-switch-when="image")
                             .node--header Image
+                            .images--wrap(class="images{{item.id}}")
+                                a.btn-floating.btn-large.waves-effect.waves-light.add-btn(class="blue", href="javascript:;", ng-click="DropBoxInit(924)")
+                                    i.fa.fa-plus
                         .node.node--video--wrap(ng-switch-when="video")
                             .node--header Video
                             .input-field

@@ -27,7 +27,7 @@ block page-content
 
                                         div(comments="#{comp.id}")
 
-                                        .comments--new_comment(ng-if="{{user.id}}")
+                                        .comments--new_comment(ng-if="user.id")
                                             .title New comment
                                             .input-field
                                                 textarea.materialize-textarea.new_comment(name="new_comment")

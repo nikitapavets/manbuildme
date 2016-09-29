@@ -207,4 +207,23 @@ angular.module('mainApp')
                     //todo
                 });
         }
+
+        var options = {
+             success: function(files) {
+                alert("Here's the file link: " + files[0].link)
+                angular.element(document.querySelector($scope.DropBoxArea)).append(files[0].link);
+             },
+             cancel: function() {
+
+             },
+             linkType: "direct",
+             multiselect: true,
+             extensions: ['.jpg', '.png', '.jpeg'],
+             };
+        $scope.DropBoxInit = function(images_wrap_id){
+            Dropbox.choose(options);
+            $scope.DropBoxArea = '.images' + images_wrap_id;
+        }
+        $scope.DropBoxArea = '';
+
     });

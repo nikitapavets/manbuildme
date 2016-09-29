@@ -36,30 +36,12 @@ html(lang='ru', class="no-js", ng-app="mainApp")
     noscript
         link(rel='stylesheet', href='/css/fonts.min.css')
         link(rel='stylesheet', href='/css/main.min.css')
-    script(type="text/javascript" src="https://js.live.net/v7.0/OneDrive.js")
-    | <script type="text/javascript">
-    |   function launchOneDrivePicker(){
-    |     var odOptions = {
-    |   clientId: "622cda87-2fc6-4d49-84d2-c7926f7e313c",
-    |   action: "share | download | query",
-    |   multiSelect: true,
-    |   openInNewWindow: true,
-    |   advanced: {},
-    |   success: function(files) { /* success handler */ },
-    |   cancel: function() { /* cancel handler */ },
-    |   error: function(e) { /* error handler */ }
-    | }
-    |     OneDrive.open(odOptions);
-    |   }
-    | </script>
 
   body(ng-controller="mainController")
-    wrappp(ng-controller="ExampleCtrl")
 
-      block main-content-wrap
+    block main-content-wrap
 
     // Load Scripts
     script(src='//ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js')
-
-
+    | <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="lrh8q9ww93y7gcl"></script>
     script(src='/js/main.min.js')
