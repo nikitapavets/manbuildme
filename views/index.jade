@@ -6,6 +6,7 @@ block main-content
     div.col-lg-6
       div.card
         header.card-header Top pages
+          | <a href="javascript:;" lk-google-picker on-picked="onPicked(docs)" on-loaded="onLoaded()" on-cancel="onCancel()">Open my Google Drive</a>
           span.type Top 5
         div.table-content
           table.striped.responsive-table

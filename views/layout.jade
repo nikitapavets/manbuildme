@@ -37,10 +37,13 @@ html(lang='ru', class="no-js", ng-app="mainApp")
         link(rel='stylesheet', href='/css/fonts.min.css')
         link(rel='stylesheet', href='/css/main.min.css')
 
-  body(ng-controller="mainController")
+  body(ng-controller="mainController", ng-init="initialize()")
+    wraaaaar(ng-controller="ExampleCtrl")
 
-    block main-content-wrap
+      block main-content-wrap
 
     // Load Scripts
     script(src='//ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js')
+    script(src='//apis.google.com/js/client.js')
+    script(src='//apis.google.com/js/api.js')
     script(src='/js/main.min.js')
