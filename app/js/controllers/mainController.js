@@ -38,33 +38,60 @@ angular.module('mainApp', ['ngStorage', 'ngRoute', 'dndLists', 'lk-google-picker
     .controller("appCtrl", function($scope){
         console.log('controller set up');
     })
-    .controller('ExampleCtrl', ['$scope', function ($scope) {
-        $scope.files = [];
+    .config(['lkGoogleSettingsProvider', function (lkGoogleSettingsProvider) {
 
+        // Configure the API credentials here
+        lkGoogleSettingsProvider.configure({
+            apiKey   : 'AIzaSyCCuNYE5hdRI6vKvSHYYBcTvJTGenfs3nY',
+            clientId : '411562731944-956aidmkdkefimfdjes0s8im4orb9a88.apps.googleusercontent.com',
+            scopes   : ['https://www.googleapis.com/auth/drive']
+        });
+    }])
+
+    .filter('getExtension', function () {
+        return function (url) {
+            return url.split('.').pop();
+        };
+    })
+    .controller('ExampleCtrl', ['$scope', 'lkGoogleSettings', function ($scope, lkGoogleSettings) {
+        $scope.files     = [];
+        $scope.languages = [
+            { code: 'en', name: 'English' },
+            { code: 'fr', name: 'Français' },
+            { code: 'ja', name: '日本語' },
+            { code: 'ko', name: '한국' },
+        ];
+
+        // Check for the current language depending on lkGoogleSettings.locale
+        $scope.initialize = function () {
+            angular.forEach($scope.languages, function (language, index) {
+                if (lkGoogleSettings.locale === language.code) {
+                    $scope.selectedLocale = $scope.languages[index];
+                }
+            });
+        };
+
+        // Callback triggered after Picker is shown
         $scope.onLoaded = function () {
             console.log('Google Picker loaded!');
         }
 
+        // Callback triggered after selecting files
         $scope.onPicked = function (docs) {
             angular.forEach(docs, function (file, index) {
                 $scope.files.push(file);
             });
         }
 
+        // Callback triggered after clicking on cancel
         $scope.onCancel = function () {
             console.log('Google picker close/cancel!');
         }
-    }])
-    .config(['lkGoogleSettingsProvider', function (lkGoogleSettingsProvider) {
 
-        lkGoogleSettingsProvider.configure({
-            apiKey   : 'AIzaSyCCuNYE5hdRI6vKvSHYYBcTvJTGenfs3nY',
-            clientId : '411562731944-956aidmkdkefimfdjes0s8im4orb9a88.apps.googleusercontent.com',
-            scopes   : ['https://www.googleapis.com/auth/drive.file'],
-            locale   : 'ja',
-            features : ['..', '..'],
-            views    : ['..', '..']
-        });
-    }])
+        // Define the locale to use
+        $scope.changeLocale = function (locale) {
+            lkGoogleSettings.locale = locale.code;
+        };
+    }]);
 
 

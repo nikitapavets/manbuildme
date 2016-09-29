@@ -76,7 +76,7 @@ gulp.task('scriptlibs', function() {
 		'app/lib/angular-route/angular-route.js',
 		'app/lib/ngstorage/ngStorage.js',
 		'app/lib/angular-lightweight-markdown-editor/dist/angular-lightweight-markdown-editor.min.js',
-		'app/lib/angular-google-picker/dist/google-picker.js'
+		'app/lib/oi.file.js'
 	])
 	.pipe(uglify())
 	.pipe(concat('libs.min.js'))

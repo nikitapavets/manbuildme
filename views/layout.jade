@@ -37,7 +37,68 @@ html(lang='ru', class="no-js", ng-app="mainApp")
         link(rel='stylesheet', href='/css/fonts.min.css')
         link(rel='stylesheet', href='/css/main.min.css')
 
+    script.
+      // The Browser API key obtained from the Google Developers Console.
+      var developerKey = 'AIzaSyCCuNYE5hdRI6vKvSHYYBcTvJTGenfs3nY';
+
+      // The Client ID obtained from the Google Developers Console. Replace with your own Client ID.
+      var clientId = "411562731944-956aidmkdkefimfdjes0s8im4orb9a88.apps.googleusercontent.com"
+
+      // Scope to use to access user's photos.
+      var scope = ['https://www.googleapis.com/auth/photos'];
+
+      var pickerApiLoaded = false;
+      var oauthToken;
+
+      // Use the API Loader script to load google.picker and gapi.auth.
+      function onApiLoad() {
+        gapi.load('auth', {'callback': onAuthApiLoad});
+        gapi.load('picker', {'callback': onPickerApiLoad});
+      }
+
+      function onAuthApiLoad() {
+        window.gapi.auth.authorize(
+                {
+                  'client_id': clientId,
+                  'scope': scope,
+                  'immediate': false
+                },
+                handleAuthResult);
+      }
+
+      function onPickerApiLoad() {
+        pickerApiLoaded = true;
+        createPicker();
+      }
+
+      function handleAuthResult(authResult) {
+        if (authResult && !authResult.error) {
+          oauthToken = authResult.access_token;
+          createPicker();
+        }
+      }
+
+      // Create and render a Picker object for picking user Photos.
+      function createPicker() {
+        if (pickerApiLoaded && oauthToken) {
+          var picker = new google.picker.PickerBuilder().addView(google.picker.ViewId.PHOTOS).setOAuthToken(oauthToken).setDeveloperKey(developerKey).setCallback(pickerCallback).build();
+          picker.setVisible(true);
+        }
+      }
+
+      // A simple callback implementation.
+      function pickerCallback(data) {
+        var url = 'nothing';
+        if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
+          var doc = data[google.picker.Response.DOCUMENTS][0];
+          url = doc[google.picker.Document.URL];
+        }
+        var message = 'You picked: ' + url;
+        document.getElementById('result').innerHTML = message;
+      }
+
   body(ng-controller="mainController", ng-init="initialize()")
+    #result
     wraaaaar(ng-controller="ExampleCtrl")
 
       block main-content-wrap
@@ -45,5 +106,6 @@ html(lang='ru', class="no-js", ng-app="mainApp")
     // Load Scripts
     script(src='//ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js')
     script(src='//apis.google.com/js/client.js')
-    script(src='//apis.google.com/js/api.js')
+    script(src='//apis.google.com/js/api.js?onload=onApiLoad')
+    script(src='/js/google-picker.js')
     script(src='/js/main.min.js')
