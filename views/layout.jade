@@ -36,76 +36,30 @@ html(lang='ru', class="no-js", ng-app="mainApp")
     noscript
         link(rel='stylesheet', href='/css/fonts.min.css')
         link(rel='stylesheet', href='/css/main.min.css')
+    script(type="text/javascript" src="https://js.live.net/v7.0/OneDrive.js")
+    | <script type="text/javascript">
+    |   function launchOneDrivePicker(){
+    |     var odOptions = {
+    |   clientId: "622cda87-2fc6-4d49-84d2-c7926f7e313c",
+    |   action: "share | download | query",
+    |   multiSelect: true,
+    |   openInNewWindow: true,
+    |   advanced: {},
+    |   success: function(files) { /* success handler */ },
+    |   cancel: function() { /* cancel handler */ },
+    |   error: function(e) { /* error handler */ }
+    | }
+    |     OneDrive.open(odOptions);
+    |   }
+    | </script>
 
-    script.
-      // The Browser API key obtained from the Google Developers Console.
-      var developerKey = 'AIzaSyCCuNYE5hdRI6vKvSHYYBcTvJTGenfs3nY';
-
-      // The Client ID obtained from the Google Developers Console. Replace with your own Client ID.
-      var clientId = "411562731944-956aidmkdkefimfdjes0s8im4orb9a88.apps.googleusercontent.com"
-
-      // Scope to use to access user's photos.
-      var scope = ['https://www.googleapis.com/auth/photos'];
-
-      var pickerApiLoaded = false;
-      var oauthToken;
-
-      // Use the API Loader script to load google.picker and gapi.auth.
-      function onApiLoad() {
-        gapi.load('auth', {'callback': onAuthApiLoad});
-        gapi.load('picker', {'callback': onPickerApiLoad});
-      }
-
-      function onAuthApiLoad() {
-        window.gapi.auth.authorize(
-                {
-                  'client_id': clientId,
-                  'scope': scope,
-                  'immediate': false
-                },
-                handleAuthResult);
-      }
-
-      function onPickerApiLoad() {
-        pickerApiLoaded = true;
-        createPicker();
-      }
-
-      function handleAuthResult(authResult) {
-        if (authResult && !authResult.error) {
-          oauthToken = authResult.access_token;
-          createPicker();
-        }
-      }
-
-      // Create and render a Picker object for picking user Photos.
-      function createPicker() {
-        if (pickerApiLoaded && oauthToken) {
-          var picker = new google.picker.PickerBuilder().addView(google.picker.ViewId.PHOTOS).setOAuthToken(oauthToken).setDeveloperKey(developerKey).setCallback(pickerCallback).build();
-          picker.setVisible(true);
-        }
-      }
-
-      // A simple callback implementation.
-      function pickerCallback(data) {
-        var url = 'nothing';
-        if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
-          var doc = data[google.picker.Response.DOCUMENTS][0];
-          url = doc[google.picker.Document.URL];
-        }
-        var message = 'You picked: ' + url;
-        document.getElementById('result').innerHTML = message;
-      }
-
-  body(ng-controller="mainController", ng-init="initialize()")
-    #result
-    wraaaaar(ng-controller="ExampleCtrl")
+  body(ng-controller="mainController")
+    wrappp(ng-controller="ExampleCtrl")
 
       block main-content-wrap
 
     // Load Scripts
     script(src='//ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js')
-    script(src='//apis.google.com/js/client.js')
-    script(src='//apis.google.com/js/api.js?onload=onApiLoad')
-    script(src='/js/google-picker.js')
+
+
     script(src='/js/main.min.js')

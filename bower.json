@@ -14,6 +14,7 @@
     "angular-drag-and-drop-lists": "^1.4.0",
     "Angular-Markdown-Editor": "angular-markdown-editor#*",
     "angular-lightweight-markdown-editor": "^0.2.0",
-    "angular-google-picker": "^0.2.2"
+    "angular-google-picker": "^0.2.2",
+    "angular-one-drive-picker": "*"
   }
 }

@@ -1,4 +1,4 @@
-angular.module('mainApp', ['ngStorage', 'ngRoute', 'dndLists', 'lk-google-picker'])
+angular.module('mainApp', ['ngStorage', 'ngRoute', 'dndLists', 'angularOneDrivePicker'])
     .controller('mainController', function ($scope, $localStorage, $http) {
 
         $scope.$storage = $localStorage.$default({
@@ -38,60 +38,20 @@ angular.module('mainApp', ['ngStorage', 'ngRoute', 'dndLists', 'lk-google-picker
     .controller("appCtrl", function($scope){
         console.log('controller set up');
     })
-    .config(['lkGoogleSettingsProvider', function (lkGoogleSettingsProvider) {
+    .controller('ExampleCtrl', ['$scope', function ($scope) {
+        $scope.files = [];
 
-        // Configure the API credentials here
-        lkGoogleSettingsProvider.configure({
-            apiKey   : 'AIzaSyCCuNYE5hdRI6vKvSHYYBcTvJTGenfs3nY',
-            clientId : '411562731944-956aidmkdkefimfdjes0s8im4orb9a88.apps.googleusercontent.com',
-            scopes   : ['https://www.googleapis.com/auth/drive']
-        });
-    }])
-
-    .filter('getExtension', function () {
-        return function (url) {
-            return url.split('.').pop();
-        };
-    })
-    .controller('ExampleCtrl', ['$scope', 'lkGoogleSettings', function ($scope, lkGoogleSettings) {
-        $scope.files     = [];
-        $scope.languages = [
-            { code: 'en', name: 'English' },
-            { code: 'fr', name: 'Français' },
-            { code: 'ja', name: '日本語' },
-            { code: 'ko', name: '한국' },
-        ];
-
-        // Check for the current language depending on lkGoogleSettings.locale
-        $scope.initialize = function () {
-            angular.forEach($scope.languages, function (language, index) {
-                if (lkGoogleSettings.locale === language.code) {
-                    $scope.selectedLocale = $scope.languages[index];
-                }
-            });
-        };
-
-        // Callback triggered after Picker is shown
-        $scope.onLoaded = function () {
-            console.log('Google Picker loaded!');
-        }
-
-        // Callback triggered after selecting files
-        $scope.onPicked = function (docs) {
-            angular.forEach(docs, function (file, index) {
+        $scope.onPicked = function (data) {
+            angular.forEach(data.values, function (file, index) {
                 $scope.files.push(file);
             });
         }
+    }])
+    .config(['angularOneDriveSettingsProvider', function (angularOneDriveSettingsProvider) {
 
-        // Callback triggered after clicking on cancel
-        $scope.onCancel = function () {
-            console.log('Google picker close/cancel!');
-        }
-
-        // Define the locale to use
-        $scope.changeLocale = function (locale) {
-            lkGoogleSettings.locale = locale.code;
-        };
-    }]);
+        angularOneDriveSettingsProvider.configure({
+            client_id    : '622cda87-2fc6-4d49-84d2-c7926f7e313c'
+        });
+    }])
 
 
