@@ -57,12 +57,15 @@ router.get('/id:id/page/id:page_id', function (req, res){
                         'ORDER BY position';
                     pool.query(sql, function (error, components_rows) {
                         current_page.components = components_rows;
-                        var sql = 'SELECT * ' +
+                        var sql = 'SELECT AVG(rate) AS avg_rate ' +
                                 'FROM rate ' +
                                 'WHERE page_id = ' + page_id;
                         pool.query(sql, function (error, rate_rows) {
-                            current_page.rate = rate_rows;
-                            console.log(current_page);
+                            if(rate_rows){
+                                current_page.rate = rate_rows[0].avg_rate;
+                            }else{
+                                current_page.rate = 0;
+                            }
 
                             res.render('site/page', {site: site, page_id: page_id, page: current_page});
                         })

@@ -6,7 +6,7 @@ block page-content
         .row
             .col-xs-12
                 header.page--header #{page.title}
-                    a.edit(href="/site/id#{site.id}/page/id#{page.id}/edit")
+                    a.edit(href="/site/id#{site.id}/page/id#{page.id}/edit", ng-if="#{site.user_id} == user.id")
                         i.fa.fa-pencil-square-o
         .page--content
             .row
@@ -26,15 +26,8 @@ block page-content
                                         header.comments--header Comments
 
                                         div(comments="#{comp.id}")
-                                        //- for(var j = 0; j<comp.comments.length; j++)
-                                            .comments--comment
-                                                .author
-                                                    a(href="#") Никита Павец
-                                                    a.delete-ico(href="javascript:")
-                                                        i.fa.fa-times
-                                                .msg #{comp.comments[j].value}
 
-                                        .comments--new_comment
+                                        .comments--new_comment(ng-if="{{user.id}}")
                                             .title New comment
                                             .input-field
                                                 textarea.materialize-textarea.new_comment(name="new_comment")
@@ -165,8 +158,8 @@ block page-content
         footer.page--footer
             .star--wrap
                 - for(var i = 0; i < 5; i++)
-                    - if(page.rate.length > 0)
-                        - if(i<page.rate[0].rate)
+                    - if(page.rate > 0)
+                        - if(i<page.rate)
                             a.star(class="fa fa-star", href="javascript:", ng-mouseover="starMouseOver(#{i});", ng-mouseleave="starMouseOut();" ng-click="starClick(#{i},#{page.id})")
                         - else
                             a.star(class="fa fa-star-o", href="javascript:", ng-mouseover="starMouseOver(#{i});", ng-mouseleave="starMouseOut();" ng-click="starClick(#{i},#{page.id})")
