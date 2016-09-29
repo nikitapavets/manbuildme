@@ -27,7 +27,6 @@ router.get('/', function(req, res){
         'LIMIT 5';
     pool.query(sql, function(error, top_pages_rows) {
       var top_pages = top_pages_rows;
-      console.log(top_pages);
 
       res.render('index', {last_pages: last_pages, top_pages: top_pages});
     });
