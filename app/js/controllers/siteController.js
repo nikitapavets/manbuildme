@@ -94,8 +94,6 @@ angular.module('mainApp')
                 $http.post('/site/get_page', {page_id: $scope.page_id})
                     .success(function (data) {
 
-                        console.log(data);
-
                         $scope.models = {
                             selected: null,
                             lists: {
@@ -130,6 +128,11 @@ angular.module('mainApp')
                             ];
                             for(var k = 0 ; k < data.components.length; k++){
                                 if(data.components[k].position < 100){
+
+                                    if(data.components[k].label == 'image'){
+                                        data.components[k].images = [];
+                                    }
+
                                     l_comps[0].push(data.components[k]);
                                 }else if(data.components[k].position < 200){
                                     l_comps[1].push(data.components[k]);
@@ -196,7 +199,6 @@ angular.module('mainApp')
                 $scope.models.lists.Section_Two,
                 $scope.models.lists.Section_Three
             ]
-            console.log(pageComponents);
             $http.post('/site/save_page',
                 {
                     pageComponents: pageComponents,
@@ -210,8 +212,14 @@ angular.module('mainApp')
 
         var options = {
              success: function(files) {
-                alert("Here's the file link: " + files[0].link)
-                angular.element(document.querySelector($scope.DropBoxArea)).append(files[0].link);
+                var wrap_templ = document.querySelector($scope.DropBoxWrap);
+                var inp = document.querySelector($scope.DropBoxWrap + " input");
+                 for(var i = 0; i < files.length; i++){
+                     //angular.element(wrap_templ).append('<img src="'+files[i].link+'" width="200" height="200">');
+                     //angular.element(inp).val(files[i].link);
+                     $scope.models.selected.images.push(files[i].link);
+                 }
+
              },
              cancel: function() {
 
@@ -220,10 +228,11 @@ angular.module('mainApp')
              multiselect: true,
              extensions: ['.jpg', '.png', '.jpeg'],
              };
-        $scope.DropBoxInit = function(images_wrap_id){
+
+        $scope.DropBoxInit = function(event){
+            $scope.DropBoxWrap = '.' + event.target.id;
             Dropbox.choose(options);
-            $scope.DropBoxArea = '.images' + images_wrap_id;
         }
-        $scope.DropBoxArea = '';
+        $scope.DropBoxWrap = '';
 
     });

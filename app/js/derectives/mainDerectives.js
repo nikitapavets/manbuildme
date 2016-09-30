@@ -35,34 +35,11 @@ angular.module('mainApp')
             }
         }
     })
-    .directive('comments', function ($http, $interval) {
+    .directive('dropBox', function ($http, $interval) {
         return {
             link: function(scope, element, attrs){
-                var component_id = attrs.comments;
-                /*$interval(function(){
-
-                    var count = angular.element(element).children().length;
-                    $http.post('/comment/update', {component_id: component_id, count: count})
-                        .success(function(data){
-
-
-                            data.forEach(function(comment){
-                                var comment_templ =
-                                    '<div class="comments--comment">' +
-                                    '<div class="author">' +
-                                    '<a href="/user/id' + comment.user_id + '/profile" target="_blank">' +
-                                    comment.first_name + ' ' + comment.second_name +
-                                    '</a>' +
-                                    '<a href="javascript:" class="delete-ico"><i class="fa fa-times"></i></a>' +
-                                    '</div>' +
-                                    '<div class="msg">' + comment.value + '</div>' +
-                                    '</div>';
-                                angular.element(element).append(comment_templ);
-                            });
-
-                        });
-
-                }, 1500)*/
+                var wrap_id = attrs.wrapId;
+                angular.element(element).append('<div class="images--wrap images'+wrap_id+'"><a href="javascript:" class="btn-floating btn-large waves-effect waves-light add-btn blue" ng-click="DropBoxInit('+wrap_id+')"><i class="fa fa-plus"></a></div>');
 
             }
         }

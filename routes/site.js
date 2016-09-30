@@ -252,8 +252,24 @@ router.post('/save_page', function(req, res, next) {
                     components[j].forEach(function(component, i){
                         component.position = 100*j+i;
                         component.page_id = page_id;
+                        var images = [];
+                        if(component.label == 'image'){
+                            images = component.images;
+                            delete component.images;
+                        }
                         pool.query("INSERT INTO components SET ?", component, function(err, result) {
-                            // todo
+                            if(component.label == 'image'){
+                                if(component.images) {
+                                    for (var d = 0; d < images.length; d++) {
+                                        var image = new Object();
+                                        image.img_src = images[d];
+                                        image.component_id = component_id;
+                                        pool.query("INSERT INTO images SET ?", image, function (err, result) {
+                                            console.log(err);
+                                        });
+                                    }
+                                }
+                            }
                         });
                     });
                 }
