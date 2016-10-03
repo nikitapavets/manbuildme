@@ -42,7 +42,7 @@ block page-content
                             .node--header Image
                             .images--wrap(class="images{{item.id}}")
                                 .image(ng-repeat="image in item.images")
-                                    img(src="{{image}}", width="200")
+                                    img(src="{{image.img_src}}", width="200")
                                 a.btn-floating.btn-large.waves-effect.waves-light.add-btn(class="blue", href="javascript:;", data-ng-click="DropBoxInit($event)")
                                     i.fa.fa-plus(id="images{{item.id}}")
                         .node.node--video--wrap(ng-switch-when="video")

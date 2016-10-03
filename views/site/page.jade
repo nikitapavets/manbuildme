@@ -18,6 +18,13 @@ block page-content
                                 - if(comp.label == 'text')
                                     p
                                         btf-markdown #{comp.value}
+                                - if(comp.label == 'image')
+                                    .images--wrap.row
+                                        - for(var j=0; j < comp.images.length; j++)
+                                            .image.col-sm-6
+                                                img(src="#{comp.images[j].img_src}")
+                                            - if(j % 2 != 0 && j > 1)
+                                                .clearfix
                                 - if(comp.label == 'video')
                                     - var url = comp.value.replace('watch?v=', 'embed/')
                                     iframe(width="100%", height="450", src="#{url}", frameborder="0", allowfullscreen)
@@ -41,6 +48,13 @@ block page-content
                                 - if(comp.label == 'text')
                                     p
                                         btf-markdown #{comp.value}
+                                - if(comp.label == 'image')
+                                    .images--wrap.row
+                                        - for(var j=0; j < comp.images.length; j++)
+                                            .image.col-sm-12
+                                                img(src="#{comp.images[j].img_src}")
+                                            - if(j % 2 != 0 && j > 1)
+                                                .clearfix
                                 - if(comp.label == 'video')
                                     - var url = comp.value.replace('watch?v=', 'embed/')
                                     iframe(width="100%", height="450", src="#{url}", frameborder="0", allowfullscreen)
@@ -70,6 +84,13 @@ block page-content
                                 - if(comp.label == 'text')
                                     p
                                         btf-markdown #{comp.value}
+                                - if(comp.label == 'image')
+                                    .images--wrap.row
+                                        - for(var j=0; j < comp.images.length; j++)
+                                            .image.col-sm-12
+                                                img(src="#{comp.images[j].img_src}")
+                                            - if(j % 2 != 0 && j > 1)
+                                                .clearfix
                                 - if(comp.label == 'video')
                                     - var url = comp.value.replace('watch?v=', 'embed/')
                                     iframe(width="100%", height="450", src="#{url}", frameborder="0", allowfullscreen)
@@ -102,6 +123,13 @@ block page-content
                                 - if(comp.label == 'text')
                                     p
                                         btf-markdown #{comp.value}
+                                - if(comp.label == 'image')
+                                    .images--wrap.row
+                                        - for(var j=0; j < comp.images.length; j++)
+                                            .image.col-sm-12
+                                                img(src="#{comp.images[j].img_src}")
+                                            - if(j % 2 != 0 && j > 1)
+                                                .clearfix
                                 - if(comp.label == 'video')
                                     - var url = comp.value.replace('watch?v=', 'embed/')
                                     iframe(width="100%", height="450", src="#{url}", frameborder="0", allowfullscreen)
@@ -131,6 +159,13 @@ block page-content
                                 - if(comp.label == 'text')
                                     p
                                         btf-markdown #{comp.value}
+                                - if(comp.label == 'image')
+                                    .images--wrap.row
+                                        - for(var j=0; j < comp.images.length; j++)
+                                            .image.col-sm-12
+                                                img(src="#{comp.images[j].img_src}")
+                                            - if(j % 2 != 0 && j > 1)
+                                                .clearfix
                                 - if(comp.label == 'video')
                                     - var url = comp.value.replace('watch?v=', 'embed/')
                                     iframe(width="100%", height="450", src="#{url}", frameborder="0", allowfullscreen)

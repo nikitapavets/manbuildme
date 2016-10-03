@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var mysql       = require('mysql');
+var eachOf  = require('async/eachOf');
+var async = require('async');
 
 var pool = mysql.createPool({
     "host": "eu-cdbr-west-01.cleardb.com",
@@ -67,7 +69,26 @@ router.get('/id:id/page/id:page_id', function (req, res){
                                 current_page.rate = 0;
                             }
 
-                            res.render('site/page', {site: site, page_id: page_id, page: current_page});
+                            async.forEachOf(current_page.components, function (component, index, callback) {
+
+                                if(current_page.components[index].label == 'image') {
+                                    current_page.components[index].images = [];
+                                    var sql = 'SELECT * ' +
+                                        'FROM images ' +
+                                        'WHERE component_id = ' + current_page.components[index].id + ' ' +
+                                        'ORDER BY id';
+                                    pool.query(sql, function (error, images_rows) {
+                                        current_page.components[index].images = images_rows;
+                                        callback();
+                                    });
+                                }else{
+                                    callback();
+                                }
+                            }, function (error) {
+
+                                res.render('site/page', {site: site, page_id: page_id, page: current_page});
+                            });
+
                         })
 
                     });
@@ -125,7 +146,28 @@ router.post('/get_page', function(req, res, next) {
                 'ORDER BY position';
             pool.query(sql, function (error, components_rows) {
                 page.components = components_rows;
-                res.send(page);
+
+                async.forEachOf(page.components, function (component, index, callback) {
+
+                    if(page.components[index].label == 'image') {
+                        page.components[index].images = [];
+                        var sql = 'SELECT * ' +
+                            'FROM images ' +
+                            'WHERE component_id = ' + page.components[index].id + ' ' +
+                            'ORDER BY id';
+                        pool.query(sql, function (error, images_rows) {
+                            page.components[index].images = images_rows;
+                            callback();
+                        });
+                    }else{
+                        callback();
+                    }
+                }, function (error) {
+
+                    res.send(page);
+                });
+
+
             })
         }
     })
@@ -259,14 +301,16 @@ router.post('/save_page', function(req, res, next) {
                         }
                         pool.query("INSERT INTO components SET ?", component, function(err, result) {
                             if(component.label == 'image'){
-                                if(component.images) {
+                                if(images) {
                                     for (var d = 0; d < images.length; d++) {
-                                        var image = new Object();
-                                        image.img_src = images[d];
-                                        image.component_id = component_id;
-                                        pool.query("INSERT INTO images SET ?", image, function (err, result) {
-                                            console.log(err);
-                                        });
+                                        if(!images[d].id) {
+                                            var image = new Object();
+                                            image.img_src = images[d].img_src;
+                                            image.component_id = result.insertId;
+                                            pool.query("INSERT INTO images SET ?", image, function (err, result) {
+                                                console.log(err);
+                                            });
+                                        }
                                     }
                                 }
                             }
