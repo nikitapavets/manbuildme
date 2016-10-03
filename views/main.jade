@@ -6,9 +6,13 @@ block main-content-wrap
 
         header.main-header.z-depth-1#cont(class="{{styleColor}}")
             div.right-items
-                a.dropdown-button.hide-on-small-only(href="#", data-activates="dropdown-colors") Styles
+                a.dropdown-button.hide-on-small-only(href="#", data-activates="dropdown-colors") {{ctext.styles}}
                     i.fa.fa-caret-down(aria-hidden="true")
                 a.dropdown-button.hide-on-med-and-up(href="#", data-activates="dropdown-colors")
+                    i.fa.fa-adjust(aria-hidden="true")
+                a.dropdown-button.hide-on-small-only(href="#", data-activates="dropdown-langs") {{ctext.lang}}
+                    i.fa.fa-caret-down(aria-hidden="true")
+                a.dropdown-button.hide-on-med-and-up(href="#", data-activates="dropdown-langs")
                     i.fa.fa-adjust(aria-hidden="true")
                 a(href="#")
                     i.fa.fa-search(aria-hidden="true")
@@ -20,11 +24,16 @@ block main-content-wrap
 
             ul#dropdown-colors.dropdown-content
                 li
-                    a(href="#", ng-click="styleColor = 'red'; newColor();") Red
+                    a(href="#", ng-click="styleColor = 'red'; newColor();") {{ctext.style_red}}
                 li
-                    a(href="#", ng-click="styleColor = 'blue'; newColor()") Blue
+                    a(href="#", ng-click="styleColor = 'blue'; newColor()") {{ctext.style_blue}}
                 li
-                    a(href="#", ng-click="styleColor = 'green'; newColor()") Green
+                    a(href="#", ng-click="styleColor = 'green'; newColor()") {{ctext.style_green}}
+            ul#dropdown-langs.dropdown-content
+                li
+                    a(href="#", ng-click="lang = 'rus';") {{ctext.lang_rus}}
+                li
+                    a(href="#", ng-click="lang = 'eng';") {{ctext.lang_eng}}
 
         div.content_wrap.content-color.lighten-5(class="{{styleColor}}")
             div.main-menu(ng-controller="mainMenuController as menu")
@@ -52,12 +61,12 @@ block main-content-wrap
                             a(href="/user/id{{user.id}}/profile")
                                 div.i-wrap
                                     i.fa.fa-user
-                                | Profile
+                                | {{ctext.user_profile}}
                         li
                             a(href="javascript:", ng-click="userActions.exit()")
                                 div.i-wrap
                                     i.fa.fa-sign-out
-                                | Exit
+                                | {{ctext.user_exit}}
 
                 div.menu-list
                     ul
@@ -65,17 +74,17 @@ block main-content-wrap
                             a(href="#")
                                 div.i-wrap
                                     i.fa.fa-star
-                                | Top pages
+                                | {{ctext.top_pages}}
                         li
                             a(href="#")
                                 div.i-wrap
                                     i.fa.fa-pencil-square-o
-                                | Last pages
+                                | {{ctext.last_pages}}
                         li
                             a(href="#")
                                 div.i-wrap
                                     i.fa.fa-tags
-                                | Tag cloud
+                                | {{ctext.tags_cloud}}
             div.main-content
                 block main-content
 

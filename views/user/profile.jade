@@ -21,7 +21,7 @@ block main-content
                         - if(sites.length >= 5)
                             img.medal(ng-src="/img/svg/5_sites.svg" title="Five site" alt="Five site")
                 .card.about-user--wrap
-                    header.about-user--header.card-header Settings
+                    header.about-user--header.card-header {{ctext.user_settings}}
                     .about-user--settings
                         .switch
                             label
@@ -31,7 +31,7 @@ block main-content
                                 | Russian
             .col-lg-9.col-sm-12
                 .card
-                    header.card-header Sites
+                    header.card-header {{ctext.user_sites}}
                         a.btn-floating.btn-large.waves-effect.waves-light.add-btn(class="{{styleColor}}", href="/site/add")
                             i.fa.fa-plus
 
@@ -39,14 +39,14 @@ block main-content
                         table.striped
                             thead
                                 tr
-                                    td(data-field="title") Title
-                                    td(data-field="type") Type
-                                    td(data-field="pages") Pages
-                                    td(data-field="date") Update
+                                    td(data-field="title") {{ctext.table_title}}
+                                    td(data-field="type") {{ctext.table_type}}
+                                    td(data-field="pages") {{ctext.table_pages}}
+                                    td(data-field="date") {{ctext.table_update}}
                                         a.sort(href="#")
                                             i.fa.fa-caret-down
-                                    td(data-field="date") Created
-                                    td(data-field="date") Actions
+                                    td(data-field="date") {{ctext.table_created}}
+                                    td(data-field="date") {{ctext.table_actions}}
                             tbody
                                 - for(var i = 0; i < sites.length; i++)
                                     tr

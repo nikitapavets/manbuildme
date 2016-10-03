@@ -5,17 +5,17 @@ block main-content
   div.row
     div.col-lg-6
       div.card
-        header.card-header Top pages
-          span.type Top 5
+        header.card-header {{ctext.top_pages}}
+          span.type {{ctext.table_top}} 5
         div.table-content
           table.striped.responsive-table
             thead
               tr
-                td(data-field="title") Title
-                td(data-field="site") Site
-                td(data-field="type") Type
-                td(data-field="rate") Rate
-                td(data-field="date") Update date
+                td(data-field="title") {{ctext.table_title}}
+                td(data-field="site") {{ctext.table_site}}
+                td(data-field="type") {{ctext.table_type}}
+                td(data-field="rate") {{ctext.table_rate}}
+                td(data-field="date") {{ctext.table_update}}
             tbody
               - for(var i=0; i < top_pages.length; i++)
                 tr
@@ -34,17 +34,17 @@ block main-content
                   td #{date.toLocaleString()}
     div.col-lg-6
       div.card
-        header.card-header Last pages
-          span.type Top 5
+        header.card-header {{ctext.last_pages}}
+          span.type {{ctext.table_top}} 5
         div.table-content
           table.striped.responsive-table
             thead
               tr
-                td(data-field="title") Title
-                td(data-field="site") Site
-                td(data-field="type") Type
-                td(data-field="rate") Rate
-                td(data-field="date") Update date
+                td(data-field="title") {{ctext.table_title}}
+                td(data-field="site") {{ctext.table_site}}
+                td(data-field="type") {{ctext.table_type}}
+                td(data-field="rate") {{ctext.table_rate}}
+                td(data-field="date") {{ctext.table_update}}
             tbody
               - for(var i=0; i < last_pages.length; i++)
                 tr
