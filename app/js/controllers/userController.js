@@ -9,4 +9,13 @@ angular.module('mainApp')
                 $scope.user_sites = data;
             });
 
+        $scope.siteRemove = function(site_id){
+            $http.post('/site/remove', {site_id: site_id, user_id: $scope.user.id})
+                .success(function(data){
+                    if(data == 'ok'){
+                        location.reload();
+                    }
+                });
+        }
+
     });

@@ -14,9 +14,12 @@ block main-content
                     .about-user--main-inf
                         a(ng-href="{{user.social_url}}" target="_blank", ng-bind="user.name")
                     .about-user--medals.lighten-3(class="{{styleColor}}")
-                        img.medal(ng-src="/img/svg/first_site.svg" title="First site" alt="First site")
-                        img.medal(ng-src="/img/svg/first_comment.svg" title="First comment" alt="First comment")
-                        img.medal(ng-src="/img/svg/5_sites.svg" title="Five site" alt="Five site")
+                        img.medal(ng-src="/img/svg/new_user.svg" title="New user" alt="New user")
+                        - if(sites.length >= 1)
+                            img.medal(ng-src="/img/svg/first_site.svg" title="First site" alt="First site")
+                        //img.medal(ng-src="/img/svg/first_comment.svg" title="First comment" alt="First comment")
+                        - if(sites.length >= 5)
+                            img.medal(ng-src="/img/svg/5_sites.svg" title="Five site" alt="Five site")
                 .card.about-user--wrap
                     header.about-user--header.card-header Settings
                     .about-user--settings
@@ -43,6 +46,7 @@ block main-content
                                         a.sort(href="#")
                                             i.fa.fa-caret-down
                                     td(data-field="date") Created
+                                    td(data-field="date") Actions
                             tbody
                                 - for(var i = 0; i < sites.length; i++)
                                     tr
@@ -53,4 +57,9 @@ block main-content
                                         - var date = new Date(sites[i].create_date)
                                         td #{date.toLocaleString()}
                                         td #{date.toLocaleString()}
+                                        td.actions-wrap
+                                            a(href="/site/id#{sites[i].id}/update")
+                                                i.fa.fa-pencil
+                                            a(href="javascript:;" ng-click="siteRemove(#{sites[i].id})")
+                                                i.fa.fa-times
 

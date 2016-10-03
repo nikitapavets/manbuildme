@@ -1,0 +1,47 @@
+extends ../main
+
+block main-content
+
+    .add-site-page--wrap
+        form(action="/site/update", method="post")
+            .row
+                .col-md-6.col-xs-12
+                    .card
+                        header.card-header Site
+                        .add-site--content
+                            .input-field
+                                input#site_title.validate(type="text", name="site_title", value="#{site.title}")
+                                label(for="site_title") Title
+                            .input-field
+                                input#site_theme.validate(type="text", name="site_theme", value="#{site.theme}")
+                                label(for="site_theme") Theme
+                            - if(site.menu_type == 'vert')
+                                p
+                                    input(name="site_menu_type", type="radio", id="menu_vert", value="vert", checked)
+                                    label(for="menu_vert") Vertical menu
+                                p
+                                    input(name="site_menu_type", type="radio", id="menu_hor", value="gor")
+                                    label(for="menu_hor") Horizontal menu
+                            - else
+                                p
+                                    input(name="site_menu_type", type="radio", id="menu_vert", value="vert" )
+                                    label(for="menu_vert") Vertical menu
+                                p
+                                    input(name="site_menu_type", type="radio", id="menu_hor", value="gor", checked)
+                                    label(for="menu_hor") Horizontal menu
+                            .chips.chips-placeholder
+                            input(type="hidden" name="user_id" value="{{user.id}}")
+                            input(type="hidden" name="site_id" value="#{site.id}")
+                            button.waves-effect.waves-light.btn(type="submit") Save
+
+                .col-md-6.col-xs-12
+                    .card
+                        header.card-header Site pages
+                        .add-site--content
+                            - for(var i = 0; i < site.pages.length; i++)
+                                .input-field
+                                    input.validate(type="text", id="#{'site_page' + (i+1)}", name="#{'site_page' + (i+1)}", value="#{site.pages[i].title}")
+                                    label(for="#{'site_page' + (i+1)}") Page #{i+1}
+                                    input(type="hidden", name="#{'site_page' + (i+1) + '_id'}", value="#{site.pages[i].id}")
+
+

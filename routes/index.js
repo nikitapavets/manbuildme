@@ -3,11 +3,13 @@ var router      = express.Router();
 var mysql       = require('mysql');
 
 var pool = mysql.createPool({
-  "host": "eu-cdbr-west-01.cleardb.com",
-  "user": "b0bd6590a971c5",
-  "password": "5388152b",
-  "database": "heroku_479693d37aa70d6",
-  "connectionLimit": 100
+  host: "eu-cdbr-west-01.cleardb.com",
+  user: "b0bd6590a971c5",
+  password: "5388152b",
+  database: "heroku_479693d37aa70d6",
+  connectionLimit: 10,
+  waitForConnections: true,
+  queueLimit: 0
 });
 
 router.get('/', function(req, res){

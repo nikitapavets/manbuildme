@@ -5,11 +5,13 @@ var eachOf  = require('async/eachOf');
 var async = require('async');
 
 var pool = mysql.createPool({
-    "host": "eu-cdbr-west-01.cleardb.com",
-    "user": "b0bd6590a971c5",
-    "password": "5388152b",
-    "database": "heroku_479693d37aa70d6",
-    "connectionLimit": 100
+    host: "eu-cdbr-west-01.cleardb.com",
+    user: "b0bd6590a971c5",
+    password: "5388152b",
+    database: "heroku_479693d37aa70d6",
+    connectionLimit: 10,
+    waitForConnections: true,
+    queueLimit: 0
 });
 
 router.get('/id:id', function (req, res) {
@@ -272,7 +274,121 @@ router.post('/save', function(req, res, next) {
     res.redirect('/user/id'+site.user_id+'/profile');
 });
 
+router.get('/id:id/update', function (req, res){
 
+    var site_id = req.params.id;
+    var site = new Object();
+
+    var sql = 'SELECT * ' +
+        'FROM sites ' +
+        'WHERE id = ' + site_id + ' ' +
+        'LIMIT 1';
+    pool.query(sql, function(error, sites_rows) {
+
+        site = sites_rows[0];
+        site.pages = [];
+
+        var sql = 'SELECT * ' +
+            'FROM pages ' +
+            'WHERE site_id = ' + site_id + ' ' +
+            'ORDER BY position';
+        pool.query(sql, function (error, pages_rows) {
+            if(!error){
+                site.pages = pages_rows;
+                res.render('site/edit', {site: site});
+            }else{
+                console.log(error);
+            }
+        });
+    });
+});
+
+router.post('/update', function(req, res, next) {
+
+    var site = new Object();
+    site.user_id = req.body.user_id;
+    site.title = req.body.site_title;
+    site.menu_type = req.body.site_menu_type;
+    site.theme = req.body.site_theme;
+    site.id = req.body.site_id;
+
+    console.log(site);
+
+    var pages = [
+        {
+            'title': req.body.site_page1,
+            'id': parseInt(req.body.site_page1_id),
+            'position': 0
+        },
+
+        {
+            'title': req.body.site_page2,
+            'id': parseInt(req.body.site_page2_id),
+            'position': 1
+        },
+
+        {
+            'title': req.body.site_page3,
+            'id': parseInt(req.body.site_page3_id),
+            'position': 2
+        },
+
+        {
+            'title': req.body.site_page4,
+            'id': parseInt(req.body.site_page4_id),
+            'position': 3
+        },
+
+        {
+            'title': req.body.site_page5,
+            'id': parseInt(req.body.site_page5_id),
+            'position': 4
+        }
+    ];
+
+    var sql = 'UPDATE sites ' +
+            'SET title = ?, menu_type = ?, theme = ? ' +
+            'WHERE id = ?';
+    pool.query(sql, [site.title, site.menu_type, site.theme, site.id], function(err, result) {
+        if (err) {
+            throw err;
+        }else{
+            pages.forEach(function(page){
+                var sql = 'UPDATE pages ' +
+                    'SET title = ?, position = ? ' +
+                    'WHERE id = ?';
+                console.log(page);
+                pool.query(sql, [page.title, page.position, page.id], function(err, result) {
+                    if (err) {
+                        throw err;
+                    }else{
+                        //todo
+                    }
+                });
+            });
+        }
+        res.redirect('/user/id'+site.user_id+'/profile');
+    });
+
+
+});
+
+router.post('/remove', function(req, res, next) {
+
+    var site_id = req.body.site_id;
+    var user_id = req.body.user_id;
+
+    var sql = 'DELETE FROM sites ' +
+        'WHERE id = ?';
+    pool.query(sql, [site_id], function(err, result) {
+        if (err) {
+            throw err;
+        }
+        res.send("ok");
+    });
+
+
+});
 
 router.post('/save_page', function(req, res, next) {
     var components = req.body.pageComponents;
