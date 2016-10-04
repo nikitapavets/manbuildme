@@ -21,44 +21,74 @@ router.get('/id:id/profile', function (req, res){
         }
 
         var user_id = req.params.id;
-        var sites = [];
+        var user = new Object();
 
-        // get user's site
         var sql = 'SELECT * ' +
-            'FROM sites ' +
-            'WHERE user_id = ' + user_id + ' ' +
-            'ORDER BY id DESC';
-        connection.query(sql, function (error, sites_rows) {
+            'FROM users ' +
+            'WHERE id = ' + user_id + ' ' +
+            'LIMIT 1';
+        connection.query(sql, function (error, users_rows) {
 
-            sites = sites_rows;
+            user = users_rows[0];
+            user.comments = [];
 
-            // get site's pages
-            async.forEachOf(sites, function (site, index, callback) {
-                var site_id = site.id;
-                sites[index].pages = [];
+            var sql = 'SELECT * ' +
+                'FROM comments ' +
+                'WHERE user_id = ' + user_id;
+            connection.query(sql, function (error, comments_rows) {
+
+                user.comments = comments_rows;
+                user.marks = [];
+
                 var sql = 'SELECT * ' +
-                    'FROM pages ' +
-                    'WHERE site_id = ' + site_id + ' ' +
-                    'ORDER BY update_date DESC';
-                connection.query(sql, function (error, pages_rows) {
-                    if (!error) {
-                        sites[index].pages = pages_rows;
-                        callback();
-                    } else {
-                        console.log(error);
-                    }
+                    'FROM rate ' +
+                    'WHERE user_id = ' + user_id;
+                connection.query(sql, function (error, rates_rows) {
+
+                    user.marks = rates_rows;
+                    var sites = [];
+
+                    // get user's site
+                    var sql = 'SELECT * ' +
+                        'FROM sites ' +
+                        'WHERE user_id = ' + user_id + ' ' +
+                        'ORDER BY id DESC';
+                    connection.query(sql, function (error, sites_rows) {
+
+                        sites = sites_rows;
+
+                        // get site's pages
+                        async.forEachOf(sites, function (site, index, callback) {
+                            var site_id = site.id;
+                            sites[index].pages = [];
+                            var sql = 'SELECT * ' +
+                                'FROM pages ' +
+                                'WHERE site_id = ' + site_id + ' ' +
+                                'ORDER BY update_date DESC';
+                            connection.query(sql, function (error, pages_rows) {
+                                if (!error) {
+                                    sites[index].pages = pages_rows;
+                                    callback();
+                                } else {
+                                    console.log(error);
+                                }
+                            });
+
+                        }, function (error)  {
+
+                            res.render('user/profile', {cur_user: user, sites: sites});
+                            connection.release();
+                        });
+
+                    });
                 });
 
-            }, function (error) {
-
-                res.render('user/profile', {sites: sites});
-                connection.release();
             });
 
         });
+
     });
 
 });
-
 
 module.exports = router;

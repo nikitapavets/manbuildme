@@ -2,62 +2,30 @@ extends main
 
 block main-content
 
-  div.row
-    div.col-lg-6
-      div.card
-        header.card-header {{ctext.top_pages}}
-          span.type {{ctext.table_top}} 5
-        div.table-content
-          table.striped.responsive-table
-            thead
-              tr
-                td(data-field="title") {{ctext.table_title}}
-                td(data-field="site") {{ctext.table_site}}
-                td(data-field="type") {{ctext.table_type}}
-                td(data-field="rate") {{ctext.table_rate}}
-                td(data-field="date") {{ctext.table_update}}
-            tbody
-              - for(var i=0; i < top_pages.length; i++)
-                tr
-                  td
-                    a(href="site/id#{top_pages[i].site_id}/page/id#{top_pages[i].id}") #{top_pages[i].title}
-                  td
-                    a(href="site/id#{top_pages[i].site_id}") #{top_pages[i].site_name}
-                  td #{top_pages[i].theme}
-                  td
-                    .fa.fa-star
-                    .fa.fa-star
-                    .fa.fa-star
-                    .fa.fa-star
-                    .fa.fa-star
-                  - var date = new Date(top_pages[i].update_date)
-                  td #{date.toLocaleString()}
-    div.col-lg-6
-      div.card
-        header.card-header {{ctext.last_pages}}
-          span.type {{ctext.table_top}} 5
-        div.table-content
-          table.striped.responsive-table
-            thead
-              tr
-                td(data-field="title") {{ctext.table_title}}
-                td(data-field="site") {{ctext.table_site}}
-                td(data-field="type") {{ctext.table_type}}
-                td(data-field="rate") {{ctext.table_rate}}
-                td(data-field="date") {{ctext.table_update}}
-            tbody
-              - for(var i=0; i < last_pages.length; i++)
-                tr
-                  td
-                    a(href="site/id#{last_pages[i].site_id}/page/id#{last_pages[i].id}") #{last_pages[i].title}
-                  td
-                    a(href="site/id#{last_pages[i].site_id}") #{last_pages[i].site_name}
-                  td #{last_pages[i].theme}
-                  td
-                    .fa.fa-star
-                    .fa.fa-star
-                    .fa.fa-star
-                    .fa.fa-star
-                    .fa.fa-star
-                  - var date = new Date(last_pages[i].update_date)
-                  td #{date.toLocaleString()}
+  header.cards-title {{pages_title}}
+  .row(ng-init="uploadTopPages();")
+    .col-lg-3.col-sm-6.col-xs-12(ng-repeat="page in pages")
+      div.card.pages
+        header.card-header(class="{{styleColor}} lighten-3")
+          a(href="site/id{{page.site_id}}/page/id{{page.id}}") {{page.title}}
+        .card-body
+          .params_wrap
+            .params {{ctext.table_site}}:
+            .value
+              a(href="site/id{{page.site_id}}") {{page.site_name}}
+          .params_wrap
+            .params {{ctext.table_creator}}:
+            .value
+              a(href="/user/id{{page.user_id}}/profile") {{page.first_name + ' ' + page.second_name}}
+          .params_wrap
+            .params {{ctext.table_type}}:
+            .value {{page.theme}}
+          .params_wrap
+            .params {{ctext.table_rate}}:
+            .value(ng-if="page.rate") {{page.rate}}
+            .value(ng-if="!page.rate") -
+          .params_wrap
+            .params {{ctext.table_update}}:
+            .value {{page.update_date | date: "H:m dd.MM.yyyy"}}
+
+

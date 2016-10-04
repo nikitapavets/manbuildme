@@ -200,6 +200,10 @@ router.post('/get_page', function(req, res, next) {
 
 });
 
+router.get('/add', function (req, res){
+    res.render('site/add');
+});
+
 router.post('/add_rate', function(req, res, next) {
 
     pool.getConnection(function(err, connection) {
@@ -249,36 +253,31 @@ router.post('/save', function(req, res, next) {
             {
                 'title': req.body.site_page1,
                 'layout': req.body.site_page1_layout,
-                'position': 0,
-                'update_date': 'CURRENT_TIMESTAMP'
+                'position': 0
             },
 
             {
                 'title': req.body.site_page2,
                 'layout': req.body.site_page2_layout,
-                'position': 1,
-                'update_date': 'CURRENT_TIMESTAMP'
+                'position': 1
             },
 
             {
                 'title': req.body.site_page3,
                 'layout': req.body.site_page3_layout,
-                'position': 2,
-                'update_date': 'CURRENT_TIMESTAMP'
+                'position': 2
             },
 
             {
                 'title': req.body.site_page4,
                 'layout': req.body.site_page4_layout,
-                'position': 3,
-                'update_date': 'CURRENT_TIMESTAMP'
+                'position': 3
             },
 
             {
                 'title': req.body.site_page5,
                 'layout': req.body.site_page5_layout,
-                'position': 4,
-                'update_date': 'CURRENT_TIMESTAMP'
+                'position': 4
             }
         ];
 
@@ -294,9 +293,15 @@ router.post('/save', function(req, res, next) {
                         if (err) {
                             throw err;
                         } else {
-                            //todo
+                            connection.query('UPDATE pages SET update_date = CURRENT_TIMESTAMP WHERE id = ?', result.insertId, function (err, result) {
+                                if (err) {
+                                    throw err;
+                                } else {
+                                    //todo
+                                }
+                                callback();
+                            });
                         }
-                        callback();
                     });
                 }, function (error) {
 
@@ -308,6 +313,32 @@ router.post('/save', function(req, res, next) {
         });
 
 
+    });
+});
+
+router.get('/id:id', function (req, res){
+
+    pool.getConnection(function(err, connection) {
+
+        var site_id = req.params.id;
+
+        if(err){
+            throw err;
+        }
+
+        var sql = 'SELECT * ' +
+            'FROM pages ' +
+            'WHERE site_id = ' +  site_id + ' ' +
+            'LIMIT 1';
+        connection.query(sql, function (error, sites_rows) {
+
+            if(error){
+                throw error;
+            }else{
+                res.redirect('/site/id' + site_id + '/page/id' + sites_rows[0].id);
+                connection.release();
+            }
+        });
     });
 });
 
@@ -405,7 +436,7 @@ router.post('/update', function(req, res, next) {
                 async.forEachOf(pages, function (page, index, callback) {
 
                     var sql = 'UPDATE pages ' +
-                        'SET title = ?, position = ? ' +
+                        'SET title = ?, position = ? , update_date = CURRENT_TIMESTAMP ' +
                         'WHERE id = ?';
                     connection.query(sql, [page.title, page.position, page.id], function (err, result) {
                         if (err) {
@@ -467,7 +498,6 @@ router.post('/save_page', function(req, res, next) {
                 "SET update_date = CURRENT_TIMESTAMP " +
                 "WHERE id= " + page_id;
             connection.query(sql, function (err, result) {
-
                 for (var j = 0; j < components.length; j++) {
                     if (components[j]) {
                         async.forEachOf(components[j], function (component, i, callback) {
@@ -480,6 +510,7 @@ router.post('/save_page', function(req, res, next) {
                                 delete component.images;
                             }
                             connection.query("INSERT INTO components SET ?", component, function (err, result) {
+
                                 if (component.label == 'image') {
                                     if (images) {
                                         for (var d = 0; d < images.length; d++) {
@@ -488,17 +519,18 @@ router.post('/save_page', function(req, res, next) {
                                                 image.img_src = images[d].img_src;
                                                 image.component_id = result.insertId;
                                                 connection.query("INSERT INTO images SET ?", image, function (err, result) {
-                                                    callback();
+
+                                                    //callback();
                                                 });
                                             }
                                         }
                                     }
                                 }else{
-                                    callback();
+                                    //callback();
                                 }
                             });
                         }, function (error) {
-                            connection.release();
+                            //
                         });
                     }
                 }

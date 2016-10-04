@@ -32,6 +32,7 @@ angular.module('mainApp', ['ngStorage', 'ngRoute', 'dndLists'])
             table_actions: 'Действия',
             table_pages: 'Страницы',
             table_created: 'Создание',
+            table_creator: 'Создатель',
             table_top: 'Топ',
             style_red: 'Красный',
             style_blue: 'Синий',
@@ -42,8 +43,11 @@ angular.module('mainApp', ['ngStorage', 'ngRoute', 'dndLists'])
             user_profile: 'Профиль',
             user_exit: 'Выйти',
             user_user: 'Пользователь',
-            user_settings: 'Настройки',
+            user_statistics: 'Статистика',
             user_sites: 'Сайты',
+            user_all_sites: 'Сайтов',
+            user_all_comments: 'Комментариев',
+            user_all_marks: 'Оценок',
             add_site_site: 'Сайт',
             add_site_title: 'Название',
             add_site_theme: 'Тема',
@@ -70,6 +74,7 @@ angular.module('mainApp', ['ngStorage', 'ngRoute', 'dndLists'])
             table_actions: 'Actions',
             table_pages: 'Pages',
             table_created: 'Created',
+            table_creator: 'Creator',
             table_top: 'Top',
             style_red: 'Red',
             style_blue: 'Blue',
@@ -80,8 +85,11 @@ angular.module('mainApp', ['ngStorage', 'ngRoute', 'dndLists'])
             user_profile: 'Profile',
             user_exit: 'Exit',
             user_user: 'User',
-            user_settings: 'Settings',
+            user_statistics: 'Statistic',
             user_sites: 'Sites',
+            user_all_sites: 'Sites',
+            user_all_comments: 'Comments',
+            user_all_marks: 'Marks',
             add_site_site: 'Site',
             add_site_title: 'Title',
             add_site_theme: 'Theme',
@@ -115,6 +123,24 @@ angular.module('mainApp', ['ngStorage', 'ngRoute', 'dndLists'])
             }
             $scope.menuShowStatus = !$scope.menuShowStatus;
         }
+
+        $scope.pages = [];
+        $scope.pages_title = "";
+        $scope.uploadTopPages = function(){
+            $http.post('/top_pages')
+                .success(function(data){
+                    $scope.pages_title = $scope.ctext.top_pages;
+                    $scope.pages = data;
+                });
+        }
+        $scope.uploadLastPages = function(){
+            $http.post('/last_pages')
+                .success(function(data){
+                    $scope.pages_title = $scope.ctext.last_pages;
+                    $scope.pages = data;
+                });
+        }
+
     })
     .config(function($routeProvider){
         $routeProvider.when('/user/profile',

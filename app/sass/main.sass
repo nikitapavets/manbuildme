@@ -26,7 +26,10 @@ label
 
 .main-header
   height: 56px
-  position: relative
+  position: fixed
+  width: 100%
+  top: 0
+  left: 0
   text-align: center
   z-index: 999
   a
@@ -67,6 +70,7 @@ label
     border-right: 1px solid rgba(#000, .1)
     width: 300px
     position: fixed
+    top: 56px
     height: 100%
     transition: .5s ease all
     z-index: 888
@@ -125,20 +129,49 @@ label
           &:hover
             background-color: rgba(#000, .05)
             text-decoration: none
+          &.active
+            background-color: rgba(#000, .05)
   .main-content
+    margin-top: 56px
     margin-left: 300px
     transition: .5s ease all
+    .cards-title
+      padding: 25px
+      font-size: em(24px)
     .card
       padding: 25px
       header.card-header
-        margin-bottom: 30px
         position: relative
         font-size: em(24px)
         text-transform: uppercase
+        margin-bottom: 25px
+        a
+          color: rgba(#000, .8)
+          display: block
+          padding: 15px
+          border-top: 3px solid rgba(#000, 0)
+          &:hover
+            text-decoration: none
+            border-top: 3px solid rgba(#000, .5)
+          &.add-btn
+            padding: 0
+            border-top: none
         .type
           position: absolute
           right: 0
           @extend .red-text
+      .card-body
+        padding: 15px
+        .params_wrap
+          padding: 5px 0
+          & > div
+            display: inline-block
+          .params
+            width: 35%
+      &.pages
+        padding: 0
+        header.card-header
+          margin-bottom: 0
 
   .user-page--wrap
     .about-user
@@ -158,6 +191,16 @@ label
         .medal
           width: 45px
           margin: 0 5px
+      &--settings
+        .stats_wrap
+          text-align: left
+          margin: 10px 0
+          & > div
+            display: inline-block
+            width: 49%
+          .start_value
+            text-align: right
+            font-weight: bold
     .table-content
       .sort
         font-size: em(20px)

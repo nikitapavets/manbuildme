@@ -201,8 +201,12 @@ angular.module('mainApp')
                     page_id: $scope.page_id
                 })
                 .success(function(data){
-                    //todo
+
                 });
+            setTimeout(function(){
+                window.location.replace("/site/id" + site_id + "/page/id" + $scope.page_id);
+                window.location.href = "/site/id" + site_id + "/page/id" + $scope.page_id;
+            }, 500);
         }
 
         var options = {

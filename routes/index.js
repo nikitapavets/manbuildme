@@ -76,4 +76,62 @@ router.post('/auth', function(req, res, next) {
 
 });
 
+router.post('/top_pages', function(req, res, next) {
+
+    pool.getConnection(function(err, connection) {
+
+        if(err){
+            throw err;
+        }
+
+        var sql = 'SELECT p.id, p.title, p.update_date, p.create_date, ' +
+            's.id AS site_id, s.title AS site_name, s.theme, ' +
+            'u.first_name, u.second_name, u.id AS user_id, ' +
+            '(SELECT AVG(rate) FROM rate r WHERE r.page_id = p.id) AS rate ' +
+            'FROM pages AS p ' +
+            'INNER JOIN sites AS s ON p.site_id = s.id ' +
+            'INNER JOIN users AS u ON s.user_id = u.id ' +
+            'ORDER BY (SELECT AVG(rate) FROM rate r WHERE r.page_id = p.id) DESC';
+        connection.query(sql, function (error, pages_rows) {
+
+            if(!error){
+                var last_pages = pages_rows;
+                res.send(last_pages);
+                connection.release();
+            }else{
+                throw error;
+            }
+        });
+    })
+})
+
+router.post('/last_pages', function(req, res, next) {
+
+    pool.getConnection(function(err, connection) {
+
+        if(err){
+            throw err;
+        }
+
+        var sql = 'SELECT p.id, p.title, p.update_date, p.create_date, ' +
+            's.id AS site_id, s.title AS site_name, s.theme, ' +
+            'u.first_name, u.second_name, u.id AS user_id, ' +
+            '(SELECT AVG(rate) FROM rate r WHERE r.page_id = p.id) AS rate ' +
+            'FROM pages AS p ' +
+            'INNER JOIN sites AS s ON p.site_id = s.id ' +
+            'INNER JOIN users AS u ON s.user_id = u.id ' +
+            'ORDER BY p.update_date DESC';
+        connection.query(sql, function (error, pages_rows) {
+
+            if(!error){
+                var last_pages = pages_rows;
+                res.send(last_pages);
+                connection.release();
+            }else{
+                throw error;
+            }
+        });
+    })
+})
+
 module.exports = router;

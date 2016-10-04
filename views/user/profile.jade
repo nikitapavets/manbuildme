@@ -2,32 +2,41 @@ extends ../main
 
 block main-content
 
-
-
     .user-page--wrap(ng-controller="userController")
         .row
             .col-lg-3.col-sm-12
                 .card.about-user--wrap
-                    header.about-user--header.card-header {{user.rang}}
+                    header.about-user--header.card-header #{cur_user.rang}
                     .about-user--image-wrap
-                        img.about-user--image(ng-src="{{user.avatar}}")
+                        img.about-user--image(ng-src="#{cur_user.avatar}")
                     .about-user--main-inf
-                        a(ng-href="{{user.social_url}}" target="_blank", ng-bind="user.name")
+                        a(ng-href="#{cur_user.social_url}" target="_blank") #{cur_user.first_name + ' ' + cur_user.second_name}
                     .about-user--medals.lighten-3(class="{{styleColor}}")
                         img.medal(ng-src="/img/svg/new_user.svg" title="New user" alt="New user")
                         - if(sites.length >= 1)
                             img.medal(ng-src="/img/svg/first_site.svg" title="First site" alt="First site")
-                        //img.medal(ng-src="/img/svg/first_comment.svg" title="First comment" alt="First comment")
                         - if(sites.length >= 5)
                             img.medal(ng-src="/img/svg/5_sites.svg" title="Five site" alt="Five site")
+                        - if(cur_user.marks.length >= 1)
+                            img.medal(ng-src="/img/svg/first_mark.svg" title="First mark" alt="First mark")
+                        - if(cur_user.comments.length >= 1)
+                            img.medal(ng-src="/img/svg/first_comment.svg" title="First comment" alt="First comment")
                 .card.about-user--wrap
-                    header.about-user--header.card-header {{ctext.user_settings}}
+                    header.about-user--header.card-header {{ctext.user_statistics}}
                     .about-user--settings
-                        | to do
+                        .stats_wrap
+                            .start_field {{ctext.user_all_sites}}
+                            .start_value #{sites.length}
+                        .stats_wrap
+                            .start_field {{ctext.user_all_comments}}
+                            .start_value #{cur_user.comments.length}
+                        .stats_wrap
+                            .start_field {{ctext.user_all_marks}}
+                            .start_value #{cur_user.marks.length}
             .col-lg-9.col-sm-12
                 .card
                     header.card-header {{ctext.user_sites}}
-                        a.btn-floating.btn-large.waves-effect.waves-light.add-btn(class="{{styleColor}}", href="/site/add")
+                        a.btn-floating.btn-large.waves-effect.waves-light.add-btn(class="{{styleColor}}", href="/site/add", ng-if="user.id == #{cur_user.id}")
                             i.fa.fa-plus
 
                     div.table-content
@@ -38,23 +47,20 @@ block main-content
                                     td(data-field="type") {{ctext.table_type}}
                                     td(data-field="pages") {{ctext.table_pages}}
                                     td(data-field="date") {{ctext.table_update}}
-                                        a.sort(href="#")
-                                            i.fa.fa-caret-down
                                     td(data-field="date") {{ctext.table_created}}
-                                    td(data-field="date") {{ctext.table_actions}}
+                                    td(data-field="date", ng-if="user.id == #{cur_user.id}") {{ctext.table_actions}}
                             tbody
                                 - for(var i = 0; i < sites.length; i++)
                                     tr
                                         td
-                                            a.dropdown-button(href="/site/id#{sites[i].id}/page/id#{sites[i].pages[0].id}") #{sites[i].title}
+                                            a(href="/site/id#{sites[i].id}") #{sites[i].title}
                                         td #{sites[i].theme}
                                         td #{sites[i].pages.length}/5
                                         - var date = new Date(sites[i].create_date)
                                         td #{date.toLocaleString()}
                                         td #{date.toLocaleString()}
-                                        td.actions-wrap
+                                        td.actions-wrap(ng-if="user.id == #{cur_user.id}")
                                             a(href="/site/id#{sites[i].id}/update")
                                                 i.fa.fa-pencil
                                             a(href="javascript:;" ng-click="siteRemove(#{sites[i].id})")
                                                 i.fa.fa-times
-

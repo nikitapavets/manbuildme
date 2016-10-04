@@ -71,17 +71,17 @@ block main-content-wrap
                 div.menu-list
                     ul
                         li
-                            a(href="#")
+                            a(href="javascript:;" ng-click="uploadTopPages();", class="menu-list_link")
                                 div.i-wrap
                                     i.fa.fa-star
                                 | {{ctext.top_pages}}
                         li
-                            a(href="#")
+                            a(href="javascript:;" ng-click="uploadLastPages();", class="menu-list_link")
                                 div.i-wrap
                                     i.fa.fa-pencil-square-o
                                 | {{ctext.last_pages}}
                         li
-                            a(href="#")
+                            a(href="#", class="menu-list_link")
                                 div.i-wrap
                                     i.fa.fa-tags
                                 | {{ctext.tags_cloud}}
