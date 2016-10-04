@@ -4,7 +4,7 @@ var mysql       = require('mysql');
 var eachOf  = require('async/eachOf');
 var async = require('async');
 
-var pool = mysql.createPool({
+/*var pool = mysql.createPool({
     host: "eu-cdbr-west-01.cleardb.com",
     user: "b0bd6590a971c5",
     password: "5388152b",
@@ -12,6 +12,13 @@ var pool = mysql.createPool({
     connectionLimit: 10,
     waitForConnections: true,
     queueLimit: 0
+});*/
+var pool = mysql.createConnection({
+    host     : 'eu-cdbr-west-01.cleardb.com',
+    user     : 'b0bd6590a971c5',
+    password : '5388152b',
+    database: "heroku_479693d37aa70d6",
+    multipleStatements: true
 });
 
 router.get('/id:id/profile', function (req, res){

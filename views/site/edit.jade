@@ -7,41 +7,41 @@ block main-content
             .row
                 .col-md-6.col-xs-12
                     .card
-                        header.card-header Site
+                        header.card-header {{ctext.add_site_site}}
                         .add-site--content
                             .input-field
                                 input#site_title.validate(type="text", name="site_title", value="#{site.title}")
-                                label(for="site_title") Title
+                                label(for="site_title") {{ctext.add_site_title}}
                             .input-field
                                 input#site_theme.validate(type="text", name="site_theme", value="#{site.theme}")
-                                label(for="site_theme") Theme
+                                label(for="site_theme") {{ctext.add_site_theme}}
                             - if(site.menu_type == 'vert')
                                 p
                                     input(name="site_menu_type", type="radio", id="menu_vert", value="vert", checked)
-                                    label(for="menu_vert") Vertical menu
+                                    label(for="menu_vert") {{ctext.add_site_vert}}
                                 p
                                     input(name="site_menu_type", type="radio", id="menu_hor", value="gor")
-                                    label(for="menu_hor") Horizontal menu
+                                    label(for="menu_hor") {{ctext.add_site_hor}}
                             - else
                                 p
                                     input(name="site_menu_type", type="radio", id="menu_vert", value="vert" )
-                                    label(for="menu_vert") Vertical menu
+                                    label(for="menu_vert") {{ctext.add_site_vert}}
                                 p
                                     input(name="site_menu_type", type="radio", id="menu_hor", value="gor", checked)
-                                    label(for="menu_hor") Horizontal menu
+                                    label(for="menu_hor") {{ctext.add_site_hor}}
                             .chips.chips-placeholder
                             input(type="hidden" name="user_id" value="{{user.id}}")
                             input(type="hidden" name="site_id" value="#{site.id}")
-                            button.waves-effect.waves-light.btn(type="submit") Save
+                            button.waves-effect.waves-light.btn(type="submit") {{ctext.add_site_save}}
 
                 .col-md-6.col-xs-12
                     .card
-                        header.card-header Site pages
+                        header.card-header {{ctext.add_site_site_pages}}
                         .add-site--content
                             - for(var i = 0; i < site.pages.length; i++)
                                 .input-field
                                     input.validate(type="text", id="#{'site_page' + (i+1)}", name="#{'site_page' + (i+1)}", value="#{site.pages[i].title}")
-                                    label(for="#{'site_page' + (i+1)}") Page #{i+1}
+                                    label(for="#{'site_page' + (i+1)}") {{ctext.add_site_page}} #{i+1}
                                     input(type="hidden", name="#{'site_page' + (i+1) + '_id'}", value="#{site.pages[i].id}")
 
 

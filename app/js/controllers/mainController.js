@@ -44,6 +44,17 @@ angular.module('mainApp', ['ngStorage', 'ngRoute', 'dndLists'])
             user_user: 'Пользователь',
             user_settings: 'Настройки',
             user_sites: 'Сайты',
+            add_site_site: 'Сайт',
+            add_site_title: 'Название',
+            add_site_theme: 'Тема',
+            add_site_vert: 'Вертикальное меню',
+            add_site_hor: 'Горизонтальное меню',
+            add_site_tag: 'Тег',
+            add_site_add: 'Добавить',
+            add_site_site_pages: 'Страницы сайта',
+            add_site_page: 'Страница',
+            add_site_layout: 'Разметка',
+            add_site_save: 'Сохранить',
         };
 
         $scope.ctex_eng = {
@@ -71,6 +82,17 @@ angular.module('mainApp', ['ngStorage', 'ngRoute', 'dndLists'])
             user_user: 'User',
             user_settings: 'Settings',
             user_sites: 'Sites',
+            add_site_site: 'Site',
+            add_site_title: 'Title',
+            add_site_theme: 'Theme',
+            add_site_vert: 'Vertical menu',
+            add_site_hor: 'Horizontal menu',
+            add_site_tag: 'Tag',
+            add_site_add: 'Add',
+            add_site_site_pages: 'Site pages',
+            add_site_page: 'Page',
+            add_site_layout: 'Layout',
+            add_site_save: 'Save',
         };
 
         $scope.newColor = function(){

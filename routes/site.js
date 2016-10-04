@@ -4,7 +4,7 @@ var mysql       = require('mysql');
 var eachOf  = require('async/eachOf');
 var async = require('async');
 
-var pool = mysql.createPool({
+/*var pool = mysql.createPool({
     host: "eu-cdbr-west-01.cleardb.com",
     user: "b0bd6590a971c5",
     password: "5388152b",
@@ -12,19 +12,25 @@ var pool = mysql.createPool({
     connectionLimit: 10,
     waitForConnections: true,
     queueLimit: 0
+});*/
+var pool = mysql.createConnection({
+    host     : 'eu-cdbr-west-01.cleardb.com',
+    user     : 'b0bd6590a971c5',
+    password : '5388152b',
+    database: "heroku_479693d37aa70d6",
+    multipleStatements: true,
+    //migrate: 'safe'
 });
 
 router.get('/id:id', function (req, res) {
 
-    var site_id = req.params.id;
+    var site_id = req.params.id;f
     var sql = 'SELECT * ' +
         'FROM pages ' +
         'WHERE site_id = ' + site_id + ' ' +
         'ORDER BY position ' +
         'LIMIT 1';
-    console.log(sql);
     pool.query(sql, function(error, pages_rows) {
-        console.log(pages_rows);
         res.redirect('/site/id'+site_id+'/page/id'+pages_rows[0].id);
     });
 });
@@ -38,7 +44,7 @@ router.get('/id:id/page/id:page_id', function (req, res){
     var sql = 'SELECT * ' +
         'FROM sites ' +
         'WHERE id = ' + site_id + ' ' +
-        'LIMIT 1';
+        'LIMIT 1'
     pool.query(sql, function(error, sites_rows) {
 
         site = sites_rows[0];
@@ -87,7 +93,6 @@ router.get('/id:id/page/id:page_id', function (req, res){
                                     callback();
                                 }
                             }, function (error) {
-
                                 res.render('site/page', {site: site, page_id: page_id, page: current_page});
                             });
 
@@ -96,8 +101,10 @@ router.get('/id:id/page/id:page_id', function (req, res){
                     });
                 }
             });
+
         });
     });
+
 });
 
 router.get('/id:id/page/id:page_id/edit', function (req, res){
@@ -185,7 +192,6 @@ router.post('/add_rate', function(req, res, next) {
     rate.page_id = req.body.page_id;
     rate.user_id = req.body.user_id;
     rate.rate = req.body.rate;
-    console.log(rate.user_id);
 
     var sql = 'DELETE FROM rate ' +
             'WHERE page_id = ' + rate.page_id + ' ' +
@@ -297,7 +303,6 @@ router.get('/id:id/update', function (req, res){
                 site.pages = pages_rows;
                 res.render('site/edit', {site: site});
             }else{
-                console.log(error);
             }
         });
     });
@@ -311,8 +316,6 @@ router.post('/update', function(req, res, next) {
     site.menu_type = req.body.site_menu_type;
     site.theme = req.body.site_theme;
     site.id = req.body.site_id;
-
-    console.log(site);
 
     var pages = [
         {
@@ -357,7 +360,6 @@ router.post('/update', function(req, res, next) {
                 var sql = 'UPDATE pages ' +
                     'SET title = ?, position = ? ' +
                     'WHERE id = ?';
-                console.log(page);
                 pool.query(sql, [page.title, page.position, page.id], function(err, result) {
                     if (err) {
                         throw err;
@@ -424,7 +426,7 @@ router.post('/save_page', function(req, res, next) {
                                             image.img_src = images[d].img_src;
                                             image.component_id = result.insertId;
                                             pool.query("INSERT INTO images SET ?", image, function (err, result) {
-                                                console.log(err);
+
                                             });
                                         }
                                     }
@@ -439,5 +441,6 @@ router.post('/save_page', function(req, res, next) {
 
     });
 });
+
 
 module.exports = router;
