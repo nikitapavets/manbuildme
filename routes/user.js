@@ -4,62 +4,59 @@ var mysql       = require('mysql');
 var eachOf  = require('async/eachOf');
 var async = require('async');
 
-/*var pool = mysql.createPool({
+var pool = mysql.createPool({
     host: "eu-cdbr-west-01.cleardb.com",
     user: "b0bd6590a971c5",
     password: "5388152b",
     database: "heroku_479693d37aa70d6",
-    connectionLimit: 10,
-    waitForConnections: true,
-    queueLimit: 0
-});*/
-var pool = mysql.createConnection({
-    host     : 'eu-cdbr-west-01.cleardb.com',
-    user     : 'b0bd6590a971c5',
-    password : '5388152b',
-    database: "heroku_479693d37aa70d6",
-    multipleStatements: true
+    connectionLimit: 10
 });
 
 router.get('/id:id/profile', function (req, res){
 
-    var user_id = req.params.id;
-    var sites = [];
+    pool.getConnection(function(err, connection) {
 
+        if(err){
+            throw err;
+        }
 
-    // get user's site
-    var sql = 'SELECT * ' +
-        'FROM sites ' +
-        'WHERE user_id = ' + user_id + ' ' +
-        'ORDER BY id DESC';
-    pool.query(sql, function(error, sites_rows) {
+        var user_id = req.params.id;
+        var sites = [];
 
-        sites = sites_rows;
+        // get user's site
+        var sql = 'SELECT * ' +
+            'FROM sites ' +
+            'WHERE user_id = ' + user_id + ' ' +
+            'ORDER BY id DESC';
+        connection.query(sql, function (error, sites_rows) {
 
-        // get site's pages
-        async.forEachOf(sites, function (site, index, callback) {
-            var site_id = site.id;
-            sites[index].pages = [];
-            var sql = 'SELECT * ' +
-                'FROM pages ' +
-                'WHERE site_id = ' + site_id + ' ' +
-                'ORDER BY update_date DESC';
-            pool.query(sql, function(error, pages_rows) {
-                if(!error){
-                    sites[index].pages = pages_rows;
-                    callback();
-                }else{
-                    console.log(error);
-                }
+            sites = sites_rows;
+
+            // get site's pages
+            async.forEachOf(sites, function (site, index, callback) {
+                var site_id = site.id;
+                sites[index].pages = [];
+                var sql = 'SELECT * ' +
+                    'FROM pages ' +
+                    'WHERE site_id = ' + site_id + ' ' +
+                    'ORDER BY update_date DESC';
+                connection.query(sql, function (error, pages_rows) {
+                    if (!error) {
+                        sites[index].pages = pages_rows;
+                        callback();
+                    } else {
+                        console.log(error);
+                    }
+                });
+
+            }, function (error) {
+
+                res.render('user/profile', {sites: sites});
+                connection.release();
             });
 
-        }, function (error) {
-
-            res.render('user/profile', {sites: sites});
         });
-
     });
-
 
 });
 

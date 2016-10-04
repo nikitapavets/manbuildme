@@ -46,7 +46,7 @@ block main-content
                                 - for(var i = 0; i < sites.length; i++)
                                     tr
                                         td
-                                            a.dropdown-button(href="/site/id#{sites[i].id}") #{sites[i].title}
+                                            a.dropdown-button(href="/site/id#{sites[i].id}/page/id#{sites[i].pages[0].id}") #{sites[i].title}
                                         td #{sites[i].theme}
                                         td #{sites[i].pages.length}/5
                                         - var date = new Date(sites[i].create_date)

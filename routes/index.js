@@ -2,70 +2,77 @@ var express     = require('express');
 var router      = express.Router();
 var mysql       = require('mysql');
 
-/*var pool = mysql.createPool({
- host: "eu-cdbr-west-01.cleardb.com",
- user: "b0bd6590a971c5",
- password: "5388152b",
- database: "heroku_479693d37aa70d6",
- connectionLimit: 10,
- waitForConnections: true,
- queueLimit: 0
- });*/
-var pool = mysql.createConnection({
-  host     : 'eu-cdbr-west-01.cleardb.com',
-  user     : 'b0bd6590a971c5',
-  password : '5388152b',
+var pool = mysql.createPool({
+  host: "eu-cdbr-west-01.cleardb.com",
+  user: "b0bd6590a971c5",
+  password: "5388152b",
   database: "heroku_479693d37aa70d6",
-  multipleStatements: true
+  connectionLimit: 10
 });
-
 
 router.get('/', function(req, res){
 
-  var sql = 'SELECT p.id, p.title, p.update_date, p.create_date, s.id AS site_id, s.title AS site_name, s.theme ' +
-    'FROM pages AS p ' +
-    'INNER JOIN sites AS s ON p.site_id = s.id ' +
-    'ORDER BY p.update_date DESC ' +
-    'LIMIT 5';
-  pool.query(sql, function(error, pages_rows) {
-    var last_pages = pages_rows;
+  pool.getConnection(function(err, connection) {
+
+    if(err){
+      throw err;
+    }
 
     var sql = 'SELECT p.id, p.title, p.update_date, p.create_date, s.id AS site_id, s.title AS site_name, s.theme ' +
         'FROM pages AS p ' +
         'INNER JOIN sites AS s ON p.site_id = s.id ' +
-        'ORDER BY (SELECT AVG(rate) FROM rate r WHERE r.page_id = p.id) DESC ' +
+        'ORDER BY p.update_date DESC ' +
         'LIMIT 5';
-    pool.query(sql, function(error, top_pages_rows) {
-      var top_pages = top_pages_rows;
+    connection.query(sql, function (error, pages_rows) {
+      var last_pages = pages_rows;
 
-      res.render('index', {last_pages: last_pages, top_pages: top_pages});
+      var sql = 'SELECT p.id, p.title, p.update_date, p.create_date, s.id AS site_id, s.title AS site_name, s.theme ' +
+          'FROM pages AS p ' +
+          'INNER JOIN sites AS s ON p.site_id = s.id ' +
+          'ORDER BY (SELECT AVG(rate) FROM rate r WHERE r.page_id = p.id) DESC ' +
+          'LIMIT 5';
+      connection.query(sql, function (error, top_pages_rows) {
+
+        var top_pages = top_pages_rows;
+        res.render('index', {last_pages: last_pages, top_pages: top_pages});
+        connection.release();
+      });
+
     });
-
   });
 });
 
 router.post('/auth', function(req, res, next) {
 
-  var new_user = req.body;
+    pool.getConnection(function(err, connection) {
 
-  pool.query("SELECT * FROM users WHERE social_id=" + new_user.social_id + " LIMIT 1", function(error, rows) {
-    var user = rows[0];
-    if(rows.length == 0){
-      pool.query('INSERT INTO user SET ?', new_user, function(err, result) {
-        if (err) {
-          throw err;
-        }else{
-          var user_id = result.insertId;
-          pool.query("SELECT * FROM users WHERE id=" + user_id + " LIMIT 1", function(error, rows) {
-            var user = rows[0];
-            res.send(user);
-          });
+        if(err){
+            throw err;
         }
-      });
-    }else{
-      res.send(user);
-    }
-  });
+
+        var new_user = req.body;
+
+        connection.query("SELECT * FROM users WHERE social_id=" + new_user.social_id + " LIMIT 1", function (error, rows) {
+            var user = rows[0];
+            if (rows.length == 0) {
+                connection.query('INSERT INTO user SET ?', new_user, function (err, result) {
+                    if (err) {
+                        throw err;
+                    } else {
+                        var user_id = result.insertId;
+                        connection.query("SELECT * FROM users WHERE id=" + user_id + " LIMIT 1", function (error, rows) {
+                            var user = rows[0];
+                            res.send(user);
+                            connection.release();
+                        });
+                    }
+                });
+            } else {
+                res.send(user);
+                connection.release();
+            }
+        });
+    });
 
 });
 
