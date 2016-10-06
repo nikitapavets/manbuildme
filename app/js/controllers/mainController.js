@@ -153,7 +153,17 @@ angular.module('mainApp', ['ngStorage', 'ngRoute', 'dndLists'])
                 $http.post('/search', {search_data: search_val})
                     .success(function(data){
                         $scope.searchResult = data;
+                        $scope.ShowPopUp(true);
                     });
+            }
+        }
+
+        $scope.ShowPopUp = function(show){
+            var pop_up = document.querySelector(".pop-up");
+            if(!show){
+                angular.element(pop_up).addClass("hidden");
+            }else{
+                angular.element(pop_up).removeClass("hidden");
             }
         }
 

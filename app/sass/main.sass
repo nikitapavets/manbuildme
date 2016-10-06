@@ -475,6 +475,7 @@ label
   &--search
     &-wrap
       position: fixed
+      z-index: 10000000
       top: 30px
       left: 50%
       z-index: 1000
@@ -485,6 +486,12 @@ label
       padding: 15px
       font-size: em(24px)
       text-transform: uppercase
+      a
+        position: absolute
+        right: 15px
+        top: 10px
+        font-size: em(24px)
+        color: #000
     &-result
       padding: 15px
       .result-type

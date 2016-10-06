@@ -1,6 +1,8 @@
 var express     = require('express');
 var router      = express.Router();
 var mysql       = require('mysql');
+var eachOf  = require('async/eachOf');
+var async = require('async');
 
 var pool = mysql.createPool({
   host: "eu-cdbr-west-01.cleardb.com",
@@ -77,9 +79,37 @@ router.post('/search', function(req, res, next) {
             console.log(result_rows);
 
             if(!error){
-                var result = result_rows;
-                res.send(result);
+
                 connection.release();
+
+                var result = new Object();
+                result.users = [];
+                result.sites = [];
+                result.pages = [];
+                result.comments = [];
+
+                async.forEachOf(result_rows, function (res, index, callback) {
+
+                    switch(res.type){
+                        case 'comment':
+                            result.comments.push(res);
+                            break;
+                        case 'user':
+                            result.users.push(res);
+                            break;
+                        case 'site':
+                            result.sites.push(res);
+                            break;
+                        case 'page':
+                            result.pages.push(res);
+                            break;
+                    }
+
+                    callback();
+                }, function(error){
+                    console.log(result);
+                    res.send(result);
+                });
             }else{
                 throw error;
             }
