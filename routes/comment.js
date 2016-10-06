@@ -40,14 +40,33 @@ router.post('/update', function (req, res) {
         var component_id = req.body.component_id;
         var count = req.body.count;
 
-        var sql = 'SELECT c.id, c.value, c.user_id, u.first_name, u.second_name ' +
+        var sql = 'SELECT c.id, c.val, c.user_id, u.first_name, u.second_name ' +
             'FROM comments c ' +
             'INNER JOIN db_users u ON u.id = c.user_id ' +
             'WHERE component_id = ' + component_id + ' ' +
-            'LIMIT ' + count + ', 5';
+            'ORDER BY id ASC';
         connection.query(sql, function (err, comments_rows) {
             res.send(comments_rows);
             connection.release();
+        });
+    });
+});
+
+router.post('/remove', function (req, res) {
+
+    pool.getConnection(function(err, connection) {
+
+        if(err){
+            throw err;
+        }
+
+        var comment_id = req.body.comment_id;
+
+        var sql = 'DELETE FROM comments ' +
+            'WHERE id = ' + comment_id;
+        connection.query(sql, function (err, result) {
+            connection.release();
+            res.send("ok!");
         });
     });
 });

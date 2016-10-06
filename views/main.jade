@@ -102,25 +102,20 @@ block main-content-wrap
                     header.result-type-header(ng-if="(results.length > 0) && label == 'users'") Users
                     .result-type-content(ng-repeat="result in results", ng-if="label == 'users'")
                         .result
-                            a(href="/user/id{{result.user_id}}/profile") {{result.val}}
-                        .link /user/id{{result.user_id}}/profile
+                            a(href="/user/id{{result.user_id}}/profile").truncate {{result.val}}
+                        .link http://manbuildme.herokuapp.com/user/id{{result.user_id}}/profile
                     header.result-type-header(ng-if="(results.length > 0) && label == 'sites'") Sites
                     .result-type-content(ng-repeat="result in results", ng-if="label == 'sites'")
                         .result
-                            a(href="/site/id{{result.site_id}}") {{result.val}}
-                        .link /site/id{{result.site_id}}
+                            a(href="/site/id{{result.site_id}}").truncate {{result.val}}
+                        .link http://manbuildme.herokuapp.com/site/id{{result.site_id}}
                     header.result-type-header(ng-if="(results.length > 0) && label == 'pages'") Pages
                     .result-type-content(ng-repeat="result in results", ng-if="label == 'pages'")
                         .result
-                            a(href="/site/id{{result.site_id}}/page/id{{result.page_id}}") {{result.val}}
-                        .link /site/id{{result.site_id}}/page/id{{result.page_id}}
+                            a(href="/site/id{{result.site_id}}/page/id{{result.page_id}}").truncate {{result.val}}
+                        .link http://manbuildme.herokuapp.com/site/id{{result.site_id}}/page/id{{result.page_id}}
                     header.result-type-header(ng-if="(results.length > 0) && label == 'comments'") Comments
                     .result-type-content(ng-repeat="result in results", ng-if="label == 'comments'")
                         .result
-                            a(href="/site/id{{result.site_id}}/page/id{{result.page_id}}") {{result.val}}
-                        .link /site/id{{result.site_id}}/page/id{{result.page_id}}
-
-
-
-
-
+                            a(href="/site/id{{result.site_id}}/page/id{{result.page_id}}").truncate {{result.val}}
+                        .link http://manbuildme.herokuapp.com/site/id{{result.site_id}}/page/id{{result.page_id}}

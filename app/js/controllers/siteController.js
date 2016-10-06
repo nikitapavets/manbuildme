@@ -16,8 +16,16 @@ angular.module('mainApp')
         $scope.$storage = $localStorage;
         $scope.user = $scope.$storage.user;
 
+        $scope.chats = [];
         $scope.updateComments = function(component_id){
-            console.log(component_id);
+            setInterval(function(){
+                $http.post('/comment/update', {count: $scope.chats.length, component_id: component_id})
+                    .success(function(data){
+                        if(data.length > 0){
+                            $scope.chats = data;
+                        }
+                    });
+            },1500);
         }
 
         $scope.pushComment = function(component_id, elem){
@@ -35,6 +43,13 @@ angular.module('mainApp')
 
             $http.post('/comment/new', {comment: comment, hash: hash, user_id: user_id})
                 .success(function(data){
+                });
+        }
+
+        $scope.removeComment = function(comment){
+            $http.post('/comment/remove', {comment_id: comment.id})
+                .success(function(data){
+                    $scope.chats.splice(comment.pos, 1);
                 });
         }
 

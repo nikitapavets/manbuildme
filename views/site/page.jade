@@ -31,8 +31,13 @@ block page-content
                                 - if(comp.label == 'comments')
                                     .comments--wrap
                                         header.comments--header Comments
-
-                                        div(comments="#{comp.id}")
+                                        div(comments="#{comp.id}", ng-init="updateComments(#{comp.id})")
+                                            .comments--comment(ng-repeat="chat in chats", ng-init="chat.pos = $index")
+                                                .author
+                                                    a(href="/user/id{{chat.user_id}}/profile") {{chat.first_name+' '+chat.second_name}}
+                                                    a.delete-ico(href="javascript:", ng-if="#{site.user_id} == user.id", ng-click="removeComment(chat)")
+                                                        i.fa.fa-times
+                                                .msg {{chat.val}}
 
                                         .comments--new_comment(ng-if="user.id")
                                             .title New comment
