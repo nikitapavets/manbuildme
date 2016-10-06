@@ -21,10 +21,14 @@ block page-content
                                 - if(comp.label == 'image')
                                     .images--wrap.row
                                         - for(var j=0; j < comp.images.length; j++)
-                                            .image.col-sm-6
-                                                img(src="#{comp.images[j].img_src}")
-                                            - if(j % 2 != 0 && j > 1)
-                                                .clearfix
+                                            - if(j == comp.images.length - 1)
+                                                .image.col-sm-12
+                                                    img(src="#{comp.images[j].img_src}")
+                                            - else
+                                                .image.col-sm-6
+                                                    img(src="#{comp.images[j].img_src}")
+                                                - if(j % 2 != 0 && j > 1)
+                                                    .clearfix
                                 - if(comp.label == 'video')
                                     - var url = comp.value.replace('watch?v=', 'embed/')
                                     iframe(width="100%", height="450", src="#{url}", frameborder="0", allowfullscreen)
@@ -67,14 +71,13 @@ block page-content
                                     .comments--wrap
                                         header.comments--header Comments
 
-                                        div(comments="#{comp.id}")
-                                        //- for(var j = 0; j<comp.comments.length; j++)
-                                            .comments--comment
+                                        div(comments="#{comp.id}", ng-init="updateComments(#{comp.id})")
+                                            .comments--comment(ng-repeat="chat in chats", ng-init="chat.pos = $index")
                                                 .author
-                                                    a(href="#") Никита Павец
-                                                    a.delete-ico(href="javascript:")
+                                                    a(href="/user/id{{chat.user_id}}/profile") {{chat.first_name+' '+chat.second_name}}
+                                                    a.delete-ico(href="javascript:", ng-if="#{site.user_id} == user.id", ng-click="removeComment(chat)")
                                                         i.fa.fa-times
-                                                .msg #{comp.comments[j].value}
+                                                .msg {{chat.val}}
 
                                         .comments--new_comment
                                             .title New comment
@@ -103,14 +106,13 @@ block page-content
                                     .comments--wrap
                                         header.comments--header Comments
 
-                                        div(comments="#{comp.id}")
-                                        //- for(var j = 0; j<comp.comments.length; j++)
-                                            .comments--comment
+                                        div(comments="#{comp.id}", ng-init="updateComments(#{comp.id})")
+                                            .comments--comment(ng-repeat="chat in chats", ng-init="chat.pos = $index")
                                                 .author
-                                                    a(href="#") Никита Павец
-                                                    a.delete-ico(href="javascript:")
+                                                    a(href="/user/id{{chat.user_id}}/profile") {{chat.first_name+' '+chat.second_name}}
+                                                    a.delete-ico(href="javascript:", ng-if="#{site.user_id} == user.id", ng-click="removeComment(chat)")
                                                         i.fa.fa-times
-                                                .msg #{comp.comments[j].value}
+                                            .msg {{chat.val}}
 
                                         .comments--new_comment
                                             .title New comment
@@ -143,13 +145,13 @@ block page-content
                                         header.comments--header Comments
 
                                         div(comments="#{comp.id}")
-                                        //- for(var j = 0; j<comp.comments.length; j++)
-                                            .comments--comment
+                                            div(comments="#{comp.id}", ng-init="updateComments(#{comp.id})")
+                                            .comments--comment(ng-repeat="chat in chats", ng-init="chat.pos = $index")
                                                 .author
-                                                    a(href="#") Никита Павец
-                                                    a.delete-ico(href="javascript:")
+                                                    a(href="/user/id{{chat.user_id}}/profile") {{chat.first_name+' '+chat.second_name}}
+                                                    a.delete-ico(href="javascript:", ng-if="#{site.user_id} == user.id", ng-click="removeComment(chat)")
                                                         i.fa.fa-times
-                                                .msg #{comp.comments[j].value}
+                                            .msg {{chat.val}}
 
                                         .comments--new_comment
                                             .title New comment
@@ -178,14 +180,13 @@ block page-content
                                     .comments--wrap
                                         header.comments--header Comments
 
-                                        div(comments="#{comp.id}")
-                                        //- for(var j = 0; j<comp.comments.length; j++)
-                                            .comments--comment
+                                        div(comments="#{comp.id}", ng-init="updateComments(#{comp.id})")
+                                            .comments--comment(ng-repeat="chat in chats", ng-init="chat.pos = $index")
                                                 .author
-                                                    a(href="#") Никита Павец
-                                                    a.delete-ico(href="javascript:")
+                                                    a(href="/user/id{{chat.user_id}}/profile") {{chat.first_name+' '+chat.second_name}}
+                                                    a.delete-ico(href="javascript:", ng-if="#{site.user_id} == user.id", ng-click="removeComment(chat)")
                                                         i.fa.fa-times
-                                                .msg #{comp.comments[j].value}
+                                            .msg {{chat.val}}
 
                                         .comments--new_comment
                                             .title New comment

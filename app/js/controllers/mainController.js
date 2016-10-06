@@ -1,4 +1,4 @@
-angular.module('mainApp', ['ngStorage', 'ngRoute', 'dndLists'])
+angular.module('mainApp', ['ngStorage', 'ngRoute', 'dndLists', 'ngSanitize','btford.markdown'])
     .controller('mainController', function ($scope, $localStorage, $http) {
 
         $scope.$storage = $localStorage.$default({

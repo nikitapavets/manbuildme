@@ -35,6 +35,5 @@
   },
   "_source": "https://github.com/marceljuenemann/angular-drag-and-drop-lists.git",
   "_target": "^1.4.0",
-  "_originalSource": "angular-drag-and-drop-lists",
-  "_direct": true
+  "_originalSource": "angular-drag-and-drop-lists"
 }

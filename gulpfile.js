@@ -70,12 +70,15 @@ gulp.task('scriptlibs', function() {
 		'app/lib/jquery/jquery-1.11.2.min.js',
 		'app/lib/materialize/js/materialize.min.js',
 		'app/lib/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js',
-		'app/lib/angular-sanitize/angular-sanitize.min.js',
+		'app/lib/angular-sanitize/angular-sanitize.js',
+		'app/lib/showdown/src/ng-showdown.js',
 		'app/lib/showdown/src/showdown.js',
+        'app/lib/angular-markdown-directive/markdown.js',
 		'app/lib/oauth-js/dist/oauth.js',
 		'app/lib/angular-route/angular-route.js',
 		'app/lib/ngstorage/ngStorage.js',
 		'app/lib/angular-one-drive-picker/dist/angular-one-drive-picker.min.js'
+
 	])
 	.pipe(uglify())
 	.pipe(concat('libs.min.js'))
