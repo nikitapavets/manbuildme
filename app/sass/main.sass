@@ -61,6 +61,19 @@ label
       line-height: em(24px)
       &:hover
         background-color: rgba(#000, 0)
+  .search_wrap
+    background-color: #fff
+    position: absolute
+    right: 0
+    top: 56px
+    padding: 15px
+    padding-top: 0
+    border: 1px solid rgba(#000, .25  )
+    border-top: none
+    input
+      padding: 0
+      margin: 0
+      width: 400px
 
 .content_wrap
   display: table-row
@@ -451,6 +464,39 @@ label
   color: #3c763d
 
 
-
+.pop-up
+  position: fixed
+  left: 0
+  top: 0
+  z-index: 100000
+  background-color: rgba(#000, .3)
+  width: 100%
+  height: 100%
+  &--search
+    &-wrap
+      position: fixed
+      top: 30px
+      left: 50%
+      z-index: 1000
+      width: 75%
+      height: 75%
+      transform: translateX(-50%)
+    &-header
+      padding: 15px
+      font-size: em(24px)
+      text-transform: uppercase
+    &-result
+      padding: 15px
+      .result-type
+        &-wrap
+        &-header
+          text-transform: uppercase
+          padding-bottom: 10px
+          font-size: em(18px)
+          border-bottom: 3px solid rgba(#000, .5)
+        &-content
+          margin: 15px 0
+          .link
+            font-size: em(13px)
 
 @import "media"

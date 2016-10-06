@@ -141,6 +141,22 @@ angular.module('mainApp', ['ngStorage', 'ngRoute', 'dndLists'])
                 });
         }
 
+        $scope.ShowSearchFiels = function(){
+            angular.element(document.querySelector(".search_wrap")).toggleClass("hidden");
+        }
+
+        $scope.searchResult = [];
+        $scope.SerchInformation = function(event){
+            if(event.keyCode == 13){
+                var search_val = angular.element(document.querySelector("#search-field")).val();
+                console.log(search_val);
+                $http.post('/search', {search_data: search_val})
+                    .success(function(data){
+                        $scope.searchResult = data;
+                    });
+            }
+        }
+
     })
     .config(function($routeProvider){
         $routeProvider.when('/user/profile',

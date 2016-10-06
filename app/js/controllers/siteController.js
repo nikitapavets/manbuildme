@@ -35,7 +35,6 @@ angular.module('mainApp')
 
             $http.post('/comment/new', {comment: comment, hash: hash, user_id: user_id})
                 .success(function(data){
-
                 });
         }
 

@@ -34,7 +34,7 @@ router.get('/id:id/page/id:page_id', function (req, res){
             site.pages = [];
 
             var sql = 'SELECT * ' +
-                'FROM pages ' +
+                'FROM db_pages ' +
                 'WHERE site_id = ' + site_id + ' ' +
                 'ORDER BY position';
             connection.query(sql, function (error, pages_rows) {
@@ -125,7 +125,7 @@ router.get('/id:id/page/id:page_id/edit', function (req, res){
             site.pages = [];
 
             var sql = 'SELECT * ' +
-                'FROM pages ' +
+                'FROM db_pages ' +
                 'WHERE site_id = ' + site_id + ' ' +
                 'ORDER BY position';
             connection.query(sql, function (error, pages_rows) {
@@ -149,7 +149,7 @@ router.post('/get_page', function(req, res, next) {
         var page = new Object();
 
         var sql =  'SELECT * ' +
-            'FROM pages ' +
+            'FROM db_pages ' +
             'WHERE id = ' + req.body.page_id  + ' ' +
             'LIMIT 1';
         connection.query(sql, function (error, pages_rows) {
@@ -289,11 +289,11 @@ router.post('/save', function(req, res, next) {
                 async.forEachOf(pages, function (page, index, callback) {
 
                     page.site_id = result.insertId;
-                    connection.query('INSERT INTO pages SET ?', page, function (err, result) {
+                    connection.query('INSERT INTO db_pages SET ?', page, function (err, result) {
                         if (err) {
                             throw err;
                         } else {
-                            connection.query('UPDATE pages SET update_date = CURRENT_TIMESTAMP WHERE id = ?', result.insertId, function (err, result) {
+                            connection.query('UPDATE db_pages SET update_date = CURRENT_TIMESTAMP WHERE id = ?', result.insertId, function (err, result) {
                                 if (err) {
                                     throw err;
                                 } else {
@@ -327,7 +327,7 @@ router.get('/id:id', function (req, res){
         }
 
         var sql = 'SELECT * ' +
-            'FROM pages ' +
+            'FROM db_pages ' +
             'WHERE site_id = ' +  site_id + ' ' +
             'LIMIT 1';
         connection.query(sql, function (error, sites_rows) {
@@ -363,7 +363,7 @@ router.get('/id:id/update', function (req, res){
             site.pages = [];
 
             var sql = 'SELECT * ' +
-                'FROM pages ' +
+                'FROM db_pages ' +
                 'WHERE site_id = ' + site_id + ' ' +
                 'ORDER BY position';
             connection.query(sql, function (error, pages_rows) {
@@ -435,7 +435,7 @@ router.post('/update', function(req, res, next) {
             } else {
                 async.forEachOf(pages, function (page, index, callback) {
 
-                    var sql = 'UPDATE pages ' +
+                    var sql = 'UPDATE db_pages ' +
                         'SET title = ?, position = ? , update_date = CURRENT_TIMESTAMP ' +
                         'WHERE id = ?';
                     connection.query(sql, [page.title, page.position, page.id], function (err, result) {
@@ -494,7 +494,7 @@ router.post('/save_page', function(req, res, next) {
 
         connection.query(sql, function (err, result) {
 
-            var sql = "UPDATE pages " +
+            var sql = "UPDATE db_pages " +
                 "SET update_date = CURRENT_TIMESTAMP " +
                 "WHERE id= " + page_id;
             connection.query(sql, function (err, result) {

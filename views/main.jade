@@ -14,13 +14,17 @@ block main-content-wrap
                     i.fa.fa-caret-down(aria-hidden="true")
                 a.dropdown-button.hide-on-med-and-up(href="#", data-activates="dropdown-langs")
                     i.fa.fa-adjust(aria-hidden="true")
-                a(href="#")
+                a(href="javascript:;" ng-click="ShowSearchFiels();")
                     i.fa.fa-search(aria-hidden="true")
+
             div.left-items
                 a(href="#", ng-click="showMenu()")
                     i.fa.fa-bars(aria-hidden="true")
             div.logo
                 a.brand-logo.center(href="/") BuildMe
+
+            .search_wrap.hidden
+                input#search-field(type="search", placeholder="Search...", required, ng-keyup="SerchInformation($event)")
 
             ul#dropdown-colors.dropdown-content
                 li
@@ -71,7 +75,7 @@ block main-content-wrap
                 div.menu-list
                     ul
                         li
-                            a(href="javascript:;" ng-click="uploadTopPages();", class="menu-list_link")
+                            a(href="javascript:;" ng-click="uploadTopPages();", class="menu-list_linkfse")
                                 div.i-wrap
                                     i.fa.fa-star
                                 | {{ctext.top_pages}}
@@ -87,6 +91,18 @@ block main-content-wrap
                                 | {{ctext.tags_cloud}}
             div.main-content
                 block main-content
+
+    .pop-up
+        .pop-up--search-wrap.card
+            header.pop-up--search-header Search results
+            section.pop-up--search-result
+                .result-type-wrap
+                    header.result-type-header Users
+                    .result-type-content(ng-repeat="result in searchResult")
+                        .result
+                            a(href="/user/id{{result.user_id}}/profile") {{result.val}}
+                        .link /user/id{{result.user_id}}/profile
+
 
 
 

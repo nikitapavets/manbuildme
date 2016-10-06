@@ -24,7 +24,7 @@ router.get('/id:id/profile', function (req, res){
         var user = new Object();
 
         var sql = 'SELECT * ' +
-            'FROM users ' +
+            'FROM db_users ' +
             'WHERE id = ' + user_id + ' ' +
             'LIMIT 1';
         connection.query(sql, function (error, users_rows) {
@@ -62,7 +62,7 @@ router.get('/id:id/profile', function (req, res){
                             var site_id = site.id;
                             sites[index].pages = [];
                             var sql = 'SELECT * ' +
-                                'FROM pages ' +
+                                'FROM db_pages ' +
                                 'WHERE site_id = ' + site_id + ' ' +
                                 'ORDER BY update_date DESC';
                             connection.query(sql, function (error, pages_rows) {
