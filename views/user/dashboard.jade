@@ -11,29 +11,29 @@ block main-content
                             tr
                                 td(data-field="title") №
                                 td(data-field="type") {{ctext.dashb_name}}
-                                td(data-field="pages") {{ctext.dashb_rang}}
-                                td(data-field="date") {{ctext.dashb_status}}
+                                td.center(data-field="pages") {{ctext.dashb_rang}}
+                                td.center(data-field="date") {{ctext.dashb_status}}
                                 td(data-field="date") {{ctext.dashb_reg}}
                         tbody
                             - for (var i = 0; i < users.length; i++)
-                                tr
+                                tr(class="remove#{users[i].id}")
                                     td #{users[i].id}
                                     td
                                         a(href="/user/id#{users[i].id}/profile", target="_blank") #{users[i].first_name + ' ' + users[i].second_name}
-                                    td
+                                    td.center
                                         a.lock_status(href="javascript:;", ng-click="UserRang(#{users[i].id}, #{i})", class="rang#{users[i].id}")
                                             - if(users[i].rang == 'admin')
                                                 i.fa.fa-user-secret
                                             - else
                                                 i.fa.fa-user
-                                    td
+                                    td.center
                                         - if (i != 0)
                                             a.lock_status(href="javascript:;", ng-click="UserLock(#{users[i].id}, #{i})", class="lock#{users[i].id}")
                                                 - if(users[i].lock == 1)
                                                     i.fa.fa-lock
                                                 - else
                                                     i.fa.fa-unlock
-                                            a.lock_status(href="javascript:;", ng-click="UserRemove(#{users[i].id}, #{i})", class="remove#{users[i].id}")
+                                            a.lock_status(href="javascript:;", ng-click="UserRemove(#{users[i].id}, #{i})")
                                                 i.fa.fa-user-times
                                         - else
                                             i.fa.fa-minus

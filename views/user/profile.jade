@@ -36,7 +36,7 @@ block main-content
             .col-lg-8.col-sm-12
                 .card
                     header.card-header {{ctext.user_sites}}
-                        a.btn-floating.btn-large.waves-effect.waves-light.add-btn(class="{{styleColor}}", href="/site/add", ng-if="user.id == #{cur_user.id}")
+                        a.btn-floating.btn-large.waves-effect.waves-light.add-btn(class="{{styleColor}}", href="/site/add", ng-if="(user.id == #{cur_user.id}) && (#{cur_user.lock} != 1) ")
                             i.fa.fa-plus
 
                     div.table-content

@@ -85,6 +85,29 @@ router.post('/set_rang', function(req, res, next) {
 
 });
 
+router.post('/remove', function(req, res, next) {
+
+    pool.getConnection(function(err, connection) {
+
+        if(err){
+            throw err;
+        }
+
+        var user_id = req.body.user_id;
+
+        var sql = 'DELETE FROM db_users ' +
+            'WHERE db_users.id = ?';
+        connection.query(sql, [user_id], function (err, result) {
+            if (err) {
+                throw err;
+            }
+            res.send(true);
+            connection.release();
+        });
+    });
+
+});
+
 router.get('/id:id/profile', function (req, res){
 
     pool.getConnection(function(err, connection) {

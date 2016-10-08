@@ -6,7 +6,7 @@ block page-content
         .row
             .col-xs-12
                 header.page--header #{page.title}
-                    a.edit(href="/site/id#{site.id}/page/id#{page.id}/edit", ng-if="#{site.user_id} == user.id")
+                    a.edit(href="/site/id#{site.id}/page/id#{page.id}/edit", ng-if="#{site.user_id} == user.id || user.rang == 'admin'")
                         i.fa.fa-pencil-square-o
         .page--content
             .row
@@ -39,11 +39,11 @@ block page-content
                                             .comments--comment(ng-repeat="chat in chats", ng-init="chat.pos = $index")
                                                 .author
                                                     a(href="/user/id{{chat.user_id}}/profile") {{chat.first_name+' '+chat.second_name}}
-                                                    a.delete-ico(href="javascript:", ng-if="#{site.user_id} == user.id", ng-click="removeComment(chat)")
+                                                    a.delete-ico(href="javascript:", ng-if="#{site.user_id} == user.id || user.rang == 'admin'", ng-click="removeComment(chat)")
                                                         i.fa.fa-times
                                                 .msg {{chat.val}}
 
-                                        .comments--new_comment(ng-if="user.id")
+                                        .comments--new_comment(ng-if="user.id && user.lock != 1")
                                             .title New comment
                                             .input-field
                                                 textarea.materialize-textarea.new_comment(name="new_comment")
@@ -75,11 +75,11 @@ block page-content
                                             .comments--comment(ng-repeat="chat in chats", ng-init="chat.pos = $index")
                                                 .author
                                                     a(href="/user/id{{chat.user_id}}/profile") {{chat.first_name+' '+chat.second_name}}
-                                                    a.delete-ico(href="javascript:", ng-if="#{site.user_id} == user.id", ng-click="removeComment(chat)")
+                                                    a.delete-ico(href="javascript:", ng-if="#{site.user_id} == user.id || user.rang == 'admin'", ng-click="removeComment(chat)")
                                                         i.fa.fa-times
                                                 .msg {{chat.val}}
 
-                                        .comments--new_comment
+                                        .comments--new_comment(ng-if="user.id && user.lock != 1")
                                             .title New comment
                                             .input-field
                                                 textarea.materialize-textarea.new_comment(name="new_comment")
@@ -110,11 +110,11 @@ block page-content
                                             .comments--comment(ng-repeat="chat in chats", ng-init="chat.pos = $index")
                                                 .author
                                                     a(href="/user/id{{chat.user_id}}/profile") {{chat.first_name+' '+chat.second_name}}
-                                                    a.delete-ico(href="javascript:", ng-if="#{site.user_id} == user.id", ng-click="removeComment(chat)")
+                                                    a.delete-ico(href="javascript:", ng-if="#{site.user_id} == user.id || user.rang == 'admin'", ng-click="removeComment(chat)")
                                                         i.fa.fa-times
                                             .msg {{chat.val}}
 
-                                        .comments--new_comment
+                                        .comments--new_comment(ng-if="user.id && user.lock != 1")
                                             .title New comment
                                             .input-field
                                                 textarea.materialize-textarea.new_comment(name="new_comment")
@@ -149,11 +149,11 @@ block page-content
                                             .comments--comment(ng-repeat="chat in chats", ng-init="chat.pos = $index")
                                                 .author
                                                     a(href="/user/id{{chat.user_id}}/profile") {{chat.first_name+' '+chat.second_name}}
-                                                    a.delete-ico(href="javascript:", ng-if="#{site.user_id} == user.id", ng-click="removeComment(chat)")
+                                                    a.delete-ico(href="javascript:", ng-if="#{site.user_id} == user.id || user.rang == 'admin'", ng-click="removeComment(chat)")
                                                         i.fa.fa-times
                                             .msg {{chat.val}}
 
-                                        .comments--new_comment
+                                        .comments--new_comment(ng-if="user.id && user.lock != 1")
                                             .title New comment
                                             .input-field
                                                 textarea.materialize-textarea.new_comment(name="new_comment")
@@ -184,11 +184,11 @@ block page-content
                                             .comments--comment(ng-repeat="chat in chats", ng-init="chat.pos = $index")
                                                 .author
                                                     a(href="/user/id{{chat.user_id}}/profile") {{chat.first_name+' '+chat.second_name}}
-                                                    a.delete-ico(href="javascript:", ng-if="#{site.user_id} == user.id", ng-click="removeComment(chat)")
+                                                    a.delete-ico(href="javascript:", ng-if="#{site.user_id} == user.id || user.rang == 'admin'", ng-click="removeComment(chat)")
                                                         i.fa.fa-times
                                             .msg {{chat.val}}
 
-                                        .comments--new_comment
+                                        .comments--new_comment(ng-if="user.id && user.lock != 1")
                                             .title New comment
                                             .input-field
                                                 textarea.materialize-textarea.new_comment(name="new_comment")
