@@ -1,0 +1,36 @@
+extends ../main
+
+block main-content
+
+    .dashboard-page--wrap(ng-controller="userDashboardController")
+            .row
+                .col-md-6.card
+                    header.card-header {{ctext.dashb_users}}
+                    table.striped
+                        thead
+                            tr
+                                td(data-field="title") №
+                                td(data-field="type") {{ctext.dashb_name}}
+                                td(data-field="pages") {{ctext.dashb_rang}}
+                                td(data-field="date") {{ctext.dashb_status}}
+                                td(data-field="date") {{ctext.dashb_reg}}
+                        tbody
+                            - for (var i = 0; i < users.length; i++)
+                                tr
+                                    td #{users[i].id}
+                                    td
+                                        a(href="/user/id#{users[i].id}/profile", target="_blank") #{users[i].first_name + ' ' + users[i].second_name}
+                                    td
+                                        a.lock_status(href="javascript:;", ng-click="UserRang(#{users[i].id}, #{i})", class="rang#{users[i].id}")
+                                            - if(users[i].rang == 'admin')
+                                                i.fa.fa-user-secret
+                                            - else
+                                                i.fa.fa-user
+                                    td
+                                        a.lock_status(href="javascript:;", ng-click="UserLock(#{users[i].id}, #{i})", class="lock#{users[i].id}")
+                                            - if(users[i].lock == 1)
+                                                i.fa.fa-lock
+                                            - else
+                                                i.fa.fa-unlock
+                                    - var date = new Date(users[i].reg_date)
+                                    td #{date.toLocaleString()}

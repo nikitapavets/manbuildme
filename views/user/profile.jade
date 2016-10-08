@@ -6,7 +6,7 @@ block main-content
         .row
             .col-lg-3.col-sm-12
                 .card.about-user--wrap
-                    header.about-user--header.card-header #{cur_user.rang}
+                    header.about-user--header.card-header {{ctext.user_user}}
                     .about-user--image-wrap
                         img.about-user--image(ng-src="#{cur_user.avatar}")
                     .about-user--main-inf

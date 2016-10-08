@@ -59,6 +59,11 @@ angular.module('mainApp', ['ngStorage', 'ngRoute', 'dndLists', 'ngSanitize','btf
             add_site_page: 'Страница',
             add_site_layout: 'Разметка',
             add_site_save: 'Сохранить',
+            dashb_users: 'Пользователи',
+            dashb_status: 'Статус',
+            dashb_reg: 'Регистрация',
+            dashb_rang: 'Ранг',
+            dashb_name: 'Имя',
         };
 
         $scope.ctex_eng = {
@@ -101,6 +106,11 @@ angular.module('mainApp', ['ngStorage', 'ngRoute', 'dndLists', 'ngSanitize','btf
             add_site_page: 'Page',
             add_site_layout: 'Layout',
             add_site_save: 'Save',
+            dashb_users: 'Users',
+            dashb_status: 'Status',
+            dashb_reg: 'Registration',
+            dashb_rang: 'Rang',
+            dashb_name: 'Name',
         };
 
         $scope.newColor = function(){

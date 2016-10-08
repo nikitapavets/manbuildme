@@ -66,6 +66,11 @@ block main-content-wrap
                                 div.i-wrap
                                     i.fa.fa-user
                                 | {{ctext.user_profile}}
+                        li(ng-if="user.rang == 'admin'")
+                            a(href="/user/id{{user.id}}/dashboard")
+                                div.i-wrap
+                                    i.fa.fa-tachometer
+                                | Dashboard
                         li
                             a(href="javascript:", ng-click="userActions.exit()")
                                 div.i-wrap

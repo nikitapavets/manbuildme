@@ -20,6 +20,7 @@ angular.module('mainApp')
             $scope.user.is_auth = false;
             $scope.user.avatar = '/img/no-avatar.png';
             $scope.user.rang = 'guest';
+            window.location.replace('/');
         }
 
         $scope.authType = '';

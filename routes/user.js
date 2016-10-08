@@ -12,6 +12,79 @@ var pool = mysql.createPool({
     connectionLimit: 10
 });
 
+router.get('/id:id/dashboard', function (req, res){
+
+    pool.getConnection(function(err, connection) {
+
+        if (err) {
+            throw err;
+        }
+
+        var users = [];
+
+        var sql = 'SELECT * ' +
+            'FROM db_users ' +
+            'ORDER BY rang';
+        connection.query(sql, function (error, users_rows) {
+
+            users = users_rows;
+            res.render('user/dashboard', {users: users});
+            connection.release();
+        });
+    });
+
+});
+
+router.post('/set_status', function(req, res, next) {
+
+    pool.getConnection(function(err, connection) {
+
+        if(err){
+            throw err;
+        }
+
+        var user_id = req.body.user_id;
+        var status = req.body.status;
+
+        var sql = 'UPDATE db_users ' +
+            'SET db_users.lock = ? ' +
+            'WHERE db_users.id = ?';
+        connection.query(sql, [status, user_id], function (err, result) {
+            if (err) {
+                throw err;
+            }
+            res.send(true);
+            connection.release();
+        });
+    });
+
+});
+
+router.post('/set_rang', function(req, res, next) {
+
+    pool.getConnection(function(err, connection) {
+
+        if(err){
+            throw err;
+        }
+
+        var user_id = req.body.user_id;
+        var rang = req.body.rang;
+
+        var sql = 'UPDATE db_users ' +
+            'SET db_users.rang = ? ' +
+            'WHERE db_users.id = ?';
+        connection.query(sql, [rang, user_id], function (err, result) {
+            if (err) {
+                throw err;
+            }
+            res.send(true);
+            connection.release();
+        });
+    });
+
+});
+
 router.get('/id:id/profile', function (req, res){
 
     pool.getConnection(function(err, connection) {
