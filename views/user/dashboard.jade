@@ -4,7 +4,7 @@ block main-content
 
     .dashboard-page--wrap(ng-controller="userDashboardController")
             .row
-                .col-md-6.card
+                .col-md-8.card
                     header.card-header {{ctext.dashb_users}}
                     table.striped
                         thead
@@ -27,10 +27,15 @@ block main-content
                                             - else
                                                 i.fa.fa-user
                                     td
-                                        a.lock_status(href="javascript:;", ng-click="UserLock(#{users[i].id}, #{i})", class="lock#{users[i].id}")
-                                            - if(users[i].lock == 1)
-                                                i.fa.fa-lock
-                                            - else
-                                                i.fa.fa-unlock
+                                        - if (i != 0)
+                                            a.lock_status(href="javascript:;", ng-click="UserLock(#{users[i].id}, #{i})", class="lock#{users[i].id}")
+                                                - if(users[i].lock == 1)
+                                                    i.fa.fa-lock
+                                                - else
+                                                    i.fa.fa-unlock
+                                            a.lock_status(href="javascript:;", ng-click="UserRemove(#{users[i].id}, #{i})", class="remove#{users[i].id}")
+                                                i.fa.fa-user-times
+                                        - else
+                                            i.fa.fa-minus
                                     - var date = new Date(users[i].reg_date)
                                     td #{date.toLocaleString()}

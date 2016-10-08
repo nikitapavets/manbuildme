@@ -4,7 +4,7 @@ block main-content
 
     .user-page--wrap(ng-controller="userController")
         .row
-            .col-lg-3.col-sm-12
+            .col-lg-4.col-sm-12
                 .card.about-user--wrap
                     header.about-user--header.card-header {{ctext.user_user}}
                     .about-user--image-wrap
@@ -33,7 +33,7 @@ block main-content
                         .stats_wrap
                             .start_field {{ctext.user_all_marks}}
                             .start_value #{cur_user.marks.length}
-            .col-lg-9.col-sm-12
+            .col-lg-8.col-sm-12
                 .card
                     header.card-header {{ctext.user_sites}}
                         a.btn-floating.btn-large.waves-effect.waves-light.add-btn(class="{{styleColor}}", href="/site/add", ng-if="user.id == #{cur_user.id}")
