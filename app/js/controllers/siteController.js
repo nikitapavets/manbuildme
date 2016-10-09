@@ -88,7 +88,6 @@ angular.module('mainApp')
                         rate: rate
                     })
                     .success(function(data){
-                        console.log(data);
                     });
             }
 
@@ -243,9 +242,20 @@ angular.module('mainApp')
 
         $scope.DropBoxInit = function(event){
             $scope.DropBoxWrap = '.' + event.target.id;
-            console.log($scope.DropBoxWrap);
             Dropbox.choose(options);
         }
         $scope.DropBoxWrap = '';
+
+    })
+    .controller("dndPages", function($scope, $http) {
+
+        $scope.pages = [];
+
+        $scope.getPages = function(site_id){
+            $http.post('/site/get_pages', {site_id: site_id})
+                .success(function(data){
+                    $scope.pages = data;
+                });
+        }
 
     });

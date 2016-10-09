@@ -21,7 +21,10 @@ block main-content
                             p
                                 input(name="site_menu_type", type="radio", id="menu_hor", value="gor")
                                 label(for="menu_hor") {{ctext.add_site_hor}}
-                            .chips.chips-placeholder
+                            p.tags {{ctext.add_site_tag}}
+                            p(ng-init="getAllTags();")
+                                tagger(ng-model="tags" options="options")
+                            input.tags_container(type="hidden" name="tags" value="")
                             input(type="hidden" name="user_id" value="{{user.id}}")
                             button.waves-effect.waves-light.btn(type="submit") {{ctext.add_site_add}}
 

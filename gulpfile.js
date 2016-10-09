@@ -77,8 +77,10 @@ gulp.task('scriptlibs', function() {
 		'app/lib/oauth-js/dist/oauth.js',
 		'app/lib/angular-route/angular-route.js',
 		'app/lib/ngstorage/ngStorage.js',
-		'app/lib/angular-one-drive-picker/dist/angular-one-drive-picker.min.js'
-
+		'app/lib/angular-one-drive-picker/dist/angular-one-drive-picker.min.js',
+		'app/lib/jqcloud2/dist/jqcloud.min.js',
+		'app/lib/angular-jqcloud.js',
+		'app/lib/tagger/angular-tagger.min.js'
 	])
 	.pipe(uglify())
 	.pipe(concat('libs.min.js'))

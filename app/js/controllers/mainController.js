@@ -1,4 +1,4 @@
-angular.module('mainApp', ['ngStorage', 'ngRoute', 'dndLists', 'ngSanitize','btford.markdown'])
+angular.module('mainApp', ['ngStorage', 'ngRoute', 'dndLists', 'ngSanitize','btford.markdown', 'tagger','angular-jqcloud'])
     .controller('mainController', function ($scope, $localStorage, $http) {
 
         $scope.$storage = $localStorage.$default({
@@ -8,7 +8,6 @@ angular.module('mainApp', ['ngStorage', 'ngRoute', 'dndLists', 'ngSanitize','btf
 
         $scope.styleColor = $scope.$storage.styleColor;
         $scope.lang = $scope.$storage.lang;
-        console.log($scope.lang);
 
         $scope.$watch('lang', function(newValue, oldValue) {
             $scope.$storage.lang = $scope.lang;
@@ -53,7 +52,7 @@ angular.module('mainApp', ['ngStorage', 'ngRoute', 'dndLists', 'ngSanitize','btf
             add_site_theme: 'Тема',
             add_site_vert: 'Вертикальное меню',
             add_site_hor: 'Горизонтальное меню',
-            add_site_tag: 'Тег',
+            add_site_tag: 'Теги',
             add_site_add: 'Добавить',
             add_site_site_pages: 'Страницы сайта',
             add_site_page: 'Страница',
@@ -100,7 +99,7 @@ angular.module('mainApp', ['ngStorage', 'ngRoute', 'dndLists', 'ngSanitize','btf
             add_site_theme: 'Theme',
             add_site_vert: 'Vertical menu',
             add_site_hor: 'Horizontal menu',
-            add_site_tag: 'Tag',
+            add_site_tag: 'Tags',
             add_site_add: 'Add',
             add_site_site_pages: 'Site pages',
             add_site_page: 'Page',
@@ -159,7 +158,6 @@ angular.module('mainApp', ['ngStorage', 'ngRoute', 'dndLists', 'ngSanitize','btf
         $scope.SerchInformation = function(event){
             if(event.keyCode == 13){
                 var search_val = angular.element(document.querySelector("#search-field")).val();
-                console.log(search_val);
                 $http.post('/search', {search_data: search_val})
                     .success(function(data){
                         $scope.searchResult = data;
@@ -177,16 +175,57 @@ angular.module('mainApp', ['ngStorage', 'ngRoute', 'dndLists', 'ngSanitize','btf
             }
         }
 
-    })
-    .config(function($routeProvider){
-        $routeProvider.when('/user/profile',
-        {
-            templateUrl:'/user/profile',
-            controller:'appCtrl'
-        });
-    })
-    .controller("appCtrl", function($scope){
-        console.log('controller set up');
+        $scope.options = ["asd"];
+        $scope.tags = [];
+
+        $scope.getAllTags = function(){
+            $http.post('/site/get_tags')
+                .success(function(data){
+                    if(data){
+                        $scope.options = [];
+                        for(var i = 0; i < data.length; i++){
+                            $scope.options.push(data[i].tag);
+                        }
+                    }
+                });
+        };
+
+        $scope.getSitesTags = function(site_id){
+            $scope.getAllTags();
+            $http.post('/site/get_tags', {site_id: site_id})
+                .success(function(data){
+                    if(data){
+                        $scope.options = [];
+                        for(var i = 0; i < data.length; i++){
+                            $scope.tags.push(data[i].tag);
+                        }
+                    }
+                });
+        };
+
+        setInterval(function(){
+            angular.element(document.querySelector('.tags_container')).val(JSON.stringify($scope.tags));
+        }, 1000);
+
+
+        $scope.words = [];
+
+        $scope.FillTags = function(){
+            $http.post('/site/get_tags')
+                .success(function(data){
+                    if(data){
+                        $scope.words = [];
+                        for(var i = 0; i < data.length; i++){
+                            var word = new Object();
+                            word.text = data[i].tag;
+                            word.link = '/site/id' + data[i].site_id;
+                            word.weight = i;
+                            $scope.words.push(word);
+                        }
+                    }
+                });
+        };
+
     });
 
 

@@ -29,19 +29,32 @@ block main-content
                                 p
                                     input(name="site_menu_type", type="radio", id="menu_hor", value="gor", checked)
                                     label(for="menu_hor") {{ctext.add_site_hor}}
-                            .chips.chips-placeholder
+                            p.tags {{ctext.add_site_tag}}
+                            p(ng-init="getSitesTags(#{site.id});")
+                                tagger(ng-model="tags" options="options")
+                            input.tags_container(type="hidden" name="tags" value="")
                             input(type="hidden" name="user_id" value="{{user.id}}")
                             input(type="hidden" name="site_id" value="#{site.id}")
                             button.waves-effect.waves-light.btn(type="submit") {{ctext.add_site_save}}
 
-                .col-md-6.col-xs-12
+                .col-md-6.col-xs-12(ng-controller="dndPages", ng-init="getPages(#{site.id});")
                     .card
                         header.card-header {{ctext.add_site_site_pages}}
                         .add-site--content
-                            - for(var i = 0; i < site.pages.length; i++)
-                                .input-field
-                                    input.validate(type="text", id="#{'site_page' + (i+1)}", name="#{'site_page' + (i+1)}", value="#{site.pages[i].title}")
-                                    label(for="#{'site_page' + (i+1)}") {{ctext.add_site_page}} #{i+1}
-                                    input(type="hidden", name="#{'site_page' + (i+1) + '_id'}", value="#{site.pages[i].id}")
+                            ul(dnd-list="pages")
+                                li(ng-repeat="page in pages",
+                                dnd-draggable="page",
+                                dnd-moved="pages.splice($index, 1)",
+                                dnd-effect-allowed="move")
+                                    .input-field
+                                        input.validate(type="text", id="site_page{{$index+1}}", name="site_page{{$index+1}}", value="{{page.title}}")
+                                        //label(for="site_page{{$index+1}}") {{ctext.add_site_page}} {{$index+1}}
+                                        input(type="hidden", name="site_page{{$index+1}}_id", value="{{page.id}}")
+                                li.dndPlaceholder Drop page here
+
+                                //ul(dnd-list="list")
+                                //input.validate(type="text", id="#{'site_page' + (i+1)}", name="#{'site_page' + (i+1)}", value="#{site.pages[i].title}")
+                                //label(for="#{'site_page' + (i+1)}") {{ctext.add_site_page}} #{i+1}
+                                //input(type="hidden", name="#{'site_page' + (i+1) + '_id'}", value="#{site.pages[i].id}")
 
 

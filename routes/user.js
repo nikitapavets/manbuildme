@@ -166,7 +166,7 @@ router.get('/id:id/profile', function (req, res){
                                     sites[index].pages = pages_rows;
                                     callback();
                                 } else {
-                                    console.log(error);
+                                    // todo
                                 }
                             });
 

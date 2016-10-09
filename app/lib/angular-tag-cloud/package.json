@@ -1,0 +1,30 @@
+{
+  "name": "angular-tag-cloud",
+  "version": "0.3.0",
+  "description": "Create simple clean tag clouds in your Angular app. No other dependencies required.",
+  "main": "dist/ng-tag-cloud-module.js",
+  "directories": {
+    "example": "examples",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zeeshanhyder/angular-tag-cloud.git"
+  },
+  "keywords": [
+    "angular",
+    "cloud-tags",
+    "tag-cloud",
+    "angular-tag-cloud",
+    "tags"
+  ],
+  "author": "Zeeshan Hyder <hyder.zeeshan@live.com> (https://github.com/zeeshanhyder)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zeeshanhyder/angular-tag-cloud/issues"
+  },
+  "homepage": "https://github.com/zeeshanhyder/angular-tag-cloud#readme"
+}

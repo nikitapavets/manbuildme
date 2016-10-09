@@ -73,10 +73,11 @@ router.post('/search', function(req, res, next) {
         'WHERE MATCH (u.second_name) AGAINST ("' +data+ '" IN BOOLEAN MODE) ' +
         'UNION ' +
         'SELECT NULL, site_id, id, title, "page" FROM db_pages p ' +
-        'WHERE MATCH (p.title) AGAINST ("' +data+ '" IN BOOLEAN MODE)';
+        'WHERE MATCH (p.title) AGAINST ("' +data+ '" IN BOOLEAN MODE)' +
+        'UNION ' +
+        'SELECT NULL, site_id, NULL, tag, "tag" FROM tags t ' +
+        'WHERE MATCH (t.tag) AGAINST ("' +data+ '" IN BOOLEAN MODE)';
         connection.query(sql, function (error, result_rows) {
-
-            console.log(result_rows);
 
             if(!error){
 
@@ -87,6 +88,7 @@ router.post('/search', function(req, res, next) {
                 result.sites = [];
                 result.pages = [];
                 result.comments = [];
+                result.tags = [];
 
                 async.forEachOf(result_rows, function (res, index, callback) {
 
@@ -103,11 +105,13 @@ router.post('/search', function(req, res, next) {
                         case 'page':
                             result.pages.push(res);
                             break;
+                        case 'tag':
+                            result.tags.push(res);
+                            break;
                     }
 
                     callback();
                 }, function(error){
-                    console.log(result);
                     res.send(result);
                 });
             }else{

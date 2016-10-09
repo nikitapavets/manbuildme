@@ -249,6 +249,9 @@ router.post('/save', function(req, res, next) {
         site.menu_type = req.body.site_menu_type;
         site.theme = req.body.site_theme;
 
+        var tags = [];
+        tags = JSON.parse(req.body.tags);
+
         var pages = [
             {
                 'title': req.body.site_page1,
@@ -307,6 +310,16 @@ router.post('/save', function(req, res, next) {
 
                     res.redirect('/user/id' + site.user_id + '/profile');
                     connection.release();
+                });
+
+                async.forEachOf(tags, function (tag, index, callback) {
+
+                    var tagObject = new Object();
+                    tagObject.site_id = result.insertId;
+                    tagObject.tag = tag;
+                    connection.query('INSERT INTO tags SET ?', tagObject, function (err, result) {
+                       // todo
+                    });
                 });
 
             }
@@ -394,6 +407,9 @@ router.post('/update', function(req, res, next) {
         site.theme = req.body.site_theme;
         site.id = req.body.site_id;
 
+        var tags = [];
+        tags = JSON.parse(req.body.tags);
+
         var pages = [
             {
                 'title': req.body.site_page1,
@@ -425,9 +441,8 @@ router.post('/update', function(req, res, next) {
                 'position': 4
             }
         ];
-
         var sql = 'UPDATE sites ' +
-            'SET title = ?, menu_type = ?, theme = ? ' +
+            'SET title = ?, menu_type = ?, theme = ?' +
             'WHERE id = ?';
         connection.query(sql, [site.title, site.menu_type, site.theme, site.id], function (err, result) {
             if (err) {
@@ -439,6 +454,7 @@ router.post('/update', function(req, res, next) {
                         'SET title = ?, position = ? , update_date = CURRENT_TIMESTAMP ' +
                         'WHERE id = ?';
                     connection.query(sql, [page.title, page.position, page.id], function (err, result) {
+
                         if (err) {
                             throw err;
                         } else {
@@ -449,6 +465,19 @@ router.post('/update', function(req, res, next) {
 
                     res.redirect('/user/id' + site.user_id + '/profile');
                     connection.release();
+                });
+
+                async.forEachOf(tags, function (tag, index, callback) {
+
+                    var tagObject = new Object();
+                    tagObject.site_id = site.id;
+                    tagObject.tag = tag;
+                    connection.query('DELETE FROM tags WHERE site_id = ?', site.id, function (err, result) {
+                        connection.query('INSERT INTO tags SET ?', tagObject, function (err, result) {
+                            // todo
+                        });
+                    });
+
                 });
             }
         });
@@ -475,6 +504,66 @@ router.post('/remove', function(req, res, next) {
                 throw err;
             }
             res.send("ok");
+            connection.release();
+        });
+    });
+
+});
+
+router.post('/get_tags', function(req, res, next) {
+
+    pool.getConnection(function(err, connection) {
+
+        if(err){
+            throw err;
+        }
+
+        var tags = [];
+        var site_id = req.body.site_id;
+
+        if(req.body.site_id != undefined){
+            var sql = 'SELECT DISTINCT(t.tag), t.site_id ' +
+                'FROM tags t ' +
+                'WHERE site_id = ' + site_id;
+        }else{
+            var sql = 'SELECT DISTINCT(t.tag), t.site_id ' +
+                'FROM tags t';
+        }
+
+
+        connection.query(sql, function (err, tags_rows) {
+            if (err) {
+                throw err;
+            }
+            tags = tags_rows;
+            res.send(tags);
+            connection.release();
+        });
+    });
+
+});
+
+router.post('/get_pages', function(req, res, next) {
+
+    pool.getConnection(function(err, connection) {
+
+        if(err){
+            throw err;
+        }
+
+        var site_id = req.body.site_id;
+        var pages = [];
+
+        var sql = 'SELECT * ' +
+            'FROM db_pages ' +
+            'WHERE site_id = ? ' +
+            'ORDER BY position';
+        connection.query(sql, site_id,function (err, pages_rows) {
+            if (err) {
+                throw err;
+            }
+            pages = pages_rows;
+            res.send(pages);
             connection.release();
         });
     });

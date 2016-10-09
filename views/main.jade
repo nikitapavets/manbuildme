@@ -77,7 +77,7 @@ block main-content-wrap
                                     i.fa.fa-sign-out
                                 | {{ctext.user_exit}}
 
-                div.menu-list
+                div.menu-list(ng-init="FillTags();")
                     ul
                         li
                             a(href="javascript:;" ng-click="uploadTopPages();", class="menu-list_linkfse")
@@ -89,11 +89,8 @@ block main-content-wrap
                                 div.i-wrap
                                     i.fa.fa-pencil-square-o
                                 | {{ctext.last_pages}}
-                        li
-                            a(href="#", class="menu-list_link")
-                                div.i-wrap
-                                    i.fa.fa-tags
-                                | {{ctext.tags_cloud}}
+                        | <jqcloud words="words" width="250" height="250" delay="50" steps="10" font-size="{from:0.09, to:0.04}"></jqcloud>
+
             div.main-content
                 block main-content
 
@@ -124,3 +121,8 @@ block main-content-wrap
                         .result
                             a(href="/site/id{{result.site_id}}/page/id{{result.page_id}}").truncate {{result.val}}
                         .link http://manbuildme.herokuapp.com/site/id{{result.site_id}}/page/id{{result.page_id}}
+                    header.result-type-header(ng-if="(results.length > 0) && label == 'tags'") Tags
+                    .result-type-content(ng-repeat="result in results", ng-if="label == 'tags'")
+                        .result
+                            a(href="/site/id{{result.site_id}}").truncate {{result.val}}
+                        .link http://manbuildme.herokuapp.com/site/id{{result.site_id}}
