@@ -3,8 +3,6 @@ var router = express.Router();
 var mysql       = require('mysql');
 var eachOf  = require('async/eachOf');
 var async = require('async');
-var DropboxClient = require('dropbox');
-var dropbox = new DropboxClient('lrh8q9ww93y7gcl', 'ahhnp8si0mtv1su')
 
 var pool = mysql.createPool({
     host: "eu-cdbr-west-01.cleardb.com",
@@ -206,30 +204,6 @@ router.get('/add', function (req, res){
     res.render('site/add');
 });
 
-router.post('/add_images', function(req, res, next) {
-
-
-    var file = req.body.images;
-    console.log(file);
-
-    dropbox.getAccessToken(email, pwd, function (err, token, secret) {
-        // Upload foo.txt to the Dropbox root directory.
-        dropbox.putFile('foo.txt', 'foo.txt', function (err, data) {
-            if (err) return console.error(err)
-
-            // Move it into the Public directory.
-            dropbox.move('foo.txt', 'Public/foo.txt', function (err, data) {
-                if (err) return console.error(err)
-
-                // Delete the file.
-                dropbox.deleteItem('Public/foo.txt', function (err, data) {
-                    if (err) console.error(err.stack)
-                })
-            })
-        })
-    })
-
-});
 router.post('/add_rate', function(req, res, next) {
 
     pool.getConnection(function(err, connection) {
