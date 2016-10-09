@@ -241,8 +241,15 @@ angular.module('mainApp')
              };
 
         $scope.DropBoxInit = function(event){
-            $scope.DropBoxWrap = '.' + event.target.id;
-            Dropbox.choose(options);
+            //$scope.DropBoxWrap = '.' + event.target.id;
+            //Dropbox.choose(event.target.id);
+            console.log(event.target.value);
+            //var images = "C:\\fakepath\\20150821205737-2463.jpg";
+
+            $http.post('/site/add_images', {images: images})
+                .success(function(data){
+
+                });
         }
         $scope.DropBoxWrap = '';
 

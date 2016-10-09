@@ -37,6 +37,7 @@
   "devDependencies": {
     "angular-markdown-editor": "^1.0.5",
     "async": "^2.0.1",
+    "dropbox": "^2.3.0",
     "gulp-develop-server": "^0.5.2"
   }
 }

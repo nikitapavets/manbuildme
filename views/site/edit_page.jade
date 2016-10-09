@@ -41,8 +41,9 @@ block page-content
                         .node.node--image--wrap(ng-switch-when="image")
                             .node--header Image
                             .images--wrap(class="images{{item.id}}")
-                                .image(ng-repeat="image in item.images")
+                                //.image(ng-repeat="image in item.images")
                                     img(src="{{image.img_src}}", width="200")
+                                | <input type="file" multiple id="file-upload">
                                 a.btn-floating.btn-large.waves-effect.waves-light.add-btn(class="blue", href="javascript:;", data-ng-click="DropBoxInit($event)")
                                     i.fa.fa-plus(id="images{{item.id}}")
                         .node.node--video--wrap(ng-switch-when="video")
