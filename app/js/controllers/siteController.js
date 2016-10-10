@@ -119,8 +119,6 @@ angular.module('mainApp')
                             }
                         };
 
-
-
                         if(data){
 
                             if(data.layout > 0){
@@ -257,5 +255,4 @@ angular.module('mainApp')
                     $scope.pages = data;
                 });
         }
-
     });

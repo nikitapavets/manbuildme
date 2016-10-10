@@ -175,7 +175,7 @@ angular.module('mainApp', ['ngStorage', 'ngRoute', 'dndLists', 'ngSanitize','btf
             }
         }
 
-        $scope.options = ["asd"];
+        $scope.options = [];
         $scope.tags = [];
 
         $scope.getAllTags = function(){
